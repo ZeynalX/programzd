@@ -3,22 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haftalık Ders Programı ve Kazanımlar - Antik Papirüs Teması</title>
+    <title>Haftalık Ders Programı ve Kazanımlar</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        /* --- Papirüs Teması Değişiklikleri --- */
+        /* --- Gece Modu Değişiklikleri --- */
         :root {
-            --papyrus-bg-color-light: #fdf5e6; /* Açık papirüs tonu */
-            --papyrus-bg-color-dark: #eee0c8; /* Koyu papirüs tonu */
-            --text-primary-color: #3e2723; /* Koyu kahve metin */
-            --text-secondary-color: #6d4c41; /* Orta kahve metin */
-            --border-color: #a1887f; /* Paslı kahve kenarlık */
-            --accent-color: #795548; /* Paslı kahve vurgu */
-            --shadow-color: rgba(0, 0, 0, 0.1); /* Hafif gölge */
-            --active-bg-color: #d7ccc8; /* Açık toprak aktif arka plan */
+            --glass-bg-color: rgba(27, 38, 59, 0.35); /* Koyu cam rengi */
+            --glass-border-color: rgba(255, 255, 255, 0.15); /* Açık çerçeve rengi */
+            --text-color: #ffffff; /* Ana metin rengi: Beyaz */
+            --text-secondary-color: #b0b0b0; /* İkincil metin rengi: Açık Gri */
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --active-color: rgba(162, 210, 255, 0.2); /* Aktif buton rengi: Yarı saydam açık mavi */
+            --accent-color: #a2d2ff; /* Vurgu rengi: Açık Mavi */
         }
 
         * {
@@ -28,18 +27,44 @@
         }
 
         body {
-            font-family: 'Crimson Pro', serif; /* Ana metin fontu */
-            background-color: var(--papyrus-bg-color-light);
-            color: var(--text-primary-color);
+            font-family: 'Inter', sans-serif;
+            background: #0d1b2a; /* Koyu başlangıç rengi */
+            color: var(--text-color);
             overflow-x: hidden;
             min-height: 100vh;
-            /* Papirüs dokusu arka plan */
-            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            background-size: cover;
-            background-attachment: fixed;
         }
 
-        /* --- Sidenav (Hamburger Menü) --- */
+        /* Animated Dark Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(300deg, #0d1b2a, #1b263b, #415a77);
+            background-size: 200% 200%;
+            animation: gradient-animation 25s ease infinite;
+            z-index: -1;
+        }
+        
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Glassmorphism Panel --- */
+        .glass-panel {
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(15px) saturate(120%);
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
+        }
+
+        /* Hamburger Menu (Sidenav) */
         .sidenav {
             height: 100%;
             width: 0;
@@ -50,9 +75,10 @@
             overflow-x: hidden;
             transition: 0.4s ease-out;
             padding-top: 60px;
-            background-color: var(--papyrus-bg-color-dark);
-            border-right: 2px solid var(--border-color);
-            box-shadow: 2px 0 10px var(--shadow-color);
+            background: rgba(13, 27, 42, 0.6);
+            backdrop-filter: blur(20px) saturate(120%);
+            -webkit-backdrop-filter: blur(20px) saturate(120%);
+            border-right: 1px solid var(--glass-border-color);
         }
 
         .sidenav a {
@@ -62,22 +88,16 @@
             color: var(--text-secondary-color);
             display: block;
             transition: 0.3s;
-            border-bottom: 1px dashed rgba(0,0,0,0.1);
-        }
-
-        .sidenav a:last-child {
-            border-bottom: none;
         }
 
         .sidenav a:hover {
-            color: var(--text-primary-color);
-            background-color: var(--active-bg-color);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
         }
         
         .sidenav a.active {
             color: var(--accent-color);
             font-weight: 700;
-            background-color: var(--active-bg-color);
         }
 
         .sidenav .closebtn {
@@ -85,21 +105,22 @@
             top: 10px;
             right: 25px;
             font-size: 36px;
-            color: var(--text-primary-color);
         }
 
-        /* Header (Daha İnce) */
+        /* Header */
         header {
-            padding: 8px 15px; /* Padding azaltıldı */
+            padding: 12px 15px;
             position: sticky;
-            top: 8px; /* Boşluk azaltıldı */
+            top: 10px;
             z-index: 1000;
-            margin: 8px; /* Boşluk azaltıldı */
-            background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px var(--shadow-color);
-            text-align: center;
+            margin: 10px;
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(15px) saturate(120%);
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
         }
         
         .header-top {
@@ -109,86 +130,79 @@
         }
         
         .menu-icon, .nav-button {
-            font-size: 28px; /* İkonlar hafif küçültüldü */
+            font-size: 28px;
             cursor: pointer;
             background: none;
             border: none;
-            color: var(--text-primary-color);
-            padding: 4px; /* Padding azaltıldı */
+            color: var(--text-color);
+            padding: 5px;
             border-radius: 50%;
             transition: background 0.3s;
         }
         .menu-icon:hover, .nav-button:hover:not(:disabled) {
-             background: rgba(0,0,0,0.05);
+             background: rgba(255, 255, 255, 0.1);
         }
         
         .nav-button:disabled {
-            color: rgba(0,0,0,0.2);
+            color: rgba(255, 255, 255, 0.3);
             cursor: not-allowed;
         }
 
         .week-navigation {
             display: flex;
             align-items: center;
-            gap: 10px; /* Boşluk azaltıldı */
-            flex-grow: 1;
-            justify-content: center;
+            gap: 15px;
         }
         
         .user-name {
-            font-family: 'Cinzel Decorative', cursive;
-            font-size: 1rem; /* Hafif küçültüldü */
-            font-weight: 700;
-            padding: 4px 10px; /* Padding azaltıldı */
-            border-radius: 15px;
-            background-color: rgba(0,0,0,0.05);
-            color: var(--accent-color);
-            border: 1px dashed var(--border-color);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
         }
 
         header h1 {
-            font-family: 'Cinzel Decorative', cursive;
-            font-size: 1.3rem; /* Başlık küçültüldü */
-            font-weight: 700;
-            color: var(--accent-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            margin: 0;
-            text-transform: uppercase;
+            font-size: 1.1rem;
+            font-weight: 500;
         }
         
         header h2 {
-            font-family: 'Crimson Pro', serif;
-            font-size: 0.8rem; /* Alt başlık küçültüldü */
+            font-size: 0.8rem;
             font-weight: 400;
             opacity: 0.8;
-            margin-top: 4px; /* Boşluk azaltıldı */
+            margin-top: 4px;
+            text-align: center;
             color: var(--text-secondary-color);
         }
 
-        /* Day Navigation (Daha Kompakt) */
+        /* Day Navigation */
         .day-nav {
             display: flex;
             justify-content: space-around;
-            padding: 6px; /* Padding azaltıldı */
+            padding: 8px;
             position: sticky;
-            top: 78px; /* Yeni header yüksekliğine göre ayarlandı */
+            top: 90px; 
             z-index: 999;
-            margin: 0 8px 8px 8px; /* Üst boşluk kaldırıldı */
+            margin: 10px;
             gap: 5px;
-            background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(15px) saturate(120%);
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
         }
 
         .day-nav button {
-            font-family: 'Crimson Pro', serif;
-            padding: 8px; /* Padding azaltıldı */
-            font-size: 0.9rem; /* Hafif küçültüldü */
+            padding: 10px;
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
             border: none;
-            border-radius: 6px;
+            border-radius: 12px;
             background-color: transparent;
             color: var(--text-secondary-color);
             transition: all 0.3s ease;
@@ -196,71 +210,65 @@
         }
 
         .day-nav button.active {
-            background-color: var(--accent-color);
-            color: #fff;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            background-color: var(--active-color);
+            color: var(--accent-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
 
-        /* Main Content (Ders Kartları) */
+        /* Main Content */
         .main-container {
-            padding: 0 8px 8px 8px; /* Padding ayarlandı */
+            padding: 10px;
         }
 
         .schedule-card {
-            margin-bottom: 8px; /* Kartlar arası boşluk azaltıldı */
-            background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px var(--shadow-color);
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-            border-left: 5px solid var(--accent-color);
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="30" font-family="Arial" font-size="12" fill="%23a1887f" opacity="0.1">📜</text><text x="60" y="70" font-family="Arial" font-size="12" fill="%23a1887f" opacity="0.1">🏺</text></svg>');
-            background-repeat: repeat;
-            background-size: 50px 50px;
+            margin-bottom: 12px;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(15px) saturate(120%);
+            -webkit-backdrop-filter: blur(15px) saturate(120%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 4px 20px var(--shadow-color);
         }
         .schedule-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            border-color: rgba(255, 255, 255, 0.25);
         }
 
         .card-header {
-            padding: 8px 12px; /* Padding azaltıldı */
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--glass-border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: rgba(0,0,0,0.03);
         }
         
         .lesson-name {
-            font-family: 'Cinzel Decorative', cursive;
             font-weight: 700;
-            font-size: 1rem; /* Ders adı küçültüldü */
-            color: var(--text-primary-color);
-            text-transform: capitalize;
+            font-size: 1rem;
+            color: var(--text-color);
         }
         
         .lesson-time {
-            font-size: 0.8rem; /* Zaman etiketi küçültüldü */
-            padding: 4px 8px; /* Padding azaltıldı */
-            border-radius: 6px;
-            background-color: var(--accent-color);
-            color: #fff;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary-color);
         }
 
         .card-body {
-            padding: 12px; /* Padding ayarlandı */
-            font-size: 1rem; /* KAZANIM BÜYÜTÜLDÜ */
-            line-height: 1.6; /* Satır aralığı ayarlandı */
-            color: var(--text-primary-color);
+            padding: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary-color);
         }
         
         .card-body.empty {
             font-style: italic;
-            color: var(--text-secondary-color);
-            opacity: 0.7;
+            color: rgba(176, 176, 176, 0.5);
         }
     </style>
 </head>
@@ -289,11 +297,13 @@
     <main id="schedule-container" class="main-container"></main>
 
     <script>
-        // JavaScript kısmı aynen kalabilir, görsel değişiklikler CSS'te yapıldı.
+        // JavaScript kodunda herhangi bir değişiklik gerekmedi, bu yüzden aynen kalabilir.
+        // Global variables
         let scheduleData = {};
         let currentWeekId = '';
         let currentDayId = '';
 
+        // DOM Elements
         const weekMenu = document.getElementById('week-menu');
         const dayNav = document.getElementById('day-nav');
         const scheduleContainer = document.getElementById('schedule-container');
@@ -301,6 +311,8 @@
         const dateDisplay = document.getElementById('date-display');
         const prevWeekBtn = document.getElementById('prev-week-btn');
         const nextWeekBtn = document.getElementById('next-week-btn');
+        
+        // --- Functions ---
         
         function openNav() {
             document.getElementById("mySidenav").style.width = "280px";
@@ -327,7 +339,7 @@
 
         function populateDayMenu(weekId) {
             const days = scheduleData[weekId].days;
-            dayNav.innerHTML = ''; 
+            dayNav.innerHTML = ''; // Clear previous buttons
             const dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" };
             
             for(const dayId in dayNames){
@@ -352,12 +364,15 @@
                 a.classList.toggle('active', a.dataset.week === weekId);
             });
             
+            // Update button states
             const weekIds = Object.keys(scheduleData);
             const currentIndex = weekIds.indexOf(weekId);
             prevWeekBtn.disabled = currentIndex === 0;
             nextWeekBtn.disabled = currentIndex === weekIds.length - 1;
 
+
             populateDayMenu(weekId);
+            // Check if 'pazartesi' exists, otherwise show the first available day
             const firstDay = Object.keys(week.days)[0] || 'pazartesi';
             displayDay(weekId, firstDay);
         }
@@ -381,7 +396,7 @@
         function displayDay(weekId, dayId) {
             currentDayId = dayId;
             const lessons = scheduleData[weekId]?.days[dayId];
-            scheduleContainer.innerHTML = ''; 
+            scheduleContainer.innerHTML = ''; // Clear current schedule
 
             if (lessons) {
                 lessons.forEach(lesson => {
@@ -407,7 +422,9 @@
             });
         }
 
+        // --- Initial Load ---
         document.addEventListener('DOMContentLoaded', () => {
+            // Fetch data from the JSON file
             fetch('schedule.json')
                 .then(response => {
                     if (!response.ok) {
