@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haftalık Ders Programı ve Kazanımlar</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
+        /* --- Gece Yarısı Siyahı ve Geliştirilmiş Derinlik --- */
         :root {
-            --primary-color: #1976D2; /* Material Blue */
-            --secondary-color: #6c757d;
-            --background-color: #f4f7f9;
-            --card-background: #ffffff;
-            --text-color: #333;
-            --border-color: #dee2e6;
-            --shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            --active-color: #FFC107; /* Material Amber */
+            --glass-bg-color: rgba(0, 0, 0, 0.45); /* Daha koyu yarı saydam siyah cam */
+            --glass-border-color: rgba(255, 255, 255, 0.1); /* İnce, hafif beyaz çerçeve */
+            --text-color: #FFFFFF; /* Ana metin rengi: Saf Beyaz */
+            --text-secondary-color: #E0E0E0; /* İkincil metin rengi: Çok açık gri */
+            --shadow-color: rgba(0, 0, 0, 0.5); /* Daha belirgin gölge rengi */
+            --active-color: rgba(162, 210, 255, 0.15); /* Aktif buton arka planı: Yarı saydam açık mavi */
+            --accent-color: #A2D2FF; /* Vurgu rengi: Parlak Açık Mavi */
         }
 
         * {
@@ -25,9 +27,41 @@
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--background-color);
+            font-family: 'Inter', sans-serif;
+            background: #000000; /* Gerçek Siyah */
             color: var(--text-color);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Dark Gradient Background (daha derin gece tonları) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: linear-gradient(300deg, #000000, #0A0A0A, #1A1A1A); /* Çok koyu gradyan */
+            background-size: 200% 200%;
+            animation: gradient-animation 30s ease infinite; /* Daha yavaş animasyon */
+            z-index: -1;
+        }
+        
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- Glassmorphism Panel (Geliştirilmiş Derinlik) --- */
+        .glass-panel {
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(20px) saturate(150%); /* Daha fazla bulanıklık ve doygunluk */
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 8px 30px var(--shadow-color); /* Daha belirgin gölge */
         }
 
         /* Hamburger Menu (Sidenav) */
@@ -38,185 +72,204 @@
             z-index: 1001;
             top: 0;
             left: 0;
-            background-color: #111;
             overflow-x: hidden;
-            transition: 0.4s;
+            transition: 0.4s ease-out;
             padding-top: 60px;
+            background: rgba(0, 0, 0, 0.6); /* Yan menü için daha koyu arka plan */
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
+            border-right: 1px solid var(--glass-border-color);
         }
 
         .sidenav a {
-            padding: 10px 15px;
+            padding: 12px 20px;
             text-decoration: none;
             font-size: 1.1rem;
-            color: #818181;
+            color: var(--text-secondary-color);
             display: block;
             transition: 0.3s;
         }
 
         .sidenav a:hover {
-            color: #f1f1f1;
+            color: var(--text-color);
+            background: rgba(255, 255, 255, 0.08); /* Hafif vurgulu hover */
         }
         
         .sidenav a.active {
-            color: var(--active-color);
+            color: var(--accent-color);
             font-weight: 700;
         }
 
         .sidenav .closebtn {
             position: absolute;
-            top: 0;
+            top: 10px;
             right: 25px;
             font-size: 36px;
-            margin-left: 50px;
         }
 
         /* Header */
         header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            box-shadow: var(--shadow);
+            padding: 12px 15px;
             position: sticky;
-            top: 0;
+            top: 10px;
             z-index: 1000;
+            margin: 10px;
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
         }
         
         .header-top {
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Changed for button alignment */
-            position: relative;
+            justify-content: space-between;
         }
         
-        .menu-icon {
+        .menu-icon, .nav-button {
             font-size: 28px;
             cursor: pointer;
-        }
-        
-        .week-navigation {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px; /* Space between buttons and title */
-            flex-grow: 1;
-        }
-        
-        .nav-button {
             background: none;
             border: none;
-            color: white;
-            cursor: pointer;
-            font-size: 28px;
+            color: var(--text-color);
             padding: 5px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: background 0.3s;
+        }
+        .menu-icon:hover, .nav-button:hover:not(:disabled) {
+             background: rgba(255, 255, 255, 0.15); /* Hafif vurgu */
         }
         
         .nav-button:disabled {
-            color: rgba(255, 255, 255, 0.3);
+            color: rgba(255, 255, 255, 0.2); /* Daha az belirgin disabled butonu */
             cursor: not-allowed;
+        }
+
+        .week-navigation {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
         .user-name {
             font-size: 1rem;
             font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
         }
 
-
         header h1 {
-            font-size: 1.2rem;
-            margin: 0;
+            font-size: 1.1rem;
             font-weight: 500;
+            color: var(--text-color);
         }
         
         header h2 {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 400;
-            opacity: 0.9;
+            opacity: 0.8;
             margin-top: 4px;
+            text-align: center;
+            color: var(--text-secondary-color);
         }
 
         /* Day Navigation */
         .day-nav {
             display: flex;
             justify-content: space-around;
-            background-color: var(--card-background);
-            padding: 10px 5px;
-            box-shadow: var(--shadow);
+            padding: 8px;
             position: sticky;
-            top: 70px; /* Header height */
+            top: 90px; 
             z-index: 999;
+            margin: 10px;
+            gap: 5px;
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
         }
 
         .day-nav button {
-            padding: 8px 10px;
-            font-size: 0.85rem;
+            padding: 10px;
+            font-size: 0.9rem;
             font-weight: 500;
             cursor: pointer;
             border: none;
-            border-radius: 4px;
+            border-radius: 12px;
             background-color: transparent;
-            color: var(--secondary-color);
+            color: var(--text-secondary-color);
             transition: all 0.3s ease;
             flex-grow: 1;
-            text-align: center;
         }
 
         .day-nav button.active {
-            background-color: var(--primary-color);
-            color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            background-color: var(--active-color);
+            color: var(--accent-color);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Aktif buton için belirgin gölge */
         }
 
         /* Main Content */
         .main-container {
-            padding: 10px 8px;
+            padding: 10px;
         }
 
         .schedule-card {
-            background-color: var(--card-background);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border-left: 5px solid var(--primary-color);
+            margin-bottom: 12px;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+            /* Applying glass effect */
+            background: var(--glass-bg-color);
+            backdrop-filter: blur(20px) saturate(150%);
+            -webkit-backdrop-filter: blur(20px) saturate(150%);
+            border-radius: 16px;
+            border: 1px solid var(--glass-border-color);
+            box-shadow: 0 8px 30px var(--shadow-color);
+        }
+        .schedule-card:hover {
+            transform: translateY(-7px); /* Daha belirgin kalkış efekti */
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6); /* Daha belirgin hover gölgesi */
+            border-color: rgba(255, 255, 255, 0.2); /* Hover'da hafif çerçeve vurgusu */
         }
 
         .card-header {
-            padding: 8px 12px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--glass-border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.9rem;
-        }
-        
-        .lesson-time {
-            color: var(--primary-color);
-            font-weight: 700;
-            background-color: #e3f2fd;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
         }
         
         .lesson-name {
-            color: #343a40;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        .lesson-time {
+            font-size: 0.8rem;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.15); /* Hafif ışıklı zaman etiketi */
+            color: var(--text-secondary-color);
         }
 
         .card-body {
-            padding: 10px 12px;
-            font-size: 0.8rem;
-            line-height: 1.5;
+            padding: 15px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-secondary-color);
         }
         
         .card-body.empty {
-            color: #999;
             font-style: italic;
+            color: rgba(224, 224, 224, 0.5);
         }
     </style>
 </head>
@@ -245,6 +298,7 @@
     <main id="schedule-container" class="main-container"></main>
 
     <script>
+        // JavaScript kodu aynı kalabilir.
         // Global variables
         let scheduleData = {};
         let currentWeekId = '';
@@ -262,7 +316,7 @@
         // --- Functions ---
         
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "280px";
         }
 
         function closeNav() {
@@ -290,13 +344,13 @@
             const dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" };
             
             for(const dayId in dayNames){
-                if(days[dayId]){
-                    const button = document.createElement('button');
-                    button.textContent = dayNames[dayId];
-                    button.dataset.day = dayId;
-                    button.onclick = () => displayDay(weekId, dayId);
-                    dayNav.appendChild(button);
-                }
+                    if(days[dayId]){
+                        const button = document.createElement('button');
+                        button.textContent = dayNames[dayId];
+                        button.dataset.day = dayId;
+                        button.onclick = () => displayDay(weekId, dayId);
+                        dayNav.appendChild(button);
+                    }
             }
         }
 
