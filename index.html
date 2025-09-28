@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Haftalık Ders Programı ve Kazanımlar - Antik Papirüs Teması</title>
+    <title>Haftalık Ders Programı - Kompakt Papirüs Teması</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        /* --- Papirüs Teması Değişiklikleri --- */
+        /* --- Papirüs Teması --- */
         :root {
-            --papyrus-bg-color-light: #fdf5e6; /* Açık papirüs tonu */
-            --papyrus-bg-color-dark: #eee0c8; /* Koyu papirüs tonu */
-            --text-primary-color: #3e2723; /* Koyu kahve metin */
-            --text-secondary-color: #6d4c41; /* Orta kahve metin */
-            --border-color: #a1887f; /* Paslı kahve kenarlık */
-            --accent-color: #795548; /* Paslı kahve vurgu */
-            --shadow-color: rgba(0, 0, 0, 0.1); /* Hafif gölge */
-            --active-bg-color: #d7ccc8; /* Açık toprak aktif arka plan */
+            --papyrus-bg-color-light: #fdf5e6;
+            --papyrus-bg-color-dark: #eee0c8;
+            --text-primary-color: #3e2723;
+            --text-secondary-color: #6d4c41;
+            --border-color: #a1887f;
+            --accent-color: #795548;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --active-bg-color: #d7ccc8;
         }
 
         * {
@@ -28,77 +28,43 @@
         }
 
         body {
-            font-family: 'Crimson Pro', serif; /* Ana metin fontu */
+            font-family: 'Crimson Pro', serif;
             background-color: var(--papyrus-bg-color-light);
             color: var(--text-primary-color);
-            overflow-x: hidden;
-            min-height: 100vh;
-            /* Papirüs dokusu arka plan */
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            background-size: cover;
             background-attachment: fixed;
         }
 
-        /* --- Sidenav (Hamburger Menü) --- */
+        /* --- Sidenav (Değişiklik yok) --- */
         .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 1001;
-            top: 0;
-            left: 0;
-            overflow-x: hidden;
-            transition: 0.4s ease-out;
-            padding-top: 60px;
-            background-color: var(--papyrus-bg-color-dark);
-            border-right: 2px solid var(--border-color);
+            height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0;
+            overflow-x: hidden; transition: 0.4s ease-out; padding-top: 60px;
+            background-color: var(--papyrus-bg-color-dark); border-right: 2px solid var(--border-color);
             box-shadow: 2px 0 10px var(--shadow-color);
         }
-
         .sidenav a {
-            padding: 12px 20px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            color: var(--text-secondary-color);
-            display: block;
-            transition: 0.3s;
+            padding: 12px 20px; text-decoration: none; font-size: 1.1rem;
+            color: var(--text-secondary-color); display: block; transition: 0.3s;
             border-bottom: 1px dashed rgba(0,0,0,0.1);
         }
+        .sidenav a:last-child { border-bottom: none; }
+        .sidenav a:hover { color: var(--text-primary-color); background-color: var(--active-bg-color); }
+        .sidenav a.active { color: var(--accent-color); font-weight: 700; background-color: var(--active-bg-color); }
+        .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: var(--text-primary-color); }
 
-        .sidenav a:last-child {
-            border-bottom: none;
-        }
+        /* --- ULTRA-KOMPAKT DEĞİŞİKLİKLER --- */
 
-        .sidenav a:hover {
-            color: var(--text-primary-color);
-            background-color: var(--active-bg-color);
-        }
-        
-        .sidenav a.active {
-            color: var(--accent-color);
-            font-weight: 700;
-            background-color: var(--active-bg-color);
-        }
-
-        .sidenav .closebtn {
-            position: absolute;
-            top: 10px;
-            right: 25px;
-            font-size: 36px;
-            color: var(--text-primary-color);
-        }
-
-        /* Header (Daha İnce) */
+        /* Header (Ultra İnce) */
         header {
-            padding: 8px 15px; /* Padding azaltıldı */
+            padding: 2px 10px; /* Dikey padding minimuma indirildi */
             position: sticky;
-            top: 8px; /* Boşluk azaltıldı */
+            top: 4px; /* Üst boşluk azaltıldı */
             z-index: 1000;
-            margin: 8px; /* Boşluk azaltıldı */
+            margin: 4px;
             background-color: var(--papyrus-bg-color-dark);
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px var(--shadow-color);
+            box-shadow: 0 2px 5px var(--shadow-color); /* Gölge hafifletildi */
             text-align: center;
         }
         
@@ -109,38 +75,28 @@
         }
         
         .menu-icon, .nav-button {
-            font-size: 28px; /* İkonlar hafif küçültüldü */
+            font-size: 24px; /* İkonlar küçültüldü */
             cursor: pointer;
-            background: none;
-            border: none;
+            background: none; border: none;
             color: var(--text-primary-color);
-            padding: 4px; /* Padding azaltıldı */
+            padding: 2px; /* Padding azaltıldı */
             border-radius: 50%;
             transition: background 0.3s;
         }
-        .menu-icon:hover, .nav-button:hover:not(:disabled) {
-             background: rgba(0,0,0,0.05);
-        }
-        
-        .nav-button:disabled {
-            color: rgba(0,0,0,0.2);
-            cursor: not-allowed;
-        }
+        .menu-icon:hover, .nav-button:hover:not(:disabled) { background: rgba(0,0,0,0.05); }
+        .nav-button:disabled { color: rgba(0,0,0,0.2); cursor: not-allowed; }
 
         .week-navigation {
-            display: flex;
-            align-items: center;
-            gap: 10px; /* Boşluk azaltıldı */
-            flex-grow: 1;
-            justify-content: center;
+            display: flex; align-items: center; gap: 10px;
+            flex-grow: 1; justify-content: center;
         }
         
         .user-name {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: 1rem; /* Hafif küçültüldü */
+            font-size: 0.8rem; /* Küçültüldü */
             font-weight: 700;
-            padding: 4px 10px; /* Padding azaltıldı */
-            border-radius: 15px;
+            padding: 2px 8px; /* Padding azaltıldı */
+            border-radius: 12px;
             background-color: rgba(0,0,0,0.05);
             color: var(--accent-color);
             border: 1px dashed var(--border-color);
@@ -148,112 +104,96 @@
 
         header h1 {
             font-family: 'Cinzel Decorative', cursive;
-            font-size: 1.3rem; /* Başlık küçültüldü */
+            font-size: 1.0rem; /* Başlık belirgin şekilde küçültüldü */
             font-weight: 700;
             color: var(--accent-color);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: none;
             margin: 0;
             text-transform: uppercase;
         }
         
         header h2 {
             font-family: 'Crimson Pro', serif;
-            font-size: 0.8rem; /* Alt başlık küçültüldü */
-            font-weight: 400;
-            opacity: 0.8;
-            margin-top: 4px; /* Boşluk azaltıldı */
+            font-size: 0.7rem; /* Alt başlık küçültüldü */
+            font-weight: 400; opacity: 0.8;
+            margin-top: 2px; /* Boşluk azaltıldı */
             color: var(--text-secondary-color);
         }
 
-        /* Day Navigation (Daha Kompakt) */
+        /* Day Navigation (Kompakt) */
         .day-nav {
-            display: flex;
-            justify-content: space-around;
-            padding: 6px; /* Padding azaltıldı */
+            display: flex; justify-content: space-around;
+            padding: 4px; /* Padding azaltıldı */
             position: sticky;
-            top: 78px; /* Yeni header yüksekliğine göre ayarlandı */
+            top: 52px; /* Yeni header yüksekliğine göre ayarlandı */
             z-index: 999;
-            margin: 0 8px 8px 8px; /* Üst boşluk kaldırıldı */
-            gap: 5px;
+            margin: 4px; /* Boşluklar header ile uyumlu hale getirildi */
+            gap: 4px;
             background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 8px var(--shadow-color);
+            border-radius: 8px; border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-color);
         }
 
         .day-nav button {
             font-family: 'Crimson Pro', serif;
-            padding: 8px; /* Padding azaltıldı */
-            font-size: 0.9rem; /* Hafif küçültüldü */
+            padding: 6px; /* Buton içi padding azaltıldı */
+            font-size: 0.85rem;
             font-weight: 500;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            background-color: transparent;
-            color: var(--text-secondary-color);
-            transition: all 0.3s ease;
-            flex-grow: 1;
+            cursor: pointer; border: none; border-radius: 6px;
+            background-color: transparent; color: var(--text-secondary-color);
+            transition: all 0.3s ease; flex-grow: 1;
         }
 
         .day-nav button.active {
-            background-color: var(--accent-color);
-            color: #fff;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+            background-color: var(--accent-color); color: #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
         }
 
         /* Main Content (Ders Kartları) */
         .main-container {
-            padding: 0 8px 8px 8px; /* Padding ayarlandı */
+            padding: 4px; /* Genel padding azaltıldı */
         }
 
         .schedule-card {
-            margin-bottom: 8px; /* Kartlar arası boşluk azaltıldı */
+            margin-bottom: 6px; /* Kartlar arası boşluk azaltıldı */
             background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px var(--shadow-color);
+            border-radius: 8px; border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-color);
             transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-            border-left: 5px solid var(--accent-color);
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><text x="10" y="30" font-family="Arial" font-size="12" fill="%23a1887f" opacity="0.1">📜</text><text x="60" y="70" font-family="Arial" font-size="12" fill="%23a1887f" opacity="0.1">🏺</text></svg>');
-            background-repeat: repeat;
-            background-size: 50px 50px;
+            border-left: 4px solid var(--accent-color);
         }
         .schedule-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
         }
 
         .card-header {
-            padding: 8px 12px; /* Padding azaltıldı */
+            padding: 6px 10px; /* Kart başlığı padding azaltıldı */
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
             background-color: rgba(0,0,0,0.03);
         }
         
         .lesson-name {
             font-family: 'Cinzel Decorative', cursive;
             font-weight: 700;
-            font-size: 1rem; /* Ders adı küçültüldü */
+            font-size: 0.9rem; /* Ders adı küçültüldü */
             color: var(--text-primary-color);
             text-transform: capitalize;
         }
         
         .lesson-time {
-            font-size: 0.8rem; /* Zaman etiketi küçültüldü */
-            padding: 4px 8px; /* Padding azaltıldı */
+            font-size: 0.75rem;
+            padding: 3px 7px; /* Padding azaltıldı */
             border-radius: 6px;
             background-color: var(--accent-color);
-            color: #fff;
-            font-weight: 500;
-            letter-spacing: 0.5px;
+            color: #fff; font-weight: 500;
         }
 
         .card-body {
-            padding: 12px; /* Padding ayarlandı */
-            font-size: 1rem; /* KAZANIM BÜYÜTÜLDÜ */
-            line-height: 1.6; /* Satır aralığı ayarlandı */
+            padding: 10px; /* Padding hafif azaltıldı */
+            font-size: 1rem; /* Kazanım boyutu korundu */
+            line-height: 1.5; /* Satır aralığı ayarlandı */
             color: var(--text-primary-color);
         }
         
@@ -289,7 +229,7 @@
     <main id="schedule-container" class="main-container"></main>
 
     <script>
-        // JavaScript kısmı aynen kalabilir, görsel değişiklikler CSS'te yapıldı.
+        // JavaScript kısmında herhangi bir değişiklik gerekmedi.
         let scheduleData = {};
         let currentWeekId = '';
         let currentDayId = '';
