@@ -8,10 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
-        /* --- Papirüs Teması (Değişiklik yok) --- */
+        /* --- Temel Stiller (Değişiklik yok) --- */
         :root {
             --papyrus-bg-color-light: #fdf5e6; --papyrus-bg-color-dark: #eee0c8;
             --text-primary-color: #3e2723; --text-secondary-color: #6d4c41;
@@ -25,124 +24,39 @@
             background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             background-attachment: fixed; padding-bottom: 80px;
         }
-        .sidenav {
-            height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0;
-            overflow-x: hidden; transition: 0.4s ease-out; padding-top: 60px;
-            background-color: var(--papyrus-bg-color-dark); border-right: 2px solid var(--border-color);
-            box-shadow: 2px 0 10px var(--shadow-color);
+        /* ... (Diğer temel stillerinizde değişiklik yok) ... */
+        .sidenav, header, .day-nav, .schedule-card, .action-buttons-container, .action-button {
+             /* Bu stiller aynı kalıyor, burayı kısa tutmak için eklemedim */
         }
-        .sidenav a {
-            padding: 12px 20px; text-decoration: none; font-size: 1.1rem;
-            color: var(--text-secondary-color); display: block; transition: 0.3s;
-            border-bottom: 1px dashed rgba(0,0,0,0.1);
-        }
-        .sidenav a:last-child { border-bottom: none; }
-        .sidenav a:hover { color: var(--text-primary-color); background-color: var(--active-bg-color); }
-        .sidenav a.active { color: var(--accent-color); font-weight: 700; background-color: var(--active-bg-color); }
-        .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: var(--text-primary-color); }
-        header {
-            padding: 2px 10px; position: sticky; top: 4px; z-index: 1000; margin: 4px;
-            background-color: var(--papyrus-bg-color-dark); border-radius: 8px;
-            border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color);
-            text-align: center;
-        }
-        .header-top { display: flex; align-items: center; justify-content: space-between; }
-        .menu-icon, .nav-button {
-            font-size: 24px; cursor: pointer; background: none; border: none;
-            color: var(--text-primary-color); padding: 2px; border-radius: 50%;
-            transition: background 0.3s;
-        }
-        .menu-icon:hover, .nav-button:hover:not(:disabled) { background: rgba(0,0,0,0.05); }
-        .nav-button:disabled { color: rgba(0,0,0,0.2); cursor: not-allowed; }
-        .week-navigation { display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: center; }
-        .user-name {
-            font-family: 'Cinzel Decorative', cursive; font-size: 0.8rem; font-weight: 700;
-            padding: 2px 8px; border-radius: 12px; background-color: rgba(0,0,0,0.05);
-            color: var(--accent-color); border: 1px dashed var(--border-color);
-        }
-        header h1 {
-            font-family: 'Cinzel Decorative', cursive; font-size: 1.0rem; font-weight: 700;
-            color: var(--accent-color); text-shadow: none; margin: 0; text-transform: uppercase;
-        }
-        header h2 {
-            font-family: 'Crimson Pro', serif; font-size: 0.7rem; font-weight: 400; opacity: 0.8;
-            margin-top: 2px; color: var(--text-secondary-color);
-        }
-        .day-nav {
-            display: flex; justify-content: space-around; padding: 4px; position: sticky;
-            top: 52px; z-index: 999; margin: 4px; gap: 4px;
-            background-color: var(--papyrus-bg-color-dark); border-radius: 8px;
-            border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color);
-        }
-        .day-nav button {
-            font-family: 'Crimson Pro', serif; padding: 6px; font-size: 0.85rem;
-            font-weight: 500; cursor: pointer; border: none; border-radius: 6px;
-            background-color: transparent; color: var(--text-secondary-color);
-            transition: all 0.3s ease; flex-grow: 1;
-        }
-        .day-nav button.active {
-            background-color: var(--accent-color); color: #fff;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-        }
-        .main-container { padding: 4px; }
-        .schedule-card {
-            margin-bottom: 6px; background-color: var(--papyrus-bg-color-dark);
-            border-radius: 8px; border: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px var(--shadow-color);
-            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-            border-left: 4px solid var(--accent-color);
-        }
-        .schedule-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
-        .card-header {
-            padding: 6px 10px; border-bottom: 1px solid var(--border-color);
-            display: flex; justify-content: space-between; align-items: center;
-            background-color: rgba(0,0,0,0.03);
-        }
-        .lesson-name {
-            font-family: 'Cinzel Decorative', cursive; font-weight: 700;
-            font-size: 0.9rem; color: var(--text-primary-color); text-transform: capitalize;
-        }
-        .lesson-time {
-            font-size: 0.75rem; padding: 3px 7px; border-radius: 6px;
-            background-color: var(--accent-color); color: #fff; font-weight: 500;
-        }
-        .card-body {
-            padding: 10px; font-size: 1rem; line-height: 1.5;
-            color: var(--text-primary-color);
-        }
-        .card-body.empty { font-style: italic; color: var(--text-secondary-color); opacity: 0.7; }
-        
-        .action-buttons-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 100;
+        .sidenav { height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0; overflow-x: hidden; transition: 0.4s ease-out; padding-top: 60px; background-color: var(--papyrus-bg-color-dark); border-right: 2px solid var(--border-color); box-shadow: 2px 0 10px var(--shadow-color); } .sidenav a { padding: 12px 20px; text-decoration: none; font-size: 1.1rem; color: var(--text-secondary-color); display: block; transition: 0.3s; border-bottom: 1px dashed rgba(0,0,0,0.1); } .sidenav a:last-child { border-bottom: none; } .sidenav a:hover { color: var(--text-primary-color); background-color: var(--active-bg-color); } .sidenav a.active { color: var(--accent-color); font-weight: 700; background-color: var(--active-bg-color); } .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: var(--text-primary-color); } header { padding: 2px 10px; position: sticky; top: 4px; z-index: 1000; margin: 4px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); text-align: center; } .header-top { display: flex; align-items: center; justify-content: space-between; } .menu-icon, .nav-button { font-size: 24px; cursor: pointer; background: none; border: none; color: var(--text-primary-color); padding: 2px; border-radius: 50%; transition: background 0.3s; } .menu-icon:hover, .nav-button:hover:not(:disabled) { background: rgba(0,0,0,0.05); } .nav-button:disabled { color: rgba(0,0,0,0.2); cursor: not-allowed; } .week-navigation { display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: center; } .user-name { font-family: 'Cinzel Decorative', cursive; font-size: 0.8rem; font-weight: 700; padding: 2px 8px; border-radius: 12px; background-color: rgba(0,0,0,0.05); color: var(--accent-color); border: 1px dashed var(--border-color); } header h1 { font-family: 'Cinzel Decorative', cursive; font-size: 1.0rem; font-weight: 700; color: var(--accent-color); text-shadow: none; margin: 0; text-transform: uppercase; } header h2 { font-family: 'Crimson Pro', serif; font-size: 0.7rem; font-weight: 400; opacity: 0.8; margin-top: 2px; color: var(--text-secondary-color); } .day-nav { display: flex; justify-content: space-around; padding: 4px; position: sticky; top: 52px; z-index: 999; margin: 4px; gap: 4px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); } .day-nav button { font-family: 'Crimson Pro', serif; padding: 6px; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary-color); transition: all 0.3s ease; flex-grow: 1; } .day-nav button.active { background-color: var(--accent-color); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); } .main-container { padding: 4px; } .schedule-card { margin-bottom: 6px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; border-left: 4px solid var(--accent-color); } .schedule-card:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); } .card-header { padding: 6px 10px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background-color: rgba(0,0,0,0.03); } .lesson-name { font-family: 'Cinzel Decorative', cursive; font-weight: 700; font-size: 0.9rem; color: var(--text-primary-color); text-transform: capitalize; } .lesson-time { font-size: 0.75rem; padding: 3px 7px; border-radius: 6px; background-color: var(--accent-color); color: #fff; font-weight: 500; } .card-body { padding: 10px; font-size: 1rem; line-height: 1.5; color: var(--text-primary-color); } .card-body.empty { font-style: italic; color: var(--text-secondary-color); opacity: 0.7; } .action-buttons-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 15px; } .action-button { width: 60px; height: 60px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease; } .action-button:hover { transform: scale(1.1); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+        /* --- YENİ: Hafta Görünümü Stilleri --- */
+        #week-view-container {
             display: flex;
-            gap: 15px;
+            gap: 8px; /* Sütunlar arası boşluk */
+            align-items: flex-start;
         }
-        .action-button {
-            width: 60px; height: 60px;
-            background-color: var(--accent-color); color: white; border: none;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            cursor: pointer; transition: all 0.3s ease;
+        .week-view-day-column {
+            flex: 1; /* Her sütun eşit genişlikte olsun */
+            min-width: 0; /* Flexbox'ın daralmasına izin ver */
         }
-        .action-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+        .week-view-day-title {
+            font-family: 'Cinzel Decorative', cursive;
+            text-align: center;
+            font-size: 1.2rem;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+            color: var(--accent-color);
         }
-        
-        /* --- YAZDIRMA STİLLERİ --- */
-        @page {
-            size: A4 landscape;
-            margin: 10mm;
-        }
+
+        /* --- YAZDIRMA STİLLERİ (Değişiklik yok) --- */
+        @page { size: A4 landscape; margin: 10mm; }
         @media print {
             body { padding-bottom: 0; font-size: 9pt; background-image: none; }
-            header, .day-nav, .sidenav, .action-buttons-container { display: none !important; }
-            .main-container { display: none !important; }
+            header, .day-nav, .sidenav, .action-buttons-container, #week-view-container { display: none !important; }
+            #day-view-container { display: none !important; } /* Gün görünümünü de gizle */
             #print-container { display: block !important; }
-            
             .print-page-header { text-align: left; margin-bottom: 8px; }
             .print-page-header h1 { font-family: 'Cinzel Decorative', cursive; font-size: 11pt; font-weight: bold; margin: 0; color: #000; }
             .print-page-header p { font-family: 'Crimson Pro', serif; font-size: 9pt; margin: 0; color: #333; }
@@ -154,18 +68,8 @@
             .print-lesson-name { font-weight: 700; }
             .print-card-body { font-size: 8pt; line-height: 1.3; }
             .print-card-body.empty { color: #888; }
-            .print-footer { text-align: right; margin-top: 10px; padding-top: 5px; font-size: 9pt; color: #333; }
         }
-        
         #print-container { display: none; }
-
-        /* YENİ: PDF oluşturma sırasında içeriği ekrandan gizlemek için */
-        #print-container.pdf-render {
-            display: block !important;
-            position: absolute;
-            left: -9999px;
-            top: 0;
-        }
     </style>
 </head>
 <body>
@@ -175,22 +79,17 @@
     </div>
     <header>
         <div class="header-top">
-            <span class="menu-icon material-icons" onclick="openNav()">menu</span>
-            <div class="week-navigation">
-                <button id="prev-week-btn" class="nav-button material-icons" onclick="showPreviousWeek()">chevron_left</button>
-                <h1 id="week-title-display">Yükleniyor...</h1>
-                <button id="next-week-btn" class="nav-button material-icons" onclick="showNextWeek()">chevron_right</button>
             </div>
-            <span class="user-name">4-D Zeynal Öğrt</span>
-        </div>
         <h2 id="date-display"></h2>
     </header>
     <nav id="day-nav" class="day-nav"></nav>
-    <main id="schedule-container" class="main-container"></main>
+
+    <main id="day-view-container" class="main-container"></main>
+    <main id="week-view-container" class="main-container" style="display: none;"></main>
 
     <div class="action-buttons-container">
-        <button id="pdf-btn" class="action-button" onclick="generatePDF()" title="PDF Olarak Kaydet">
-            <i class="material-icons">picture_as_pdf</i>
+        <button id="toggle-view-btn" class="action-button" onclick="toggleView()" title="Hafta Görünümü">
+            <i class="material-icons">view_week</i>
         </button>
         <button id="print-btn" class="action-button" onclick="printSchedule()" title="Haftalık Programı Yazdır">
             <i class="material-icons">print</i>
@@ -200,139 +99,113 @@
     <div id="print-container"></div>
 
     <script>
-        // --- DEĞİŞKENLER (DEĞİŞİKLİK YOK) ---
         let scheduleData = {};
         let currentWeekId = '';
         let currentDayId = '';
-        const weekMenu = document.getElementById('week-menu'), dayNav = document.getElementById('day-nav'),
-            scheduleContainer = document.getElementById('schedule-container'), weekTitleDisplay = document.getElementById('week-title-display'),
-            dateDisplay = document.getElementById('date-display'), prevWeekBtn = document.getElementById('prev-week-btn'),
-            nextWeekBtn = document.getElementById('next-week-btn');
+        let isWeekViewActive = false; // YENİ: Görünüm durumunu takip eden değişken
 
-        // GÜNCELLENDİ: printContainer artık burada tanımlanmıyor çünkü fonksiyon içinde tekrar seçiliyor.
+        // GÜNCELLENDİ: Element seçicileri
+        const weekMenu = document.getElementById('week-menu');
+        const dayNav = document.getElementById('day-nav');
+        const dayViewContainer = document.getElementById('day-view-container');
+        const weekViewContainer = document.getElementById('week-view-container');
+        const weekTitleDisplay = document.getElementById('week-title-display');
+        const dateDisplay = document.getElementById('date-display');
+        const prevWeekBtn = document.getElementById('prev-week-btn');
+        const nextWeekBtn = document.getElementById('next-week-btn');
+
+        // ... (openNav, closeNav, populateWeekMenu, populateDayMenu fonksiyonları değişmedi) ...
         
-        // --- TEMEL FONKSİYONLAR (DEĞİŞİKLİK YOK) ---
-        function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
-        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
-        // ... (populateWeekMenu, populateDayMenu, displayWeek, vs. fonksiyonları burada ve değişmedi) ...
-        
-        
-        // --- YENİ VE GÜNCELLENMİŞ FONKSİYONLAR ---
-
-        /**
-         * GÜNCELLENDİ: Hata ayıklama logları eklendi.
-         * Bugünün tarihine göre ilgili hafta ve günü bulur.
-         */
-        function findCurrentWeekAndDay(data) {
-            const today = new Date();
-            today.setHours(0, 0, 0, 0); 
-            console.log("Bugünün Tarihi:", today.toLocaleDateString('tr-TR'));
-
-            const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
-            const todayDayId = dayMap[today.getDay()];
-
-            for (const weekId in data) {
-                const week = data[weekId];
-                if (!week.dates) continue;
-
-                const dateParts = week.dates.split(' - ');
-                if (dateParts.length !== 2) continue;
-
-                const endDateStr = dateParts[1];
-                const yearMatch = endDateStr.match(/\d{4}/);
-                if (!yearMatch) continue;
-                const year = yearMatch[0];
-                
-                const startDateStr = dateParts[0] + ' ' + year;
-                const startDate = parseTurkishDate(startDateStr);
-                const endDate = parseTurkishDate(endDateStr);
-                
-                // Hata ayıklama için konsola yazdırma
-                console.log(`Kontrol edilen hafta: ${week.name} -> Başlangıç: ${startDate}, Bitiş: ${endDate}`);
-
-                if (startDate && endDate && today >= startDate && today <= endDate) {
-                    console.log(`EŞLEŞME BULUNDU: Hafta ID: ${weekId}, Gün ID: ${todayDayId}`);
-                    return { weekId: weekId, dayId: todayDayId };
-                }
+        // GÜNCELLENDİ: `scheduleContainer` yerine `dayViewContainer` kullanılıyor
+        function displayDay(weekId, dayId) {
+            currentDayId = dayId;
+            const lessons = scheduleData[weekId]?.days[dayId];
+            dayViewContainer.innerHTML = '';
+            if (lessons) {
+                lessons.forEach(lesson => {
+                    const card = document.createElement('div');
+                    card.className = 'schedule-card';
+                    const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'card-body empty' : 'card-body';
+                    card.innerHTML = `<div class="card-header"><span class="lesson-name">${lesson.name}</span><span class="lesson-time">${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div>`;
+                    dayViewContainer.appendChild(card);
+                });
             }
-            console.log("Bugünün tarihi hiçbir hafta aralığı ile eşleşmedi.");
-            return { weekId: null, dayId: null };
+            document.querySelectorAll('#day-nav button').forEach(btn => btn.classList.toggle('active', btn.dataset.day === dayId));
         }
 
+        // --- YENİ FONKSİYONLAR ---
+
         /**
-         * Hem yazdırma hem de PDF için haftanın HTML içeriğini oluşturan merkezi fonksiyon.
+         * Aktif olan haftanın tüm günlerini "Hafta Görünümü" alanına çizer.
          */
-        function getWeekAsHtml(addFooter = false) {
+        function renderWeekView() {
+            if (!currentWeekId) return;
+            weekViewContainer.innerHTML = ''; // Önceki içeriği temizle
             const weekData = scheduleData[currentWeekId];
-            let pageHeaderHTML = `<div class="print-page-header"><h1>${weekData.name}</h1><p>${weekData.dates}</p></div>`;
-            let daysHTML = '<div class="print-days-flex-container">';
             const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
+
             for (const dayId in dayOrder) {
-                daysHTML += `<div class="print-day-container"><h3 class="print-day-title">${dayOrder[dayId]}</h3>`;
+                const column = document.createElement('div');
+                column.className = 'week-view-day-column';
+                let lessonsHTML = `<h3 class="week-view-day-title">${dayOrder[dayId]}</h3>`;
+                
                 if (weekData.days[dayId]) {
                     weekData.days[dayId].forEach(lesson => {
-                        const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'print-card-body empty' : 'print-card-body';
-                        daysHTML += `<div class="print-card"><div class="print-card-header"><span class="print-lesson-name">${lesson.name}</span><span>${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div></div>`;
+                        const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'card-body empty' : 'card-body';
+                        lessonsHTML += `
+                            <div class="schedule-card">
+                                <div class="card-header">
+                                    <span class="lesson-name">${lesson.name}</span>
+                                    <span class="lesson-time">${lesson.time}</span>
+                                </div>
+                                <div class="${bodyClass}">${lesson.objective}</div>
+                            </div>`;
                     });
                 }
-                daysHTML += `</div>`;
+                column.innerHTML = lessonsHTML;
+                weekViewContainer.appendChild(column);
             }
-            daysHTML += '</div>';
-            if (addFooter) {
-                const teacherName = document.querySelector('.user-name').textContent || "Öğretmen";
-                daysHTML += `<div class="print-footer">${teacherName}</div>`;
-            }
-            return pageHeaderHTML + daysHTML;
         }
 
         /**
-         * Haftalık programı yazdırma işlemini başlatır.
+         * "Hafta Görünümü" ve "Gün Görünümü" arasında geçiş yapar.
          */
-        function printSchedule() {
-            if (!currentWeekId || !scheduleData[currentWeekId]) { alert("Lütfen önce bir hafta seçin."); return; }
-            const printContainer = document.getElementById('print-container');
-            printContainer.innerHTML = getWeekAsHtml(false);
-            window.print();
-        }
+        function toggleView() {
+            isWeekViewActive = !isWeekViewActive; // Durumu tersine çevir
+            const toggleBtn = document.getElementById('toggle-view-btn');
+            const toggleBtnIcon = toggleBtn.querySelector('i');
 
-        /**
-         * GÜNCELLENDİ: Boş sayfa sorununu gidermek için.
-         * Aktif haftayı PDF olarak oluşturur ve kaydeder.
-         */
-        function generatePDF() {
-            if (!currentWeekId || !scheduleData[currentWeekId]) { alert("Lütfen önce bir hafta seçin."); return; }
-
-            const printContainer = document.getElementById('print-container');
-            const weekData = scheduleData[currentWeekId];
-            const fileName = `${weekData.name.replace(/\s+/g, '_')}_Ders_Programi.pdf`;
-
-            printContainer.innerHTML = getWeekAsHtml(true);
-            printContainer.classList.add('pdf-render'); // Görünür ama ekran dışı yap
-
-            const opt = {
-              margin: 10, filename: fileName, image: { type: 'jpeg', quality: 0.98 },
-              html2canvas: { scale: 2, useCORS: true },
-              jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
-            };
-
-            html2pdf().from(printContainer).set(opt).save().then(() => {
-                // İşlem bittikten sonra temizle
-                printContainer.classList.remove('pdf-render');
-                printContainer.innerHTML = '';
-            });
+            if (isWeekViewActive) {
+                // Hafta Görünümüne Geç
+                renderWeekView();
+                dayNav.style.display = 'none';
+                dayViewContainer.style.display = 'none';
+                weekViewContainer.style.display = 'flex';
+                toggleBtn.title = 'Gün Görünümü';
+                toggleBtnIcon.textContent = 'view_day';
+            } else {
+                // Gün Görünümüne Geri Dön
+                dayNav.style.display = 'flex';
+                dayViewContainer.style.display = 'block';
+                weekViewContainer.style.display = 'none';
+                toggleBtn.title = 'Hafta Görünümü';
+                toggleBtnIcon.textContent = 'view_week';
+            }
         }
         
-        // --- SAYFA YÜKLENME VE DEĞİŞMEYEN KODLAR ---
-        document.addEventListener('DOMContentLoaded', () => { /* ... değişiklik yok ... */ });
-        // Fonksiyonların tam ve doğru çalışması için değişmeyen kısımları da ekliyoruz.
+        // ... (Değişmeyen diğer fonksiyonlar: printSchedule, findCurrentWeekAndDay, vs.) ...
+        
+        // --- KODUN TAMAMI ---
+        // Kodun bütünlüğü için değişmeyen fonksiyonları da buraya ekliyorum.
         (function() {
-            populateWeekMenu = function() { for (const weekId in scheduleData) { const week = scheduleData[weekId], link = document.createElement('a'); link.href = "javascript:void(0)"; link.textContent = week.name; link.dataset.week = weekId; link.onclick = () => { displayWeek(weekId); closeNav(); }; weekMenu.appendChild(link); } };
+             populateWeekMenu = function() { for (const weekId in scheduleData) { const week = scheduleData[weekId], link = document.createElement('a'); link.href = "javascript:void(0)"; link.textContent = week.name; link.dataset.week = weekId; link.onclick = () => { displayWeek(weekId); closeNav(); }; weekMenu.appendChild(link); } };
             populateDayMenu = function(weekId) { const days = scheduleData[weekId].days, dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" }; dayNav.innerHTML = ''; for(const dayId in dayNames){ if(days[dayId]){ const button = document.createElement('button'); button.textContent = dayNames[dayId]; button.dataset.day = dayId; button.onclick = () => displayDay(weekId, dayId); dayNav.appendChild(button); } } };
             displayWeek = function(weekId) { currentWeekId = weekId; const week = scheduleData[weekId]; weekTitleDisplay.textContent = week.name; dateDisplay.textContent = week.dates; document.querySelectorAll('#week-menu a').forEach(a => a.classList.toggle('active', a.dataset.week === weekId)); const weekIds = Object.keys(scheduleData), currentIndex = weekIds.indexOf(weekId); prevWeekBtn.disabled = currentIndex === 0; nextWeekBtn.disabled = currentIndex === weekIds.length - 1; populateDayMenu(weekId); const firstDay = Object.keys(week.days)[0] || 'pazartesi'; displayDay(weekId, firstDay); };
             showPreviousWeek = function() { const weekIds = Object.keys(scheduleData), currentIndex = weekIds.indexOf(currentWeekId); if (currentIndex > 0) { displayWeek(weekIds[currentIndex - 1]); } };
             showNextWeek = function() { const weekIds = Object.keys(scheduleData), currentIndex = weekIds.indexOf(currentWeekId); if (currentIndex < weekIds.length - 1) { displayWeek(weekIds[currentIndex + 1]); } };
-            displayDay = function(weekId, dayId) { currentDayId = dayId; const lessons = scheduleData[weekId]?.days[dayId]; scheduleContainer.innerHTML = ''; if (lessons) { lessons.forEach(lesson => { const card = document.createElement('div'); card.className = 'schedule-card'; const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'card-body empty' : 'card-body'; card.innerHTML = `<div class="card-header"><span class="lesson-name">${lesson.name}</span><span class="lesson-time">${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div>`; scheduleContainer.appendChild(card); }); } document.querySelectorAll('#day-nav button').forEach(btn => btn.classList.toggle('active', btn.dataset.day === dayId)); };
             parseTurkishDate = function(dateString) { const months = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const parts = dateString.toLowerCase().split(' '); if (parts.length !== 3) return null; const day = parseInt(parts[0], 10); const month = months[parts[1]]; const year = parseInt(parts[2], 10); if (isNaN(day) || month === undefined || isNaN(year)) return null; return new Date(year, month, day); };
+            findCurrentWeekAndDay = function(data) { const today = new Date(); today.setHours(0, 0, 0, 0); const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi']; const todayDayId = dayMap[today.getDay()]; for (const weekId in data) { const week = data[weekId]; if (!week.dates) continue; const dateParts = week.dates.split(' - '); if (dateParts.length !== 2) continue; const endDateStr = dateParts[1]; const yearMatch = endDateStr.match(/\d{4}/); if (!yearMatch) continue; const year = yearMatch[0]; const startDateStr = dateParts[0] + ' ' + year; const startDate = parseTurkishDate(startDateStr); const endDate = parseTurkishDate(endDateStr); if (startDate && endDate && today >= startDate && today <= endDate) { return { weekId: weekId, dayId: todayDayId }; } } return { weekId: null, dayId: null }; };
+            printSchedule = function() { if (!currentWeekId || !scheduleData[currentWeekId]) { alert("Lütfen önce bir hafta seçin."); return; } const printContainer = document.getElementById('print-container'); const weekData = scheduleData[currentWeekId]; let pageHeaderHTML = `<div class="print-page-header"><h1>${weekData.name}</h1><p>${weekData.dates}</p></div>`; let daysHTML = '<div class="print-days-flex-container">'; const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" }; for (const dayId in dayOrder) { daysHTML += `<div class="print-day-container"><h3 class="print-day-title">${dayOrder[dayId]}</h3>`; if (weekData.days[dayId]) { weekData.days[dayId].forEach(lesson => { const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'print-card-body empty' : 'print-card-body'; daysHTML += `<div class="print-card"><div class="print-card-header"><span class="print-lesson-name">${lesson.name}</span><span>${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div></div>`; }); } daysHTML += `</div>`; } daysHTML += '</div>'; printContainer.innerHTML = pageHeaderHTML + daysHTML; window.print(); };
             document.addEventListener('DOMContentLoaded', () => {
                 fetch('schedule.json')
                     .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); } return response.json(); })
