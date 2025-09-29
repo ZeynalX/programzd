@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -113,14 +112,13 @@
         }
         .card-body.empty { font-style: italic; color: var(--text-secondary-color); opacity: 0.7; }
         
-        /* YENİ: Butonları bir arada tutan konteyner */
         .action-buttons-container {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 100;
             display: flex;
-            gap: 15px; /* Butonlar arası boşluk */
+            gap: 15px;
         }
         .action-button {
             width: 60px; height: 60px;
@@ -146,46 +144,28 @@
             #print-container { display: block !important; }
             
             .print-page-header { text-align: left; margin-bottom: 8px; }
-            .print-page-header h1 {
-                font-family: 'Cinzel Decorative', cursive;
-                font-size: 11pt; font-weight: bold; margin: 0; color: #000;
-            }
-            .print-page-header p {
-                font-family: 'Crimson Pro', serif;
-                font-size: 9pt; margin: 0; color: #333;
-            }
-            .print-days-flex-container {
-                display: flex !important; flex-direction: row;
-                gap: 8px; align-items: flex-start;
-            }
+            .print-page-header h1 { font-family: 'Cinzel Decorative', cursive; font-size: 11pt; font-weight: bold; margin: 0; color: #000; }
+            .print-page-header p { font-family: 'Crimson Pro', serif; font-size: 9pt; margin: 0; color: #333; }
+            .print-days-flex-container { display: flex !important; flex-direction: row; gap: 8px; align-items: flex-start; }
             .print-day-container { flex: 1; min-width: 0; }
-            .print-day-title {
-                font-family: 'Cinzel Decorative', cursive; font-size: 10pt;
-                border-bottom: 1px solid #999; padding-bottom: 2px;
-                margin-bottom: 6px; color: #000; text-align: center;
-            }
-            .print-card {
-                border: 1px solid #ccc; margin-bottom: 5px;
-                padding: 5px; page-break-inside: avoid;
-            }
-            .print-card-header {
-                display: flex; justify-content: space-between;
-                font-size: 8pt; font-family: 'Crimson Pro', serif; margin-bottom: 4px;
-            }
+            .print-day-title { font-family: 'Cinzel Decorative', cursive; font-size: 10pt; border-bottom: 1px solid #999; padding-bottom: 2px; margin-bottom: 6px; color: #000; text-align: center; }
+            .print-card { border: 1px solid #ccc; margin-bottom: 5px; padding: 5px; page-break-inside: avoid; }
+            .print-card-header { display: flex; justify-content: space-between; font-size: 8pt; font-family: 'Crimson Pro', serif; margin-bottom: 4px; }
             .print-lesson-name { font-weight: 700; }
             .print-card-body { font-size: 8pt; line-height: 1.3; }
             .print-card-body.empty { color: #888; }
-            
-            /* YENİ: Öğretmen adı için alt bilgi stili */
-            .print-footer {
-                text-align: right;
-                margin-top: 10px;
-                padding-top: 5px;
-                font-size: 9pt;
-                color: #333;
-            }
+            .print-footer { text-align: right; margin-top: 10px; padding-top: 5px; font-size: 9pt; color: #333; }
         }
+        
         #print-container { display: none; }
+
+        /* YENİ: PDF oluşturma sırasında içeriği ekrandan gizlemek için */
+        #print-container.pdf-render {
+            display: block !important;
+            position: absolute;
+            left: -9999px;
+            top: 0;
+        }
     </style>
 </head>
 <body>
@@ -220,139 +200,131 @@
     <div id="print-container"></div>
 
     <script>
-        // --- DEĞİŞKENLER VE TEMEL FONKSİYONLAR (DEĞİŞİKLİK YOK) ---
+        // --- DEĞİŞKENLER (DEĞİŞİKLİK YOK) ---
         let scheduleData = {};
         let currentWeekId = '';
         let currentDayId = '';
         const weekMenu = document.getElementById('week-menu'), dayNav = document.getElementById('day-nav'),
             scheduleContainer = document.getElementById('schedule-container'), weekTitleDisplay = document.getElementById('week-title-display'),
             dateDisplay = document.getElementById('date-display'), prevWeekBtn = document.getElementById('prev-week-btn'),
-            nextWeekBtn = document.getElementById('next-week-btn'), printContainer = document.getElementById('print-container');
+            nextWeekBtn = document.getElementById('next-week-btn');
+
+        // GÜNCELLENDİ: printContainer artık burada tanımlanmıyor çünkü fonksiyon içinde tekrar seçiliyor.
         
+        // --- TEMEL FONKSİYONLAR (DEĞİŞİKLİK YOK) ---
         function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
         function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
-        function populateWeekMenu() { /* ... değişiklik yok ... */ }
-        function populateDayMenu(weekId) { /* ... değişiklik yok ... */ }
-        function displayWeek(weekId) { /* ... değişiklik yok ... */ }
-        function showPreviousWeek() { /* ... değişiklik yok ... */ }
-        function showNextWeek() { /* ... değişiklik yok ... */ }
-        function displayDay(weekId, dayId) { /* ... değişiklik yok ... */ }
-        function parseTurkishDate(dateString) { /* ... değişiklik yok ... */ }
-        function findCurrentWeekAndDay(data) { /* ... değişiklik yok ... */ }
+        // ... (populateWeekMenu, populateDayMenu, displayWeek, vs. fonksiyonları burada ve değişmedi) ...
+        
         
         // --- YENİ VE GÜNCELLENMİŞ FONKSİYONLAR ---
 
         /**
+         * GÜNCELLENDİ: Hata ayıklama logları eklendi.
+         * Bugünün tarihine göre ilgili hafta ve günü bulur.
+         */
+        function findCurrentWeekAndDay(data) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); 
+            console.log("Bugünün Tarihi:", today.toLocaleDateString('tr-TR'));
+
+            const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
+            const todayDayId = dayMap[today.getDay()];
+
+            for (const weekId in data) {
+                const week = data[weekId];
+                if (!week.dates) continue;
+
+                const dateParts = week.dates.split(' - ');
+                if (dateParts.length !== 2) continue;
+
+                const endDateStr = dateParts[1];
+                const yearMatch = endDateStr.match(/\d{4}/);
+                if (!yearMatch) continue;
+                const year = yearMatch[0];
+                
+                const startDateStr = dateParts[0] + ' ' + year;
+                const startDate = parseTurkishDate(startDateStr);
+                const endDate = parseTurkishDate(endDateStr);
+                
+                // Hata ayıklama için konsola yazdırma
+                console.log(`Kontrol edilen hafta: ${week.name} -> Başlangıç: ${startDate}, Bitiş: ${endDate}`);
+
+                if (startDate && endDate && today >= startDate && today <= endDate) {
+                    console.log(`EŞLEŞME BULUNDU: Hafta ID: ${weekId}, Gün ID: ${todayDayId}`);
+                    return { weekId: weekId, dayId: todayDayId };
+                }
+            }
+            console.log("Bugünün tarihi hiçbir hafta aralığı ile eşleşmedi.");
+            return { weekId: null, dayId: null };
+        }
+
+        /**
          * Hem yazdırma hem de PDF için haftanın HTML içeriğini oluşturan merkezi fonksiyon.
-         * @param {boolean} addFooter - Eğer true ise, PDF için öğretmen adını ekler.
          */
         function getWeekAsHtml(addFooter = false) {
             const weekData = scheduleData[currentWeekId];
-            let pageHeaderHTML = `
-                <div class="print-page-header">
-                    <h1>${weekData.name}</h1>
-                    <p>${weekData.dates}</p>
-                </div>`;
-
+            let pageHeaderHTML = `<div class="print-page-header"><h1>${weekData.name}</h1><p>${weekData.dates}</p></div>`;
             let daysHTML = '<div class="print-days-flex-container">';
             const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
-            
             for (const dayId in dayOrder) {
-                daysHTML += `<div class="print-day-container">`;
-                daysHTML += `<h3 class="print-day-title">${dayOrder[dayId]}</h3>`;
+                daysHTML += `<div class="print-day-container"><h3 class="print-day-title">${dayOrder[dayId]}</h3>`;
                 if (weekData.days[dayId]) {
                     weekData.days[dayId].forEach(lesson => {
                         const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'print-card-body empty' : 'print-card-body';
-                        daysHTML += `
-                            <div class="print-card">
-                                <div class="print-card-header">
-                                    <span class="print-lesson-name">${lesson.name}</span>
-                                    <span>${lesson.time}</span>
-                                </div>
-                                <div class="${bodyClass}">${lesson.objective}</div>
-                            </div>`;
+                        daysHTML += `<div class="print-card"><div class="print-card-header"><span class="print-lesson-name">${lesson.name}</span><span>${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div></div>`;
                     });
                 }
                 daysHTML += `</div>`;
             }
             daysHTML += '</div>';
-
-            // Eğer istenmişse, öğretmen adını sağ alt köşeye ekle
             if (addFooter) {
                 const teacherName = document.querySelector('.user-name').textContent || "Öğretmen";
                 daysHTML += `<div class="print-footer">${teacherName}</div>`;
             }
-
             return pageHeaderHTML + daysHTML;
         }
 
         /**
-         * GÜNCELLENDİ: Haftalık programı yazdırma işlemini başlatır.
+         * Haftalık programı yazdırma işlemini başlatır.
          */
         function printSchedule() {
-            if (!currentWeekId || !scheduleData[currentWeekId]) {
-                alert("Lütfen önce bir hafta seçin.");
-                return;
-            }
-            // Yazdırma için alt bilgi olmadan HTML'i oluştur
+            if (!currentWeekId || !scheduleData[currentWeekId]) { alert("Lütfen önce bir hafta seçin."); return; }
+            const printContainer = document.getElementById('print-container');
             printContainer.innerHTML = getWeekAsHtml(false);
             window.print();
         }
 
         /**
-         * YENİ: Aktif haftayı PDF olarak oluşturur ve kaydeder.
+         * GÜNCELLENDİ: Boş sayfa sorununu gidermek için.
+         * Aktif haftayı PDF olarak oluşturur ve kaydeder.
          */
         function generatePDF() {
-            if (!currentWeekId || !scheduleData[currentWeekId]) {
-                alert("Lütfen önce bir hafta seçin.");
-                return;
-            }
+            if (!currentWeekId || !scheduleData[currentWeekId]) { alert("Lütfen önce bir hafta seçin."); return; }
 
-            // PDF için alt bilgili (öğretmen adı) HTML'i oluştur
-            printContainer.innerHTML = getWeekAsHtml(true);
-            const element = printContainer;
+            const printContainer = document.getElementById('print-container');
             const weekData = scheduleData[currentWeekId];
             const fileName = `${weekData.name.replace(/\s+/g, '_')}_Ders_Programi.pdf`;
 
+            printContainer.innerHTML = getWeekAsHtml(true);
+            printContainer.classList.add('pdf-render'); // Görünür ama ekran dışı yap
+
             const opt = {
-              margin:       10,
-              filename:     fileName,
-              image:        { type: 'jpeg', quality: 0.98 },
-              html2canvas:  { scale: 2, useCORS: true },
-              jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+              margin: 10, filename: fileName, image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2, useCORS: true },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'landscape' }
             };
 
-            // PDF oluştur ve kaydet
-            html2pdf().from(element).set(opt).save();
+            html2pdf().from(printContainer).set(opt).save().then(() => {
+                // İşlem bittikten sonra temizle
+                printContainer.classList.remove('pdf-render');
+                printContainer.innerHTML = '';
+            });
         }
-
-        // --- SAYFA YÜKLENME OLAYI (DEĞİŞİKLİK YOK) ---
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('schedule.json')
-                .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); } return response.json(); })
-                .then(data => {
-                    scheduleData = data;
-                    populateWeekMenu();
-                    const target = findCurrentWeekAndDay(scheduleData);
-                    if (target.weekId && scheduleData[target.weekId].days[target.dayId]) {
-                        displayWeek(target.weekId);
-                        displayDay(target.weekId, target.dayId);
-                    } else {
-                        const firstWeekId = Object.keys(scheduleData)[0];
-                        if (firstWeekId) { displayWeek(firstWeekId); }
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    weekTitleDisplay.textContent = "Hata!";
-                    dateDisplay.textContent = "Veri dosyası (schedule.json) yüklenemedi.";
-                });
-        });
         
-        // --- KODUN DEĞİŞMEYEN KISIMLARI (Yeniden yazmaya gerek yok, yukarıdaki boş fonksiyon tanımları referans içindir.) ---
-        // populateWeekMenu, populateDayMenu, displayWeek vb. fonksiyonların içini boş bıraktım çünkü onlarda değişiklik yok.
-        // Kodunuzun bütünlüğünü korumak için buraya kopyalamanıza gerek yok.
-        // Script'in eski ve yeni kısımlarını birleştirerek tam halini oluşturdum.
+        // --- SAYFA YÜKLENME VE DEĞİŞMEYEN KODLAR ---
+        document.addEventListener('DOMContentLoaded', () => { /* ... değişiklik yok ... */ });
+        // Fonksiyonların tam ve doğru çalışması için değişmeyen kısımları da ekliyoruz.
         (function() {
             populateWeekMenu = function() { for (const weekId in scheduleData) { const week = scheduleData[weekId], link = document.createElement('a'); link.href = "javascript:void(0)"; link.textContent = week.name; link.dataset.week = weekId; link.onclick = () => { displayWeek(weekId); closeNav(); }; weekMenu.appendChild(link); } };
             populateDayMenu = function(weekId) { const days = scheduleData[weekId].days, dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" }; dayNav.innerHTML = ''; for(const dayId in dayNames){ if(days[dayId]){ const button = document.createElement('button'); button.textContent = dayNames[dayId]; button.dataset.day = dayId; button.onclick = () => displayDay(weekId, dayId); dayNav.appendChild(button); } } };
@@ -361,7 +333,27 @@
             showNextWeek = function() { const weekIds = Object.keys(scheduleData), currentIndex = weekIds.indexOf(currentWeekId); if (currentIndex < weekIds.length - 1) { displayWeek(weekIds[currentIndex + 1]); } };
             displayDay = function(weekId, dayId) { currentDayId = dayId; const lessons = scheduleData[weekId]?.days[dayId]; scheduleContainer.innerHTML = ''; if (lessons) { lessons.forEach(lesson => { const card = document.createElement('div'); card.className = 'schedule-card'; const bodyClass = (lesson.objective === 'Kazanım belirtilmemiş.' || lesson.objective === 'Etkinlik belirtilmemiş.') ? 'card-body empty' : 'card-body'; card.innerHTML = `<div class="card-header"><span class="lesson-name">${lesson.name}</span><span class="lesson-time">${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div>`; scheduleContainer.appendChild(card); }); } document.querySelectorAll('#day-nav button').forEach(btn => btn.classList.toggle('active', btn.dataset.day === dayId)); };
             parseTurkishDate = function(dateString) { const months = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const parts = dateString.toLowerCase().split(' '); if (parts.length !== 3) return null; const day = parseInt(parts[0], 10); const month = months[parts[1]]; const year = parseInt(parts[2], 10); if (isNaN(day) || month === undefined || isNaN(year)) return null; return new Date(year, month, day); };
-            findCurrentWeekAndDay = function(data) { const today = new Date(); today.setHours(0, 0, 0, 0); const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi']; const todayDayId = dayMap[today.getDay()]; for (const weekId in data) { const week = data[weekId]; const dateParts = week.dates.split(' - '); if (dateParts.length !== 2) continue; const endDateStr = dateParts[1]; const year = endDateStr.split(' ').pop(); const startDateStr = dateParts[0] + ' ' + year; const startDate = parseTurkishDate(startDateStr); const endDate = parseTurkishDate(endDateStr); if (startDate && endDate && today >= startDate && today <= endDate) { return { weekId: weekId, dayId: todayDayId }; } } return { weekId: null, dayId: null }; };
+            document.addEventListener('DOMContentLoaded', () => {
+                fetch('schedule.json')
+                    .then(response => { if (!response.ok) { throw new Error('Network response was not ok'); } return response.json(); })
+                    .then(data => {
+                        scheduleData = data;
+                        populateWeekMenu();
+                        const target = findCurrentWeekAndDay(scheduleData);
+                        if (target.weekId && scheduleData[target.weekId].days[target.dayId]) {
+                            displayWeek(target.weekId);
+                            displayDay(target.weekId, target.dayId);
+                        } else {
+                            const firstWeekId = Object.keys(scheduleData)[0];
+                            if (firstWeekId) { displayWeek(firstWeekId); }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        weekTitleDisplay.textContent = "Hata!";
+                        dateDisplay.textContent = "Veri dosyası (schedule.json) yüklenemedi.";
+                    });
+            });
         })();
     </script>
 </body>
