@@ -4,7 +4,7 @@
     "dates": "08 Eylül - 12 Eylül 2025",
     "days": {
       "pazartesi": [
-        [cite_start]{ "time": "1. Ders", "name": "MATEMATİK", "objective": "4, 5 ve 6 basamaklı doğal sayıları okur ve yazar (M.4.1.1.1.). [cite: 9]" },
+        { "time": "1. Ders", "name": "MATEMATİK", "objective": "4, 5 ve 6 basamaklı doğal sayıları okur ve yazar (M.4.1.1.1.). [cite: 9]" },
         { "time": "2. [cite_start]Ders", "name": "TÜRKÇE", "objective": "Konuşma: Kelimeleri anlamlarına uygun kullanır (T.4.2.1.), Hazırlıksız konuşmalar yapar (T.4.2.2.). [cite: 6]" },
         { "time": "3. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
         { "time": "4. [cite_start]Ders", "name": "TÜRKÇE", "objective": "Konuşma: Hazırlıklı konuşmalar yapar (T.4.2.3.), Konuşma stratejilerini uygular (T.4.2.4.), Sınıf içindeki tartışma ve konuşmalara katılır (T4.2.5.). [cite: 6]" },
