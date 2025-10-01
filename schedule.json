@@ -1791,3 +1791,172 @@
       ]
     }
   },
+"week28": {
+    "name": "28. Hafta",
+    "dates": "13 Nisan - 17 Nisan 2026",
+    "days": {
+      "pazartesi": [
+        { "time": "1. Ders", "name": "MATEMATİK", "objective": "Doğrudan ölçebileceği bir uzunluğu en uygun uzunluk ölçme birimiyle tahmin eder ve tahminini ölçme yaparak kontrol eder (M.4.3.1.3.)." },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Dinleme/İzleme: Dinlediklerinin/izlediklerinin konusunu belirler (T.4.1.5.), Dinlediklerinin/izlediklerinin ana fikrini/ana duygusunu belirler (T.4.1.6.)." },
+        { "time": "3. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Kelimeleri anlamlarına uygun kullanır (T.4.2.1.), Hazırlıksız konuşmalar yapar (T.4.2.2.)." },
+        { "time": "5. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "6. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "7. Ders", "name": "SOSYAL BİLGİLER", "objective": "Çevresindeki kaynakları israf etmeden kullanır (SB.4.5.5.)." },
+        { "time": "8. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.5.4. Kuralların uygulanmasına katkı sağlar." }
+      ],
+      "sali": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Hazırlıklı konuşmalar yapar (T.4.2.3.), Konuşma stratejilerini uygular (T.4.2.4.)." },
+        { "time": "2. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "3. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğinin nedenlerini sorgular (F.4.5.5.1.)." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Sınıf içindeki tartışma ve konuşmalara katılır (T4.2.5.), Konuşmalarında yabancı dillerden alınmış, dilimize henüz yerleşmemiş kelimelerin Türkçelerini kullanır (T.4.2.6.)." },
+        { "time": "5. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.5.4. Kuralların uygulanmasına katkı sağlar." },
+        { "time": "6. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğinin insan sağlığı ve çevre üzerindeki olumsuz etkilerini açıklar (F.4.5.5.2.)." },
+        { "time": "7. Ders", "name": "GÖRSEL SANATLAR", "objective": "G.4.3.2. Bir sanat eserini seçmesindeki tercih sebebini açıklar." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "carsamba": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "4.4.5. Hz. Muhammed'in (s.a.v.) Mekke ve Medine yıllarını özetler. Taif yolculuğu, İsra ve Miraç, Medine'ye Hicret" },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Okuma: Şiir okur (T.4.3.3.), Metinleri türün özelliklerine uygun biçimde okur (T.4.3.4.), Okuma stratejilerini uygular (T.4.3.6.)." },
+        { "time": "3. Ders", "name": "MATEMATİK", "objective": "Uzunluk ölçme birimlerinin kullanıldığı en çok üç işlem gerektiren problemleri çözer (Μ.4.3.1.4.)." },
+        { "time": "4. Ders", "name": "MÜZİK", "objective": "Mü.4.A.4. Belirli gün ve haftaların anlamına uygun müzikler söyler." },
+        { "time": "5. Ders", "name": "SOSYAL BİLGİLER", "objective": "Çevresindeki kaynakları israf etmeden kullanır (SB.4.5.5.)." },
+        { "time": "6. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "persembe": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Okuma: Bağlamdan yararlanarak bilmediği kelime ve kelime gruplarının anlamını tahmin eder (T.4.3.12.), Okuduğu metnin konusunu belirler (T.4.3.16.)." },
+        { "time": "2. Ders", "name": "TRAFİK GÜVENLİĞİ", "objective": "TG.4.2.1. Taşıtlarda bulunması gereken ilk yardım malzemelerini tanıtır." },
+        { "time": "3. Ders", "name": "SOSYAL BİLGİLER", "objective": "Çevresindeki kaynakları israf etmeden kullanır (SB.4.5.5.)." },
+        { "time": "4. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Doğrudan ölçebileceği bir uzunluğu en uygun uzunluk ölçme birimiyle tahmin eder ve tahminini ölçme yaparak kontrol eder (M.4.3.1.3.)." },
+        { "time": "6. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "TÜRKÇE", "objective": "Okuma: Metnin ana fikri/ana duygusunu belirler (T.4.3.17.), Okuduğu metinle ilgili soruları cevaplar (T.4.3.18.)." },
+        { "time": "8. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." }
+      ],
+      "cuma": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "4.4.5. Hz. Muhammed'in (s.a.v.) Mekke ve Medine yıllarını özetler. Mescid-i Nebi (Peygamber Mescidi), Medine İslam Toplumu." },
+        { "time": "2. Ders", "name": "MATEMATİK", "objective": "Uzunluk ölçme birimlerinin kullanıldığı en çok üç işlem gerektiren problemleri çözer (Μ.4.3.1.4.)." },
+        { "time": "3. Ders", "name": "TÜRKÇE", "objective": "Yazma: Bilgilendirici metin yazar (T.4.4.4.), Sayıları doğru yazar (T.4.4.17.)." },
+        { "time": "4. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğini azaltmaya yönelik çözümler üretir (F.4.5.5.3.)." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Uzunluk ölçme birimlerinin kullanıldığı en çok üç işlem gerektiren problemleri çözer (Μ.4.3.1.4.)." },
+        { "time": "6. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.2. Kültürümüze ve diğer kültürlere ait halk danslarını yapar." },
+        { "time": "7. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.2. Kültürümüze ve diğer kültürlere ait halk danslarını yapar." },
+        { "time": "8. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." }
+      ]
+    }
+  },
+  "week29": {
+    "name": "29. Hafta",
+    "dates": "20 Nisan - 24 Nisan 2026",
+    "days": {
+      "pazartesi": [
+        { "time": "1. Ders", "name": "MATEMATİK", "objective": "Kare ve dikdörtgenin çevre uzunlukları ile kenar uzunlukları arasındaki ilişkiyi açıklar (M.4.3.2.1.)." },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Kelimeleri anlamlarına uygun kullanır (T.4.2.1.), Hazırlıksız konuşmalar yapar (T.4.2.2.)." },
+        { "time": "3. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Hazırlıklı konuşmalar yapar (T.4.2.3.), Konuşma stratejilerini uygular (T.4.2.4.)." },
+        { "time": "5. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "6. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "7. Ders", "name": "SOSYAL BİLGİLER", "objective": "Kendine ait örnek bir bütçe oluşturur (SB.4.5.4.)." },
+        { "time": "8. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.6.1. Birlikte yaşamak için bir yurda ihtiyaç olduğunu bilir." }
+      ],
+      "sali": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Sınıf içindeki tartışma ve konuşmalara katılır (T4.2.5.), Konuşmalarında yabancı dillerden alınmış, dilimize henüz yerleşmemiş kelimelerin Türkçelerini kullanır (T.4.2.6.)." },
+        { "time": "2. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "3. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğinin nedenlerini sorgular (F.4.5.5.1.)." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Okuma: Şiir okur (T.4.3.3.), Metinleri türün özelliklerine uygun biçimde okur (T.4.3.4.), Okuma stratejilerini uygular (T.4.3.6.)." },
+        { "time": "5. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.6.1. Birlikte yaşamak için bir yurda ihtiyaç olduğunu bilir." },
+        { "time": "6. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğinin insan sağlığı ve çevre üzerindeki olumsuz etkilerini açıklar (F.4.5.5.2.)." },
+        { "time": "7. Ders", "name": "GÖRSEL SANATLAR", "objective": "G.4.3.3. Estetik tercihlerin kişilere göre nasıl değiştiğini ifade eder." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "carsamba": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "4.4.5. Hz. Muhammed'in (s.a.v.) Mekke ve Medine yıllarını özetler. Hudeybiye Barış Anlaşması, Mekke'nin Fethi." },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Okuma: Bağlamdan yararlanarak bilmediği kelime ve kelime gruplarının anlamını tahmin eder (T.4.3.12.), Okuduğu metnin konusunu belirler (T.4.3.16.)." },
+        { "time": "3. Ders", "name": "MATEMATİK", "objective": "Aynı çevre uzunluğuna sahip farklı geometrik şekiller oluşturur (M.4.3.2.2.)." },
+        { "time": "4. Ders", "name": "MÜZİK", "objective": "Mü.4.A.4. Belirli gün ve haftaların anlamına uygun müzikler söyler." },
+        { "time": "5. Ders", "name": "SOSYAL BİLGİLER", "objective": "Kendine ait örnek bir bütçe oluşturur (SB.4.5.4.)." },
+        { "time": "6. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "persembe": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Okuma: Metnin ana fikri/ana duygusunu belirler (T.4.3.17.), Okuduğu metinle ilgili soruları cevaplar (T.4.3.18.)." },
+        { "time": "2. Ders", "name": "TRAFİK GÜVENLİĞİ", "objective": "TG.4.2.1. Taşıtlarda bulunması gereken ilk yardım malzemelerini tanıtır." },
+        { "time": "3. Ders", "name": "SOSYAL BİLGİLER", "objective": "Kendine ait örnek bir bütçe oluşturur (SB.4.5.4.)." },
+        { "time": "4. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Kare ve dikdörtgenin çevre uzunlukları ile kenar uzunlukları arasındaki ilişkiyi açıklar (M.4.3.2.1.)." },
+        { "time": "6. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "TÜRKÇE", "objective": "Okuma: Metindeki renkli, altı çizili, koyu ifadelerin önemli noktaları vurguladığını kavrar (T.4.3.30.), Grafik, tablo ve çizelgelerle ilgili soruları cevaplar (T.4.3.34.)." },
+        { "time": "8. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." }
+      ],
+      "cuma": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "4.4.5. Hz. Muhammed'in (s.a.v.) Mekke ve Medine yıllarını özetler. Veda Haccı ve Veda Hutbesi." },
+        { "time": "2. Ders", "name": "MATEMATİK", "objective": "Aynı çevre uzunluğuna sahip farklı geometrik şekiller oluşturur (M.4.3.2.2.)." },
+        { "time": "3. Ders", "name": "TÜRKÇE", "objective": "Yazma: Bilgilendirici metin yazar (T.4.4.4.), Sayıları doğru yazar (T.4.4.17.)." },
+        { "time": "4. Ders", "name": "FEN BİLİMLERİ", "objective": "Ses kirliliğini azaltmaya yönelik çözümler üretir (F.4.5.5.3.)." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Kare ve dikdörtgenin çevre uzunlukları ile kenar uzunlukları arasındaki ilişkiyi açıklar (M.4.3.2.1.)." },
+        { "time": "6. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.1. Bayram, kutlama ve törenlerde sorumluluk alır." },
+        { "time": "7. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.1. Bayram, kutlama ve törenlerde sorumluluk alır." },
+        { "time": "8. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." }
+      ]
+    }
+  },
+  "week30": {
+    "name": "30. Hafta",
+    "dates": "27 Nisan - 01 Mayıs 2026",
+    "days": {
+      "pazartesi": [
+        { "time": "1. Ders", "name": "MATEMATİK", "objective": "Şekillerin çevre uzunluklarını hesaplamayla ilgili problemleri çözer (Μ.4.3.2.3.)." },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Kelimeleri anlamlarına uygun kullanır (T.4.2.1.), Hazırlıksız konuşmalar yapar (T.4.2.2.)." },
+        { "time": "3. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Hazırlıklı konuşmalar yapar (T.4.2.3.), Konuşma stratejilerini uygular (T.4.2.4.)." },
+        { "time": "5. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "6. Ders", "name": "KULÜP", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "7. Ders", "name": "SOSYAL BİLGİLER", "objective": "Aile ve okul yaşamındaki söz ve eylemlerinin sorumluluğunu alır (SB.4.6.2.)." },
+        { "time": "8. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.6.1. Birlikte yaşamak için bir yurda ihtiyaç olduğunu bilir." }
+      ],
+      "sali": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Konuşma: Sınıf içindeki tartışma ve konuşmalara katılır (T4.2.5.), Konuşmalarında yabancı dillerden alınmış, dilimize henüz yerleşmemiş kelimelerin Türkçelerini kullanır (T.4.2.6.)." },
+        { "time": "2. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "3. Ders", "name": "FEN BİLİMLERİ", "objective": "Kaynakların kullanımında tasarruflu davranmaya özen gösterir (F.4.6.1.1.)." },
+        { "time": "4. Ders", "name": "TÜRKÇE", "objective": "Okuma: Noktalama işaretlerine dikkat ederek sesli ve sessiz okur (T.4.3.1.), Bağlamdan yararlanarak bilmediği kelime ve kelime gruplarının anlamını tahmin eder (T.4.3.12.)." },
+        { "time": "5. Ders", "name": "İNSAN HAKLARI", "objective": "Y.4.6.1. Birlikte yaşamak için bir yurda ihtiyaç olduğunu bilir." },
+        { "time": "6. Ders", "name": "FEN BİLİMLERİ", "objective": "Kaynakların kullanımında tasarruflu davranmaya özen gösterir (F.4.6.1.1.)." },
+        { "time": "7. Ders", "name": "GÖRSEL SANATLAR", "objective": "G.4.3.4. Görsel sanat alanındaki etik kurallara uyar." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "carsamba": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "4.4.6. Salli ve Barik dualarını okur, anlamını söyler." },
+        { "time": "2. Ders", "name": "TÜRKÇE", "objective": "Okuma: Okuduğu metnin konusunu belirler (T.4.3.16.), Metnin ana fikri/ana duygusunu belirler (T.4.3.17.)." },
+        { "time": "3. Ders", "name": "MATEMATİK", "objective": "Şekillerin çevre uzunluklarını hesaplamayla ilgili problemleri çözer (Μ.4.3.2.3.)." },
+        { "time": "4. Ders", "name": "MÜZİK", "objective": "Mü.4.D.3. Farklı türlerdeki müzikleri dinleyerek müzik kültürünü geliştirir." },
+        { "time": "5. Ders", "name": "SOSYAL BİLGİLER", "objective": "Okul yaşamında gerekli gördüğü eğitsel sosyal etkinlikleri önerir (SB.4.6.3.)." },
+        { "time": "6. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." },
+        { "time": "8. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." }
+      ],
+      "persembe": [
+        { "time": "1. Ders", "name": "TÜRKÇE", "objective": "Okuma: Okuduğu metinle ilgili soruları cevaplar (T.4.3.18.), Okudukları ile ilgili çıkarımlar yapar (T.4.3.28.)." },
+        { "time": "2. Ders", "name": "TRAFİK GÜVENLİĞİ", "objective": "TG.4.2.2. Trafikte ilk yardım gerektiren durumlarda kimlerden ve nasıl yardım istenmesi gerektiğini açıklar." },
+        { "time": "3. Ders", "name": "SOSYAL BİLGİLER", "objective": "Aile ve okul yaşamındaki söz ve eylemlerinin sorumluluğunu alır (SB.4.6.2.)." },
+        { "time": "4. Ders", "name": "ALMANCA", "objective": "Kazanım belirtilmemiş." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Şekillerin çevre uzunluklarını hesaplamayla ilgili problemleri çözer (Μ.4.3.2.3.)." },
+        { "time": "6. Ders", "name": "İNGİLİZCE", "objective": "Kazanım belirtilmemiş." },
+        { "time": "7. Ders", "name": "TÜRKÇE", "objective": "Yazma: Şiir yazar (T.4.4.1.), Bilgilendirici metin yazar (T.4.4.4.)." },
+        { "time": "8. Ders", "name": "SERBEST ETKİNLİK", "objective": "Etkinlik belirtilmemiş." }
+      ],
+      "cuma": [
+        { "time": "1. Ders", "name": "DİN KÜLTÜRÜ", "objective": "Ünitemizi Değerlendirelim." },
+        { "time": "2. Ders", "name": "MATEMATİK", "objective": "Şekillerin çevre uzunluklarını hesaplamayla ilgili problemleri çözer (Μ.4.3.2.3.)." },
+        { "time": "3. Ders", "name": "TÜRKÇE", "objective": "Yazma: Yazdıklarını düzenler (T.4.4.11.), Sayıları doğru yazar (T.4.4.17.), Harflerin yapısal özelliklerine uygun metin yazar (T.4.4.20.)." },
+        { "time": "4. Ders", "name": "FEN BİLİMLERİ", "objective": "Kaynakların kullanımında tasarruflu davranmaya özen gösterir (F.4.6.1.1.)." },
+        { "time": "5. Ders", "name": "MATEMATİK", "objective": "Şekillerin çevre uzunluklarını hesaplamayla ilgili problemleri çözer (Μ.4.3.2.3.)." },
+        { "time": "6. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.2. Kültürümüze ve diğer kültürlere ait halk danslarını yapar." },
+        { "time": "7. Ders", "name": "BEDEN EĞİTİMİ", "objective": "BO.4.2.3.2. Kültürümüze ve diğer kültürlere ait halk danslarını yapar." },
+        { "time": "8. Ders", "name": "BİLİŞİM", "objective": "Etkinlik belirtilmemiş." }
+      ]
+    }
+  }
+}
