@@ -1,0 +1,17 @@
+{
+  "pazartesi": [
+    "MATEMATİK", "TÜRKÇE", "İNGİLİZCE", "TÜRKÇE", "KULÜP", "KULÜP", "SOSYAL BİLGİLER", "İNSAN HAKLARI"
+  ],
+  "sali": [
+    "TÜRKÇE", "BİLİŞİM", "FEN BİLİMLERİ", "TÜRKÇE", "İNSAN HAKLARI", "FEN BİLİMLERİ", "GÖRSEL SANATLAR", "İNGİLİZCE"
+  ],
+  "carsamba": [
+    "DİN KÜLTÜRÜ", "TÜRKÇE", "MATEMATİK", "MÜZİK", "SOSYAL BİLGİLER", "ALMANCA", "SERBEST ETKİNLİK", "İNGİLİZCE"
+  ],
+  "persembe": [
+    "TÜRKÇE", "TRAFİK GÜVENLİĞİ", "SOSYAL BİLGİLER", "ALMANCA", "MATEMATİK", "İNGİLİZCE", "TÜRKÇE", "SERBEST ETKİNLİK"
+  ],
+  "cuma": [
+    "DİN KÜLTÜRÜ", "MATEMATİK", "TÜRKÇE", "FEN BİLİMLERİ", "MATEMATİK", "BEDEN EĞİTİMİ", "BEDEN EĞİTİMİ", "BİLİŞİM"
+  ]
+}
