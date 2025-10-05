@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeynal Haftalık Ders Programı - Papirüs Teması</title>
+    <title>Zeynal Haftalık Ders Programı</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
@@ -142,11 +142,14 @@
     <div id="print-container"></div>
 
     <script>
+        // --- GLOBAL DEĞİŞKENLER ---
         let finalSchedule = {};
         let currentWeekIndex = 0;
         let currentDayId = 'pazartesi';
         let isWeekViewActive = false;
+        let allWeeksData = []; // DÜZELTME: Haftaların listesini globalde tut
         const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
+        
         const weekMenu = document.getElementById('week-menu'),
             dayNav = document.getElementById('day-nav'),
             dayViewContainer = document.getElementById('day-view-container'),
@@ -168,10 +171,12 @@
                 ]);
                 const timetable = await timetableRes.json();
                 const curriculum = await curriculumRes.json();
-                const weeksData = await weeksRes.json();
+                allWeeksData = await weeksRes.json(); // DÜZELTME: Gelen veriyi global değişkene ata
+                
                 const lessonCounters = {};
                 for (const subject in curriculum) { lessonCounters[subject] = 0; }
-                weeksData.forEach((week, index) => {
+                
+                allWeeksData.forEach((week, index) => { // DÜZELTME: Global değişkeni kullan
                     const weekKey = `week${index + 1}`;
                     finalSchedule[weekKey] = { name: week.name, dates: week.dates, days: {} };
                     for (const day in timetable) {
@@ -186,10 +191,11 @@
                         });
                     }
                 });
-                populateSideNavMenu(weeksData);
+                
+                populateSideNavMenu(allWeeksData); // DÜZELTME: Global değişkeni kullan
                 populateDayNav(timetable);
                 if (window.innerWidth > window.innerHeight) { isWeekViewActive = true; }
-                const target = findCurrentWeekAndDay(weeksData);
+                const target = findCurrentWeekAndDay(allWeeksData); // DÜZELTME: Global değişkeni kullan
                 currentDayId = target.dayId;
                 displayWeek(target.weekIndex);
             } catch (error) {
@@ -230,8 +236,11 @@
             weekTitleDisplay.textContent = weekData.name;
             dateDisplay.textContent = weekData.dates;
             document.querySelectorAll('#week-menu a').forEach(a => a.classList.toggle('active', parseInt(a.dataset.weekIndex) === weekIndex));
+            
+            // DÜZELTME: Buton durumunu global haftalar listesinin uzunluğuna göre kontrol et
             prevWeekBtn.disabled = weekIndex === 0;
-            nextWeekBtn.disabled = weekIndex === Object.keys(finalSchedule).length - 1;
+            nextWeekBtn.disabled = weekIndex === allWeeksData.length - 1;
+
             if (isWeekViewActive) {
                 renderWeekView();
                 dayNav.style.display = 'none';
@@ -279,6 +288,9 @@
                 weekViewContainer.appendChild(column);
             }
         }
+
+        function showPreviousWeek() { if (currentWeekIndex > 0) displayWeek(currentWeekIndex - 1); }
+        function showNextWeek() { if (currentWeekIndex < allWeeksData.length - 1) displayWeek(currentWeekIndex + 1); }
         
         function toggleView() {
             isWeekViewActive = !isWeekViewActive;
@@ -313,46 +325,30 @@
 
         function parseTurkishDate(dateString) { const m = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const p = dateString.toLowerCase().split(' '); if (p.length<2) return null; const d=parseInt(p[0],10), mo=m[p[1]], y=p.length>2?parseInt(p[2],10):new Date().getFullYear(); if(isNaN(d)||mo===undefined||isNaN(y))return null; return new Date(y,mo,d); };
         
-        // GÜNCELLENEN FONKSİYON
         function findCurrentWeekAndDay(weeksData) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
-            const dayOfWeek = today.getDay(); // Pazar: 0, Cmt: 6
-
-            // Hafta sonu ise, bir sonraki Pazartesi'yi hedef al
+            const dayOfWeek = today.getDay();
             const targetDate = new Date(today);
-            if (dayOfWeek === 6) { // Cumartesi
-                targetDate.setDate(targetDate.getDate() + 2);
-            } else if (dayOfWeek === 0) { // Pazar
-                targetDate.setDate(targetDate.getDate() + 1);
-            }
-
+            if (dayOfWeek === 6) { targetDate.setDate(targetDate.getDate() + 2); } 
+            else if (dayOfWeek === 0) { targetDate.setDate(targetDate.getDate() + 1); }
             const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
             let todayDayId = dayMap[dayOfWeek];
-            // Hafta sonu ise, görünümü Pazartesi olarak başlat
-            if (dayOfWeek === 0 || dayOfWeek === 6) {
-                todayDayId = 'pazartesi';
-            }
-
-            for (let i = 0; i < weeksData.length; i++) {
+            if (dayOfWeek === 0 || dayOfWeek === 6) { todayDayId = 'pazartesi'; }
+            for(let i = 0; i < weeksData.length; i++) {
                 const week = weeksData[i];
                 const dateParts = week.dates.split(' - ');
                 if (dateParts.length !== 2) continue;
-                
                 const endPart = dateParts[1].split(' ');
                 const year = endPart[endPart.length - 1];
                 let startPart = dateParts[0].split(' ');
                 if (startPart.length === 2) { startPart.push(year); }
-
                 const startDate = parseTurkishDate(startPart.join(' '));
                 const endDate = parseTurkishDate(dateParts[1]);
-
-                // 'today' yerine 'targetDate' ile karşılaştır
                 if (startDate && endDate && targetDate >= startDate && targetDate <= endDate) {
                     return { weekIndex: i, dayId: todayDayId };
                 }
             }
-            // Hiçbir hafta bulunamazsa varsayılana dön
             return { weekIndex: 0, dayId: 'pazartesi' };
         }
 
