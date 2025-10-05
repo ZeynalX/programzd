@@ -57,7 +57,7 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: var(--spacing-small);
-            align-items: start; /* DÜZELTME: Sütunları yukarıya hizala, esnemeyi önle */
+            align-items: start;
         }
         .week-view-day-column { min-width: 0; }
         .week-view-day-title {
@@ -79,7 +79,6 @@
             border-left: 4px solid var(--accent-color);
             display: flex;
             flex-direction: column;
-            /* DÜZELTME: height: 100%; kaldırıldı, kartın gereksiz uzamasını engelle */
         }
         .card-header {
             padding: var(--spacing-small) var(--spacing-base);
@@ -314,25 +313,46 @@
 
         function parseTurkishDate(dateString) { const m = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const p = dateString.toLowerCase().split(' '); if (p.length<2) return null; const d=parseInt(p[0],10), mo=m[p[1]], y=p.length>2?parseInt(p[2],10):new Date().getFullYear(); if(isNaN(d)||mo===undefined||isNaN(y))return null; return new Date(y,mo,d); };
         
+        // GÜNCELLENEN FONKSİYON
         function findCurrentWeekAndDay(weeksData) {
-            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dayOfWeek = today.getDay(); // Pazar: 0, Cmt: 6
+
+            // Hafta sonu ise, bir sonraki Pazartesi'yi hedef al
+            const targetDate = new Date(today);
+            if (dayOfWeek === 6) { // Cumartesi
+                targetDate.setDate(targetDate.getDate() + 2);
+            } else if (dayOfWeek === 0) { // Pazar
+                targetDate.setDate(targetDate.getDate() + 1);
+            }
+
             const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
-            let todayDayId = dayMap[today.getDay()];
-            if (todayDayId === 'pazar' || todayDayId === 'cumartesi') { todayDayId = 'pazartesi'; }
-            for(let i = 0; i < weeksData.length; i++) {
+            let todayDayId = dayMap[dayOfWeek];
+            // Hafta sonu ise, görünümü Pazartesi olarak başlat
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                todayDayId = 'pazartesi';
+            }
+
+            for (let i = 0; i < weeksData.length; i++) {
                 const week = weeksData[i];
                 const dateParts = week.dates.split(' - ');
                 if (dateParts.length !== 2) continue;
+                
                 const endPart = dateParts[1].split(' ');
                 const year = endPart[endPart.length - 1];
                 let startPart = dateParts[0].split(' ');
                 if (startPart.length === 2) { startPart.push(year); }
+
                 const startDate = parseTurkishDate(startPart.join(' '));
                 const endDate = parseTurkishDate(dateParts[1]);
-                if (startDate && endDate && today >= startDate && today <= endDate) {
+
+                // 'today' yerine 'targetDate' ile karşılaştır
+                if (startDate && endDate && targetDate >= startDate && targetDate <= endDate) {
                     return { weekIndex: i, dayId: todayDayId };
                 }
             }
+            // Hiçbir hafta bulunamazsa varsayılana dön
             return { weekIndex: 0, dayId: 'pazartesi' };
         }
 
