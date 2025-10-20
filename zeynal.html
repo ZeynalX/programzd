@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeynal Haftalık Ders Programı</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Crimson+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        :root {
+            --papyrus-bg-color-light: #fdf5e6;
+            --papyrus-bg-color-dark: #eee0c8;
+            --text-primary-color: #3e2723;
+            --text-secondary-color: #6d4c41;
+            --border-color: #a1887f;
+            --accent-color: #795548;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --active-bg-color: #d7ccc8;
+
+            --font-size-body: clamp(0.85rem, 1.5vw, 1rem); 
+            --font-size-small: clamp(0.7rem, 1.2vw, 0.8rem);
+            --font-size-lesson-name: clamp(0.8rem, 2vw, 0.9rem);
+            --font-size-day-title: clamp(1rem, 3vw, 1.3rem);
+            
+            --spacing-base: clamp(8px, 1.5vw, 12px);
+            --spacing-small: clamp(4px, 1vw, 6px);
+            --spacing-tiny: clamp(2px, 0.5vw, 4px);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background-color: var(--papyrus-bg-color-light);
+            color: var(--text-primary-color);
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            background-attachment: fixed;
+            padding-bottom: 80px;
+            font-size: var(--font-size-body);
+        }
+        
+        header { padding: var(--spacing-small) var(--spacing-base); position: sticky; top: 4px; z-index: 1000; margin: 4px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); text-align: center; }
+        .header-top { display: flex; align-items: center; justify-content: space-between; }
+        .week-navigation { display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: center; }
+        header h1 { font-family: 'Cinzel Decorative', cursive; font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 700; color: var(--accent-color); margin: 0; }
+        header h2 { font-family: 'Crimson Pro', serif; font-size: var(--font-size-small); font-weight: 400; opacity: 0.8; margin-top: 2px; color: var(--text-secondary-color); }
+        .day-nav { display: flex; justify-content: space-around; padding: var(--spacing-tiny); position: sticky; top: 58px; z-index: 999; margin: 4px; gap: 4px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); }
+        .day-nav button { font-family: 'Crimson Pro', serif; padding: var(--spacing-small); font-size: var(--font-size-body); font-weight: 500; cursor: pointer; border: none; border-radius: 6px; background-color: transparent; color: var(--text-secondary-color); transition: all 0.3s ease; flex-grow: 1; }
+        .day-nav button.active { background-color: var(--accent-color); color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+        .user-name { font-family: 'Cinzel Decorative', cursive; font-size: var(--font-size-small); padding: 2px 8px; border-radius: 12px; background-color: rgba(0,0,0,0.05); color: var(--accent-color); border: 1px dashed var(--border-color); white-space: nowrap; }
+
+        .main-container { padding: 4px; }
+
+        #week-view-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: var(--spacing-small);
+            align-items: start;
+        }
+        .week-view-day-column { min-width: 0; }
+        .week-view-day-title {
+            font-family: 'Cinzel Decorative', cursive;
+            text-align: center;
+            font-size: var(--font-size-day-title);
+            padding-bottom: var(--spacing-small);
+            margin-bottom: var(--spacing-small);
+            border-bottom: 2px solid var(--border-color);
+            color: var(--accent-color);
+        }
+
+        .schedule-card {
+            margin-bottom: var(--spacing-small);
+            background-color: var(--papyrus-bg-color-dark);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px var(--shadow-color);
+            border-left: 4px solid var(--accent-color);
+            display: flex;
+            flex-direction: column;
+        }
+        .card-header {
+            padding: var(--spacing-small) var(--spacing-base);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(0,0,0,0.03);
+        }
+        .lesson-name {
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 700;
+            font-size: var(--font-size-lesson-name);
+            color: var(--text-primary-color);
+            text-transform: capitalize;
+        }
+        .lesson-time {
+            font-size: var(--font-size-small);
+            padding: var(--spacing-tiny) var(--spacing-small);
+            border-radius: 6px;
+            background-color: var(--accent-color);
+            color: #fff;
+            font-weight: 500;
+        }
+        .card-body {
+            padding: var(--spacing-base);
+            line-height: 1.4;
+            color: var(--text-primary-color);
+            flex-grow: 1;
+        }
+        .card-body.empty { font-style: italic; color: var(--text-secondary-color); opacity: 0.7; }
+        
+        .sidenav { height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0; overflow-x: hidden; transition: 0.4s ease-out; padding-top: 60px; background-color: var(--papyrus-bg-color-dark); border-right: 2px solid var(--border-color); box-shadow: 2px 0 10px var(--shadow-color); } .sidenav a { padding: 12px 20px; text-decoration: none; font-size: 1.1rem; color: var(--text-secondary-color); display: block; transition: 0.3s; border-bottom: 1px dashed rgba(0,0,0,0.1); } .sidenav a:hover { color: var(--text-primary-color); background-color: var(--active-bg-color); } .sidenav a.active { color: var(--accent-color); font-weight: 700; background-color: var(--active-bg-color); } .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: var(--text-primary-color); }
+        .menu-icon, .nav-button { font-size: 24px; cursor: pointer; background: none; border: none; color: var(--text-primary-color); padding: 2px; border-radius: 50%; transition: background 0.3s; } .nav-button:disabled { color: rgba(0,0,0,0.2); cursor: not-allowed; }
+        .action-buttons-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 15px; } .action-button { width: 60px; height: 60px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease; }
+
+        @media print { body { padding-bottom: 0; font-size: 9pt; background-image: none; } header, .day-nav, .sidenav, .action-buttons-container, #week-view-container, #day-view-container { display: none !important; } #print-container { display: block !important; } .print-page-header { text-align: left; margin-bottom: 8px; } .print-page-header h1 { font-size: 11pt; } .print-page-header p { font-size: 9pt; } .print-days-flex-container { display: flex !important; flex-direction: row; gap: 8px; } .print-day-container { flex: 1; } .print-day-title { font-size: 10pt; } .print-card { border: 1px solid #ccc; margin-bottom: 5px; padding: 5px; } .print-card-header { font-size: 8pt; } .print-card-body { font-size: 8pt; } } #print-container { display: none; }
+    </style>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav"><a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a><div id="week-menu"></div></div>
+    <header>
+        <div class="header-top">
+            <span class="menu-icon material-icons" onclick="openNav()">menu</span>
+            <div class="week-navigation">
+                <button id="prev-week-btn" class="nav-button material-icons" onclick="showPreviousWeek()">chevron_left</button>
+                <h1 id="week-title-display">Yükleniyor...</h1>
+                <button id="next-week-btn" class="nav-button material-icons" onclick="showNextWeek()">chevron_right</button>
+            </div>
+            <span class="user-name">4-D Zeynal Öğrt</span>
+        </div>
+        <h2 id="date-display"></h2>
+    </header>
+    <nav id="day-nav" class="day-nav"></nav>
+    <main id="day-view-container" class="main-container"></main>
+    <main id="week-view-container" class="main-container" style="display: none;"></main>
+    <div class="action-buttons-container">
+        <button id="toggle-view-btn" class="action-button" onclick="toggleView()" title="Hafta Görünümü"><i class="material-icons">view_week</i></button>
+        <button id="print-btn" class="action-button" onclick="printSchedule()" title="Haftalık Programı Yazdır"><i class="material-icons">print</i></button>
+    </div>
+    <div id="print-container"></div>
+
+    <script>
+        // --- GLOBAL DEĞİŞKENLER ---
+        let finalSchedule = {};
+        let currentWeekIndex = 0;
+        let currentDayId = 'pazartesi';
+        let isWeekViewActive = false;
+        let allWeeksData = []; // DÜZELTME: Haftaların listesini globalde tut
+        const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
+        
+        const weekMenu = document.getElementById('week-menu'),
+            dayNav = document.getElementById('day-nav'),
+            dayViewContainer = document.getElementById('day-view-container'),
+            weekViewContainer = document.getElementById('week-view-container'),
+            weekTitleDisplay = document.getElementById('week-title-display'),
+            dateDisplay = document.getElementById('date-display'),
+            prevWeekBtn = document.getElementById('prev-week-btn'),
+            nextWeekBtn = document.getElementById('next-week-btn');
+
+        function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
+        function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
+
+        async function initializeSchedule() {
+            try {
+                const [timetableRes, curriculumRes, weeksRes] = await Promise.all([
+                    fetch('ders-programi.json'),
+                    fetch('kazanimlar.json'),
+                    fetch('haftalar.json')
+                ]);
+                const timetable = await timetableRes.json();
+                const curriculum = await curriculumRes.json();
+                allWeeksData = await weeksRes.json(); // DÜZELTME: Gelen veriyi global değişkene ata
+                
+                const lessonCounters = {};
+                for (const subject in curriculum) { lessonCounters[subject] = 0; }
+                
+                allWeeksData.forEach((week, index) => { // DÜZELTME: Global değişkeni kullan
+                    const weekKey = `week${index + 1}`;
+                    finalSchedule[weekKey] = { name: week.name, dates: week.dates, days: {} };
+                    for (const day in timetable) {
+                        finalSchedule[weekKey].days[day] = [];
+                        timetable[day].forEach((lessonName, lessonIndex) => {
+                            let objective = "Kazanım veya etkinlik belirtilmemiş.";
+                            if (curriculum[lessonName] && lessonCounters[lessonName] < curriculum[lessonName].length) {
+                                objective = curriculum[lessonName][lessonCounters[lessonName]];
+                                lessonCounters[lessonName]++;
+                            }
+                            finalSchedule[weekKey].days[day].push({ time: `${lessonIndex + 1}. Ders`, name: lessonName, objective: objective });
+                        });
+                    }
+                });
+                
+                populateSideNavMenu(allWeeksData); // DÜZELTME: Global değişkeni kullan
+                populateDayNav(timetable);
+                if (window.innerWidth > window.innerHeight) { isWeekViewActive = true; }
+                const target = findCurrentWeekAndDay(allWeeksData); // DÜZELTME: Global değişkeni kullan
+                currentDayId = target.dayId;
+                displayWeek(target.weekIndex);
+            } catch (error) {
+                console.error('Veri dosyaları yüklenirken bir hata oluştu:', error);
+                weekTitleDisplay.textContent = "Hata!";
+                dateDisplay.textContent = "Gerekli JSON dosyaları (ders-programi, kazanimlar, haftalar) yüklenemedi.";
+            }
+        }
+        
+        function populateSideNavMenu(weeksData) {
+            weekMenu.innerHTML = '';
+            weeksData.forEach((week, index) => {
+                const link = document.createElement('a');
+                link.href = "javascript:void(0)";
+                link.textContent = week.name;
+                link.dataset.weekIndex = index;
+                link.onclick = () => { displayWeek(index); closeNav(); };
+                weekMenu.appendChild(link);
+            });
+        }
+        
+        function populateDayNav(timetable) {
+            dayNav.innerHTML = '';
+            const dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" };
+            for(const dayId in dayOrder) {
+                const button = document.createElement('button');
+                button.textContent = dayNames[dayId]; 
+                button.dataset.day = dayId;
+                button.onclick = () => displayDay(dayId); 
+                dayNav.appendChild(button);
+            }
+        }
+
+        function displayWeek(weekIndex) {
+            currentWeekIndex = weekIndex;
+            const weekKey = `week${weekIndex + 1}`;
+            const weekData = finalSchedule[weekKey];
+            weekTitleDisplay.textContent = weekData.name;
+            dateDisplay.textContent = weekData.dates;
+            document.querySelectorAll('#week-menu a').forEach(a => a.classList.toggle('active', parseInt(a.dataset.weekIndex) === weekIndex));
+            
+            // DÜZELTME: Buton durumunu global haftalar listesinin uzunluğuna göre kontrol et
+            prevWeekBtn.disabled = weekIndex === 0;
+            nextWeekBtn.disabled = weekIndex === allWeeksData.length - 1;
+
+            if (isWeekViewActive) {
+                renderWeekView();
+                dayNav.style.display = 'none';
+                dayViewContainer.style.display = 'none';
+                weekViewContainer.style.display = 'grid';
+                document.getElementById('toggle-view-btn').querySelector('i').textContent = 'view_day';
+            } else {
+                displayDay(currentDayId);
+                dayNav.style.display = 'flex';
+                dayViewContainer.style.display = 'block';
+                weekViewContainer.style.display = 'none';
+                document.getElementById('toggle-view-btn').querySelector('i').textContent = 'view_week';
+            }
+        }
+
+        function displayDay(dayId) {
+            currentDayId = dayId;
+            dayViewContainer.innerHTML = '';
+            const weekKey = `week${currentWeekIndex + 1}`;
+            const lessons = finalSchedule[weekKey]?.days[dayId] || [];
+            lessons.forEach(lesson => {
+                const card = document.createElement('div');
+                card.className = 'schedule-card';
+                const bodyClass = lesson.objective.includes("belirtilmemiş") ? 'card-body empty' : 'card-body';
+                card.innerHTML = `<div class="card-header"><span class="lesson-name">${lesson.name}</span><span class="lesson-time">${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div>`;
+                dayViewContainer.appendChild(card);
+            });
+            document.querySelectorAll('#day-nav button').forEach(btn => btn.classList.toggle('active', btn.dataset.day === dayId));
+        }
+
+        function renderWeekView() {
+            weekViewContainer.innerHTML = '';
+            const weekKey = `week${currentWeekIndex + 1}`;
+            const weekData = finalSchedule[weekKey];
+            for (const dayId in dayOrder) {
+                const column = document.createElement('div');
+                column.className = 'week-view-day-column';
+                let lessonsHTML = `<h3 class="week-view-day-title">${dayOrder[dayId]}</h3>`;
+                const lessons = weekData.days[dayId] || [];
+                lessons.forEach(lesson => {
+                    const bodyClass = lesson.objective.includes("belirtilmemiş") ? 'card-body empty' : 'card-body';
+                    lessonsHTML += `<div class="schedule-card"><div class="card-header"><span class="lesson-name">${lesson.name}</span><span class="lesson-time">${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div></div>`;
+                });
+                column.innerHTML = lessonsHTML;
+                weekViewContainer.appendChild(column);
+            }
+        }
+
+        function showPreviousWeek() { if (currentWeekIndex > 0) displayWeek(currentWeekIndex - 1); }
+        function showNextWeek() { if (currentWeekIndex < allWeeksData.length - 1) displayWeek(currentWeekIndex + 1); }
+        
+        function toggleView() {
+            isWeekViewActive = !isWeekViewActive;
+            displayWeek(currentWeekIndex);
+        }
+        
+        function handleOrientationChange() {
+            const isLandscape = window.innerWidth > window.innerHeight;
+            if (isWeekViewActive === isLandscape) return;
+            toggleView();
+        }
+
+        function printSchedule() {
+            const printContainer = document.getElementById('print-container');
+            const weekKey = `week${currentWeekIndex + 1}`;
+            const week = finalSchedule[weekKey];
+            let pageHeaderHTML = `<div class="print-page-header"><h1>${week.name}</h1><p>${week.dates}</p></div>`;
+            let daysHTML = '<div class="print-days-flex-container">';
+            for (const dayId in dayOrder) {
+                daysHTML += `<div class="print-day-container"><h3 class="print-day-title">${dayOrder[dayId]}</h3>`;
+                const lessons = week.days[dayId] || [];
+                lessons.forEach(lesson => {
+                    const bodyClass = lesson.objective.includes("belirtilmemiş") ? 'print-card-body empty' : 'print-card-body';
+                    daysHTML += `<div class="print-card"><div class="print-card-header"><span class="print-lesson-name">${lesson.name}</span><span>${lesson.time}</span></div><div class="${bodyClass}">${lesson.objective}</div></div>`;
+                });
+                daysHTML += `</div>`;
+            }
+            daysHTML += '</div>';
+            printContainer.innerHTML = pageHeaderHTML + daysHTML;
+            window.print();
+        }
+
+        function parseTurkishDate(dateString) { const m = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const p = dateString.toLowerCase().split(' '); if (p.length<2) return null; const d=parseInt(p[0],10), mo=m[p[1]], y=p.length>2?parseInt(p[2],10):new Date().getFullYear(); if(isNaN(d)||mo===undefined||isNaN(y))return null; return new Date(y,mo,d); };
+        
+        function findCurrentWeekAndDay(weeksData) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const dayOfWeek = today.getDay();
+            const targetDate = new Date(today);
+            if (dayOfWeek === 6) { targetDate.setDate(targetDate.getDate() + 2); } 
+            else if (dayOfWeek === 0) { targetDate.setDate(targetDate.getDate() + 1); }
+            const dayMap = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
+            let todayDayId = dayMap[dayOfWeek];
+            if (dayOfWeek === 0 || dayOfWeek === 6) { todayDayId = 'pazartesi'; }
+            for(let i = 0; i < weeksData.length; i++) {
+                const week = weeksData[i];
+                const dateParts = week.dates.split(' - ');
+                if (dateParts.length !== 2) continue;
+                const endPart = dateParts[1].split(' ');
+                const year = endPart[endPart.length - 1];
+                let startPart = dateParts[0].split(' ');
+                if (startPart.length === 2) { startPart.push(year); }
+                const startDate = parseTurkishDate(startPart.join(' '));
+                const endDate = parseTurkishDate(dateParts[1]);
+                if (startDate && endDate && targetDate >= startDate && targetDate <= endDate) {
+                    return { weekIndex: i, dayId: todayDayId };
+                }
+            }
+            return { weekIndex: 0, dayId: 'pazartesi' };
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeSchedule);
+        window.addEventListener('resize', handleOrientationChange);
+    </script>
+</body>
+</html>
