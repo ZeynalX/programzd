@@ -19,11 +19,13 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
             --active-bg-color: #d7ccc8;
             
-            --event-color-break: #ffe0b2;      /* Ara Tatil */
-            --event-color-religious: #c8e6c9;  /* Dini Bayram */
-            --event-color-official: #bbdefb;   /* Resmi Tatil (İş Günü) */
+            --event-color-break: #b3e5fc;      /* Ara Tatil (Mavi) */
+            --event-color-religious: #c8e6c9;  /* Dini Bayram (Yeşil) */
+            --event-color-official: #f8bbd0;   /* Resmi Tatil İş Günü (Pembe) */
             --event-color-school-day: #bcaaa4; /* Okul Açılış/Kapanış */
             --event-color-text: #212121;       /* Etkinlik Yazı Rengi */
+            --weekend-bg-color: #eeeeee;       /* Hafta Sonu Arka Plan (Gri) */
+            --weekend-text-color: #757575;     /* Hafta Sonu Yazı (Gri) */
 
             --font-size-body: clamp(0.85rem, 1.5vw, 1rem); 
             --font-size-small: clamp(0.7rem, 1.2vw, 0.8rem);
@@ -182,18 +184,47 @@
             color: var(--text-secondary-color);
             border-bottom: 1px solid var(--border-color);
         }
+
+        /* DEĞİŞTİ: .calendar-day stili güncellendi */
         .calendar-day {
             font-family: 'Crimson Pro', serif;
             font-size: var(--font-size-body);
             text-align: center;
-            padding: var(--spacing-small);
+            /* padding: var(--spacing-small); */ /* Değişti */
+            padding: 4px 2px; /* Değişti: Azaltılmış padding */
             border-radius: 6px;
             background-color: var(--papyrus-bg-color-dark);
             border: 1px solid var(--border-color);
-            min-height: 40px;
+            /* min-height: 40px; */ /* Değişti */
+            min-height: 45px; /* Değişti: Sığması için biraz artırıldı */
             position: relative;
             cursor: default;
+            
+            /* YENİ EKLENDİ: İçerik hizalama için */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
+
+        /* YENİ EKLENDİ: Takvim hücresi içi etiket stilleri */
+        .day-number {
+            font-size: 0.9rem;
+            line-height: 1;
+        }
+        .day-label {
+            font-size: clamp(0.6rem, 1vw, 0.65rem);
+            display: block;
+            color: var(--event-color-text); /* Etkinlik rengiyle aynı */
+            font-weight: 500;
+            line-height: 1;
+            margin-top: 3px;
+            overflow: hidden; /* Taşmayı engelle */
+            text-overflow: ellipsis; /* ... koy */
+            white-space: nowrap; /* Kırılmayı engelle */
+            max-width: 100%; /* Hücreden taşmasın */
+        }
+        /* YENİ EKLENDİ BİTİŞ */
+
         .calendar-day.other-month {
             opacity: 0.4;
             background-color: transparent;
@@ -203,20 +234,24 @@
             font-weight: 700;
             box-shadow: 0 0 0 2px var(--accent-color) inset;
         }
-        .calendar-day.event {
-            color: var(--event-color-text);
-            font-weight: 500;
-            cursor: help;
-        }
-        /* YENİ EKLENDİ: Tıklanabilir günler için imleç stili (JS tarafından eklenir) */
+        
         .calendar-day[style*="cursor: pointer"] {
             transition: background-color 0.2s;
         }
         .calendar-day[style*="cursor: pointer"]:hover {
             background-color: var(--active-bg-color);
         }
-        .calendar-day[style*="cursor: not-allowed"] {
-            opacity: 0.7;
+        
+        .calendar-day.weekend-day {
+            background-color: var(--weekend-bg-color);
+            color: var(--weekend-text-color);
+            cursor: not-allowed;
+        }
+
+        .calendar-day.event {
+            color: var(--event-color-text);
+            font-weight: 500;
+            cursor: help;
         }
         
         .calendar-day .tooltip {
@@ -250,10 +285,10 @@
             visibility: visible;
             opacity: 1;
         }
-        /* Etkinlik Türü Renkleri */
-        .event-break { background-color: var(--event-color-break); }
-        .event-religious { background-color: var(--event-color-religious); }
-        .event-official { background-color: var(--event-color-official); }
+        
+        .event-break { background-color: var(--event-color-break); } /* Mavi */
+        .event-religious { background-color: var(--event-color-religious); } /* Yeşil */
+        .event-official { background-color: var(--event-color-official); } /* Pembe */
         .event-school-day { background-color: var(--event-color-school-day); }
 
         #calendar-legend {
@@ -322,7 +357,7 @@
         let currentWeekIndex = 0;
         let currentDayId = 'pazartesi';
         let isWeekViewActive = false;
-        let allWeeksData = []; // DÜZELTME: Haftaların listesini globalde tut
+        let allWeeksData = [];
         const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
        
         const weekMenu = document.getElementById('week-menu'),
@@ -334,8 +369,7 @@
             prevWeekBtn = document.getElementById('prev-week-btn'),
             nextWeekBtn = document.getElementById('next-week-btn');
 
-        // YENİ EKLENDİ: Takvim için global değişkenler
-        let modalCurrentDate = new Date(2025, 8, 1); // Takvimi Eylül 2025'ten başlat
+        let modalCurrentDate = new Date(2025, 8, 1);
         const calendarModal = document.getElementById('calendar-modal');
         const modalMonthYear = document.getElementById('modal-month-year');
         const calendarGridHeader = document.getElementById('calendar-grid-header');
@@ -343,11 +377,9 @@
         const calendarLegend = document.getElementById('calendar-legend');
         const TR_MONTH_NAMES = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
         const TR_DAY_NAMES_SHORT = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
-        // YENİ EKLENDİ: Gün ID'lerini haritalamak için global sabit
         const TR_DAY_ID_MAP = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
 
         
-        // Çalışma Takvimi Verisi (PDF'ten alınmıştır)
         const academicCalendarRanges = [
             { start: "2025-11-10", end: "2025-11-14", type: "break", label: "Ara Tatil" },
             { start: "2026-01-19", end: "2026-01-30", type: "break", label: "Yarıyıl Tatili" },
@@ -365,12 +397,12 @@
         };
 
         const legendData = {
-            "Ara Tatil / Yarıyıl": "event-break",
-            "Dini Bayram": "event-religious",
-            "Resmi Tatil (İş Günü)": "event-official",
-            "Okul Açılış/Kapanış": "event-school-day"
+            "Ara Tatil / Yarıyıl (Mavi)": "event-break",
+            "Dini Bayram (Yeşil)": "event-religious",
+            "Resmi Tatil - İş Günü (Pembe)": "event-official",
+            "Okul Açılış/Kapanış": "event-school-day",
+            "Hafta Sonu (Gri)": "weekend-day"
         };
-        // YENİ EKLENDİ Bitiş
 
         function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
         function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
@@ -384,7 +416,7 @@
                 ]);
                 const timetable = await timetableRes.json();
                 const curriculum = await curriculumRes.json();
-                allWeeksData = await weeksRes.json(); // DÜZELTME: Gelen veriyi global değişkene ata
+                allWeeksData = await weeksRes.json();
                
                 const lessonCounters = {};
                 for (const subject in curriculum) { lessonCounters[subject] = 0; }
@@ -412,7 +444,6 @@
                 currentDayId = target.dayId;
                 displayWeek(target.weekIndex);
 
-                // YENİ EKLENDİ: Takvim fonksiyonlarını ve dinleyicilerini başlat
                 document.getElementById('modal-prev-month').addEventListener('click', () => {
                     modalCurrentDate.setMonth(modalCurrentDate.getMonth() - 1);
                     renderDynamicCalendar();
@@ -427,8 +458,7 @@
                     }
                 });
                 populateCalendarLegend();
-                renderDynamicCalendar(); // Takvimi ilk kez doldur
-                // YENİ EKLENDİ Bitiş
+                renderDynamicCalendar(); 
 
             } catch (error) {
                 console.error('Veri dosyaları yüklenirken bir hata oluştu:', error);
@@ -466,7 +496,6 @@
             const weekKey = `week${weekIndex + 1}`;
             const weekData = finalSchedule[weekKey];
             
-            // Hata kontrolü: Eğer hafta verisi bulunamazsa (örn. geçersiz index)
             if (!weekData) {
                 console.error(`Hafta verisi bulunamadı: index ${weekIndex}`);
                 return;
@@ -486,7 +515,7 @@
                 weekViewContainer.style.display = 'grid';
                 document.getElementById('toggle-view-btn').querySelector('i').textContent = 'view_day';
             } else {
-                displayDay(currentDayId); // Burası güncellenen currentDayId'yi kullanacak
+                displayDay(currentDayId);
                 dayNav.style.display = 'flex';
                 dayViewContainer.style.display = 'block';
                 weekViewContainer.style.display = 'none';
@@ -563,10 +592,9 @@
 
         function parseTurkishDate(dateString) { const m = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const p = dateString.toLowerCase().split(' '); if (p.length<2) return null; const d=parseInt(p[0],10), mo=m[p[1]], y=p.length>2?parseInt(p[2],10):new Date().getFullYear(); if(isNaN(d)||mo===undefined||isNaN(y))return null; return new Date(y,mo,d); };
        
-        // YENİ EKLENDİ: Belirli bir tarihi içeren haftanın index'ini bulur
         function findWeekIndexForDate(targetDate) {
             if (!targetDate) return -1;
-            targetDate.setHours(0, 0, 0, 0); // Saat bilgisini sıfırla
+            targetDate.setHours(0, 0, 0, 0); 
 
             for(let i = 0; i < allWeeksData.length; i++) {
                 const week = allWeeksData[i];
@@ -585,11 +613,11 @@
                     startDate.setHours(0, 0, 0, 0);
                     endDate.setHours(0, 0, 0, 0);
                     if (targetDate >= startDate && targetDate <= endDate) {
-                        return i; // Haftanın index'ini döndür
+                        return i;
                     }
                 }
             }
-            return -1; // Hafta bulunamadı (tatil vb.)
+            return -1;
         }
 
         function findCurrentWeekAndDay(weeksData) {
@@ -600,23 +628,39 @@
             if (dayOfWeek === 6) { targetDate.setDate(targetDate.getDate() + 2); } 
             else if (dayOfWeek === 0) { targetDate.setDate(targetDate.getDate() + 1); }
             
-            // DEĞİŞTİRİLDİ: Global sabiti kullan
             let todayDayId = TR_DAY_ID_MAP[dayOfWeek];
             if (dayOfWeek === 0 || dayOfWeek === 6) { todayDayId = 'pazartesi'; }
             
-            // Mevcut hafta index'ini bulmak için yeni fonksiyonu kullan
             const weekIndex = findWeekIndexForDate(targetDate);
 
             if (weekIndex !== -1) {
                 return { weekIndex: weekIndex, dayId: todayDayId };
             }
             
-            // Eğer findWeekIndexForDate bir şey bulamazsa (örn. okul başlamadan önce)
-            // varsayılana dön
             return { weekIndex: 0, dayId: 'pazartesi' };
         }
         
-        // --- YENİ EKLENEN TAKVİM FONKSİYONLARI ---
+        // --- TAKVİM FONKSİYONLARI ---
+
+        // YENİ EKLENDİ: Takvim hücresinde gösterilecek kısa etiketi döner.
+        function getShortLabel(fullLabel) {
+            if (!fullLabel) return '';
+            
+            // Birden fazla etiket varsa (çakışma), ilkini kısalt
+            const label = fullLabel.split(' / ')[0]; 
+
+            if (label.includes("Ramazan Bayramı")) return "R. Bayramı";
+            if (label.includes("Kurban Bayramı")) return "K. Bayramı";
+            if (label.includes("Yarıyıl Tatili")) return "Yarıyıl";
+            if (label.includes("Ara Tatil")) return "Ara Tatil";
+            if (label.includes("Cumhuriyet Bayramı")) return "C. Bayramı";
+            if (label.includes("Ulusal Eg. ve Çocuk")) return "23 Nisan";
+            if (label.includes("Atatürk'ü Anma")) return "19 Mayıs";
+            if (label.includes("Ders Yılı Başlangıcı")) return "Okul Açık";
+            if (label.includes("Ders Yılı Bitişi")) return "Okul Kapanış";
+            
+            return label; // Bilinmeyen bir etiketse, olduğu gibi döndür
+        }
 
         function openCalendarModal() {
             const weekKey = `week${currentWeekIndex + 1}`;
@@ -632,24 +676,20 @@
             calendarModal.style.display = 'flex';
         }
 
-        // YENİ EKLENDİ: Takvimden bir güne tıklandığında ilgili hafta/güne gider
         function navigateToDate(date) {
-            const weekIndex = findWeekIndexForDate(new Date(date.getTime())); // Kopyasını al
+            const weekIndex = findWeekIndexForDate(new Date(date.getTime()));
             
-            const dayOfWeek = date.getDay(); // 0=Pazar, 1=Pazartesi, ..., 6=Cumartesi
+            const dayOfWeek = date.getDay();
             const dayId = TR_DAY_ID_MAP[dayOfWeek];
 
-            // Sadece geçerli bir okul haftası ve okul günü (Pzt-Cuma) ise işlem yap
             if (weekIndex !== -1 && dayId !== 'pazar' && dayId !== 'cumartesi') {
                 
-                currentDayId = dayId; // Gidilecek günü ayarla
-                currentWeekIndex = weekIndex; // Gidilecek haftayı ayarla
+                currentDayId = dayId;
+                currentWeekIndex = weekIndex; 
 
                 if (isWeekViewActive) {
-                    // Hafta görünümündeyse, gün görünümüne geçir
                     toggleView();
                 } else {
-                    // Zaten gün görünümündeyse, haftayı ve günü yeniden yükle
                     displayWeek(weekIndex); 
                 }
                 
@@ -698,6 +738,7 @@
             };
         }
 
+        // DEĞİŞTİRİLDİ: renderDynamicCalendar fonksiyonu .day-label ve .day-number span'larını ekleyecek şekilde güncellendi
         function renderDynamicCalendar() {
             const year = modalCurrentDate.getFullYear();
             const month = modalCurrentDate.getMonth();
@@ -724,33 +765,41 @@
                 calendarGridBody.innerHTML += `<div class="calendar-day other-month"></div>`;
             }
 
-            // DEĞİŞTİRİLDİ: Gün hücrelerine 'onclick' eklendi
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
                 let classes = 'calendar-day';
                 
+                const dayOfWeekForClick = date.getDay();
+
                 if (date.getTime() === today.getTime()) {
                     classes += ' today';
                 }
 
+                if (dayOfWeekForClick === 0 || dayOfWeekForClick === 6) {
+                    classes += ' weekend-day';
+                }
+
                 const event = getEventForDate(date);
                 let tooltipHTML = '';
+                let labelHTML = ''; // YENİ EKLENDİ
                 if (event) {
                     classes += ` event event-${event.type}`;
                     tooltipHTML = `<span class="tooltip">${event.label}</span>`;
+                    const shortLabel = getShortLabel(event.label); // YENİ EKLENDİ
+                    labelHTML = `<span class="day-label">${shortLabel}</span>`; // YENİ EKLENDİ
                 }
 
-                // Tıklama işlevselliği ekle
                 let onclickAttr = '';
-                const dayOfWeekForClick = date.getDay();
-                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6) { // Pazar veya Cmt değilse
-                    // 'month' zaten 0-indexed olduğu için new Date() için doğrudur
+                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6) {
                     onclickAttr = `onclick="navigateToDate(new Date(${year}, ${month}, ${day}))" title="Bu güne git" style="cursor: pointer;"`;
-                } else {
-                    onclickAttr = `style="cursor: not-allowed;"`; // Hafta sonu
                 }
 
-                calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr}>${day}${tooltipHTML}</div>`;
+                // DEĞİŞTİRİLDİ: HTML yapısı güncellendi
+                calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr}>
+                                                   <span class="day-number">${day}</span>
+                                                   ${labelHTML}
+                                                   ${tooltipHTML}
+                                               </div>`;
             }
 
             const totalCells = startOffset + daysInMonth;
@@ -772,8 +821,6 @@
                 `;
             }
         }
-        // --- YENİ EKLENEN FONKSİYONLAR BİTİŞ ---
-
 
         document.addEventListener('DOMContentLoaded', initializeSchedule);
         window.addEventListener('resize', handleOrientationChange);
