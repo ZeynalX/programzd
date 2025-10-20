@@ -147,29 +147,45 @@
             max-width: 600px;
             position: relative;
         }
+        
+        /* DEĞİŞTİ: .modal-header CSS */
         .modal-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* DEĞİŞTİ: space-between -> center */
             align-items: center;
             border-bottom: 2px solid var(--border-color);
             padding-bottom: 10px;
             margin-bottom: 10px;
+            position: relative; /* YENİ EKLENDİ: Kapatma butonu buna göre hizalanacak */
         }
+        /* YENİ EKLENDİ: Ay navigasyonunu gruplamak için */
+        .modal-month-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* DEĞİŞTİ: .modal-header h2 CSS */
         .modal-header h2 {
             font-family: 'Cinzel Decorative', cursive;
             font-size: 1.4rem;
             color: var(--accent-color);
-            flex-grow: 1;
+            /* flex-grow: 1; (Kaldırıldı) */
             text-align: center;
+            margin: 0 10px; /* YENİ EKLENDİ: Butonlarla araya boşluk koyar */
         }
+
+        /* DEĞİŞTİ: .modal-close CSS */
         .modal-close {
             font-size: 28px;
             color: var(--text-primary-color);
             cursor: pointer;
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 50%; /* DEĞİŞTİ: Dikey ortalama için */
+            right: 0px; /* DEĞİŞTİ: Başlığın sağ kenarına */
+            transform: translateY(-50%); /* YENİ EKLENDİ: Tam dikey ortalama */
         }
+        /* DEĞİŞİKLİKLER BİTTİ */
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -185,28 +201,22 @@
             border-bottom: 1px solid var(--border-color);
         }
 
-        /* DEĞİŞTİ: .calendar-day stili güncellendi */
         .calendar-day {
             font-family: 'Crimson Pro', serif;
             font-size: var(--font-size-body);
             text-align: center;
-            /* padding: var(--spacing-small); */ /* Değişti */
-            padding: 4px 2px; /* Değişti: Azaltılmış padding */
+            padding: 4px 2px;
             border-radius: 6px;
             background-color: var(--papyrus-bg-color-dark);
             border: 1px solid var(--border-color);
-            /* min-height: 40px; */ /* Değişti */
-            min-height: 45px; /* Değişti: Sığması için biraz artırıldı */
+            min-height: 45px;
             position: relative;
             cursor: default;
-            
-            /* YENİ EKLENDİ: İçerik hizalama için */
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        /* YENİ EKLENDİ: Takvim hücresi içi etiket stilleri */
         .day-number {
             font-size: 0.9rem;
             line-height: 1;
@@ -214,16 +224,15 @@
         .day-label {
             font-size: clamp(0.6rem, 1vw, 0.65rem);
             display: block;
-            color: var(--event-color-text); /* Etkinlik rengiyle aynı */
+            color: var(--event-color-text);
             font-weight: 500;
             line-height: 1;
             margin-top: 3px;
-            overflow: hidden; /* Taşmayı engelle */
-            text-overflow: ellipsis; /* ... koy */
-            white-space: nowrap; /* Kırılmayı engelle */
-            max-width: 100%; /* Hücreden taşmasın */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
         }
-        /* YENİ EKLENDİ BİTİŞ */
 
         .calendar-day.other-month {
             opacity: 0.4;
@@ -286,9 +295,9 @@
             opacity: 1;
         }
         
-        .event-break { background-color: var(--event-color-break); } /* Mavi */
-        .event-religious { background-color: var(--event-color-religious); } /* Yeşil */
-        .event-official { background-color: var(--event-color-official); } /* Pembe */
+        .event-break { background-color: var(--event-color-break); }
+        .event-religious { background-color: var(--event-color-religious); }
+        .event-official { background-color: var(--event-color-official); }
         .event-school-day { background-color: var(--event-color-school-day); }
 
         #calendar-legend {
@@ -340,9 +349,11 @@
     <div id="calendar-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="nav-button material-icons" id="modal-prev-month">chevron_left</button>
-                <h2 id="modal-month-year"></h2>
-                <button class="nav-button material-icons" id="modal-next-month">chevron_right</button>
+                <div class="modal-month-nav">
+                    <button class="nav-button material-icons" id="modal-prev-month">chevron_left</button>
+                    <h2 id="modal-month-year"></h2>
+                    <button class="nav-button material-icons" id="modal-next-month">chevron_right</button>
+                </div>
                 <span class="modal-close material-icons" onclick="closeCalendarModal()">close</span>
             </div>
             <div id="calendar-grid-header" class="calendar-grid"></div>
@@ -642,13 +653,9 @@
         
         // --- TAKVİM FONKSİYONLARI ---
 
-        // YENİ EKLENDİ: Takvim hücresinde gösterilecek kısa etiketi döner.
         function getShortLabel(fullLabel) {
             if (!fullLabel) return '';
-            
-            // Birden fazla etiket varsa (çakışma), ilkini kısalt
             const label = fullLabel.split(' / ')[0]; 
-
             if (label.includes("Ramazan Bayramı")) return "R. Bayramı";
             if (label.includes("Kurban Bayramı")) return "K. Bayramı";
             if (label.includes("Yarıyıl Tatili")) return "Yarıyıl";
@@ -658,8 +665,7 @@
             if (label.includes("Atatürk'ü Anma")) return "19 Mayıs";
             if (label.includes("Ders Yılı Başlangıcı")) return "Okul Açık";
             if (label.includes("Ders Yılı Bitişi")) return "Okul Kapanış";
-            
-            return label; // Bilinmeyen bir etiketse, olduğu gibi döndür
+            return label;
         }
 
         function openCalendarModal() {
@@ -738,7 +744,6 @@
             };
         }
 
-        // DEĞİŞTİRİLDİ: renderDynamicCalendar fonksiyonu .day-label ve .day-number span'larını ekleyecek şekilde güncellendi
         function renderDynamicCalendar() {
             const year = modalCurrentDate.getFullYear();
             const month = modalCurrentDate.getMonth();
@@ -781,20 +786,25 @@
 
                 const event = getEventForDate(date);
                 let tooltipHTML = '';
-                let labelHTML = ''; // YENİ EKLENDİ
+                let labelHTML = '';
                 if (event) {
                     classes += ` event event-${event.type}`;
                     tooltipHTML = `<span class="tooltip">${event.label}</span>`;
-                    const shortLabel = getShortLabel(event.label); // YENİ EKLENDİ
-                    labelHTML = `<span class="day-label">${shortLabel}</span>`; // YENİ EKLENDİ
+                    const shortLabel = getShortLabel(event.label);
+                    labelHTML = `<span class="day-label">${shortLabel}</span>`;
+
+                    // Eğer "Ara Tatil" veya "Yarıyıl" ise, tıklamayı engelle (bayramlar tatil içinde olabilir)
+                    if (event.type === 'break') {
+                        classes += ' weekend-day'; // Tıklanmasın diye hafta sonu gibi davran
+                    }
                 }
 
                 let onclickAttr = '';
-                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6) {
+                // DEĞİŞTİ: Tıklama koşulu güncellendi (break tipi tatillerde tıklanmasın)
+                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6 && !classes.includes('event-break')) {
                     onclickAttr = `onclick="navigateToDate(new Date(${year}, ${month}, ${day}))" title="Bu güne git" style="cursor: pointer;"`;
                 }
 
-                // DEĞİŞTİRİLDİ: HTML yapısı güncellendi
                 calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr}>
                                                    <span class="day-number">${day}</span>
                                                    ${labelHTML}
