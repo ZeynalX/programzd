@@ -19,11 +19,11 @@
             --shadow-color: rgba(0, 0, 0, 0.1);
             --active-bg-color: #d7ccc8;
             
-            --event-color-break: #b3e5fc;      /* Ara Tatil (Mavi) */
-            --event-color-religious: #c8e6c9;  /* Dini Bayram (Yeşil) - GÖRSELDEKİ KIRMIZI */
-            --event-color-official: #f8bbd0;   /* Resmi Tatil İş Günü (Pembe) - GÖRSELDEKİ KIRMIZI */
-            --event-color-school-day: #bcaaa4; /* Okul Açılış/Kapanış */
-            --event-color-special-day: #e1bee7; /* Belirli Gün/Hafta (Mor) - GÖRSELDEKİ MOR */
+            --event-color-break: #b3e5fc;
+            --event-color-religious: #c8e6c9;
+            --event-color-official: #f8bbd0;
+            --event-color-school-day: #bcaaa4;
+            --event-color-special-day: #e1bee7;
             
             --event-color-text: #212121;
             --weekend-bg-color: #eeeeee;
@@ -230,10 +230,12 @@
             max-width: 100%;
         }
 
+        /* DEĞİŞTİ: other-month artık soluk renkli metin içeriyor */
         .calendar-day.other-month {
-            opacity: 0.4;
+            opacity: 0.5;
             background-color: transparent;
             border: 1px solid transparent;
+            color: var(--text-secondary-color);
         }
         .calendar-day.today {
             font-weight: 700;
@@ -316,6 +318,27 @@
             border: 1px solid var(--border-color);
         }
         
+        /* YENİ EKLENDİ: Takvim Alt Bilgi Stilleri */
+        .calendar-footer-info {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border-color);
+            font-size: var(--font-size-small);
+        }
+        .footer-day-group {
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+        .footer-event {
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--event-color-text);
+            margin-left: 5px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        /* YENİ EKLENDİ BİTİŞ */
+        
         @media print { body { padding-bottom: 0; font-size: 9pt; background-image: none; } header, .day-nav, .sidenav, .action-buttons-container, #week-view-container, #day-view-container, .modal-overlay { display: none !important; } #print-container { display: block !important; } .print-page-header { text-align: left; margin-bottom: 8px; } .print-page-header h1 { font-size: 11pt; } .print-page-header p { font-size: 9pt; } .print-days-flex-container { display: flex !important; flex-direction: row; gap: 8px; } .print-day-container { flex: 1; } .print-day-title { font-size: 10pt; } .print-card { border: 1px solid #ccc; margin-bottom: 5px; padding: 5px; } .print-card-header { font-size: 8pt; } .print-card-body { font-size: 8pt; } } #print-container { display: none; }
 
         @media (max-width: 480px) and (orientation: portrait) {
@@ -348,6 +371,13 @@
             #calendar-legend {
                 gap: 5px;
                 font-size: 0.65rem;
+            }
+            /* YENİ EKLENDİ: Alt bilgi mobil uyumu */
+            .calendar-footer-info {
+                font-size: 0.7rem;
+            }
+            .footer-event {
+                margin-left: 2px;
             }
         }
     </style>
@@ -389,7 +419,10 @@
             
             <div id="calendar-grid-header" class="calendar-grid"></div>
             <div id="calendar-grid-body" class="calendar-grid"></div>
+            
             <div id="calendar-legend"></div>
+            <div id="calendar-footer-info" class="calendar-footer-info"></div>
+
         </div>
     </div>
 
@@ -417,6 +450,9 @@
         const calendarGridHeader = document.getElementById('calendar-grid-header');
         const calendarGridBody = document.getElementById('calendar-grid-body');
         const calendarLegend = document.getElementById('calendar-legend');
+        // YENİ EKLENDİ: Alt bilgi DOM öğesi
+        const calendarFooterInfo = document.getElementById('calendar-footer-info');
+        
         const TR_MONTH_NAMES = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
         const TR_DAY_NAMES_SHORT = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
         const TR_DAY_ID_MAP = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
@@ -429,7 +465,6 @@
             { start: "2026-03-16", end: "2026-03-20", type: "break", label: "II. Dönem Ara Tatil" },
             { start: "2026-03-26", end: "2026-03-29", type: "religious", label: "Ramazan Bayramı" },
             { start: "2026-05-26", end: "2026-05-30", type: "religious", label: "Kurban Bayramı" },
-
             // Belirli Haftalar (Mor)
             { start: "2025-09-09", end: "2025-09-12", type: "special-day", label: "15 Temmuz Demokrasi ve Millî Birlik Günü Anma" },
             { start: "2025-09-15", end: "2025-09-19", type: "special-day", label: "İlköğretim Haftası" },
@@ -440,7 +475,7 @@
             { start: "2025-11-03", end: "2025-11-09", type: "special-day", label: "Organ Bağışı ve Nakli Haftası" },
             { start: "2025-11-10", end: "2025-11-16", type: "special-day", label: "Atatürk Haftası" },
             { start: "2025-11-20", end: "2025-11-22", type: "special-day", label: "Ağız ve Diş Sağlığı Haftası" },
-            { start: "2025-11-24", end: "2025-11-27", type: "special-day", label: "Ağız ve Diş Sağlığı Haftası" }, // Bölünmüş hafta
+            { start: "2025-11-24", end: "2025-11-27", type: "special-day", label: "Ağız ve Diş Sağlığı Haftası" },
             { start: "2025-12-06", end: "2025-12-14", type: "special-day", label: "Mevlana Haftası" },
             { start: "2025-12-08", end: "2025-12-14", type: "special-day", label: "İnsan Hakları ve Demokrasi Haftası" },
             { start: "2025-12-12", end: "2025-12-18", type: "special-day", label: "Tutum, Yatırım ve Türk Malları Haftası" },
@@ -451,7 +486,7 @@
             { start: "2026-03-02", end: "2026-03-08", type: "special-day", label: "Girişimcilik Haftası" },
             { start: "2026-03-08", end: "2026-03-14", type: "special-day", label: "Bilim ve Teknoloji Haftası" },
             { start: "2026-03-14", end: "2026-03-15", type: "special-day", label: "Tüketiciyi Koruma Haftası" },
-            { start: "2026-03-16", end: "2026-03-17", type: "special-day", label: "Tüketiciyi Koruma Haftası" }, // Bölünmüş hafta
+            { start: "2026-03-16", end: "2026-03-17", type: "special-day", label: "Tüketiciyi Koruma Haftası" },
             { start: "2026-03-16", end: "2026-03-21", type: "special-day", label: "Türk Dünyası ve Toplulukları Haftası" },
             { start: "2026-03-21", end: "2026-03-26", type: "special-day", label: "Orman Haftası" },
             { start: "2026-03-22", end: "2026-03-24", type: "special-day", label: "Yaşlılar Haftası" },
@@ -470,18 +505,13 @@
         ];
         
         const academicCalendarSingleDays = {
-            // Okul Takvimi (Açılış/Kapanış)
             "2025-09-08": { type: "school-day", label: "Ders Yılı Başlangıcı" },
             "2026-01-16": { type: "school-day", label: "I. Dönem Ders Yılı Bitişi" },
             "2026-02-02": { type: "school-day", label: "II. Dönem Ders Yılı Başlangıcı" },
             "2026-06-26": { type: "school-day", label: "II. Dönem Ders Yılı Bitişi" },
-
-            // Resmi Tatiller (Pembe)
             "2025-10-29": { type: "official", label: "Cumhuriyet Bayramı" },
             "2026-04-23": { type: "official", label: "Ulusal Egemenlik ve Çocuk Bayramı" },
             "2026-05-19": { type: "official", label: "Atatürk'ü Anma ve Gençlik ve Spor Bayramı" },
-            
-            // Belirli Günler (Mor)
             "2025-10-02": { type: "special-day", label: "Dünya Disleksi Günü" },
             "2025-10-04": { type: "special-day", label: "Hayvanları Koruma Günü" },
             "2025-10-13": { type: "special-day", label: "Dünya Afet Azaltma Günü" },
@@ -491,7 +521,7 @@
             "2025-11-20": { type: "special-day", label: "Dünya Çocuk Hakları Günü" },
             "2025-11-20": { type: "special-day", label: "Dünya Felsefe Günü" },
             "2025-11-24": { type: "special-day", label: "Öğretmenler Günü" },
-            "2025-11-24": { type: "special-day", label: "Ağız ve Diş Sağlığı Günü" }, // Görseldeki tekil gün
+            "2025-11-24": { type: "special-day", label: "Ağız ve Diş Sağlığı Günü" },
             "2025-12-03": { type: "special-day", label: "Dünya Engelliler Günü" },
             "2025-12-04": { type: "special-day", label: "Dünya Madenciler Günü" },
             "2025-12-05": { type: "special-day", label: "Türk Kadınına Seçme ve Seçilme Hakkı" },
@@ -761,7 +791,6 @@
         function getShortLabel(label) {
             if (!label) return '';
             
-            // Tatiller
             if (label.includes("Ramazan Bayramı")) return "R. Bayramı";
             if (label.includes("Kurban Bayramı")) return "K. Bayramı";
             if (label.includes("Yarıyıl Tatili")) return "Yarıyıl";
@@ -769,12 +798,8 @@
             if (label.includes("Cumhuriyet Bayramı")) return "C. Bayramı";
             if (label.includes("Ulusal Egemenlik")) return "23 Nisan";
             if (label.includes("Atatürk'ü Anma")) return "19 Mayıs";
-            
-            // Okul Günleri
             if (label.includes("Ders Yılı Başlangıcı")) return "Okul Açık";
             if (label.includes("Ders Yılı Bitişi")) return "Okul Kapanış";
-
-            // Belirli Gün ve Haftalar
             if (label.includes("Disleksi Haftası")) return "Disleksi Hf.";
             if (label.includes("Dünya Disleksi Günü")) return "Disleksi G.";
             if (label.includes("Hayvanları Koruma Günü")) return "Hayvanlar G.";
@@ -877,17 +902,15 @@
             calendarModal.style.display = 'none';
         }
 
-        // DEĞİŞTİRİLDİ: Saat dilimi (timezone) hatasını düzeltmek için bu fonksiyon güncellendi.
-        // new Date() ile oluşturulan yerel tarihi, UTC'ye dönüştürmeden YYYY-MM-DD formatına getirir.
         function getISODateString(date) {
             const year = date.getFullYear();
-            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() 0-indekslidir
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
             const day = date.getDate().toString().padStart(2, '0');
             return `${year}-${month}-${day}`;
         }
 
+        // DEĞİŞTİRİLDİ: getEventForDate artık bir event dizisi döndürüyor
         function getEventForDate(date) {
-            // DEĞİŞTİ: Hata düzeltmesi için 'date' nesnesini (yerel) kullanıyoruz
             const dateString = getISODateString(date);
             let events = [];
             
@@ -896,7 +919,6 @@
             }
 
             academicCalendarRanges.forEach(range => {
-                // Bu kısım zaten 'date' nesneleri ile karşılaştırma yaptığı için doğruydu.
                 const startDate = new Date(range.start + 'T00:00:00');
                 const endDate = new Date(range.end + 'T00:00:00');
                 if (date >= startDate && date <= endDate) {
@@ -906,22 +928,34 @@
 
             if (events.length === 0) return null;
 
-            // Öncelik sırası:
-            let primaryEvent = events.find(e => e.type === 'religious');
-            if (!primaryEvent) primaryEvent = events.find(e => e.type === 'official');
-            if (!primaryEvent) primaryEvent = events.find(e => e.type === 'school-day');
-            if (!primaryEvent) primaryEvent = events.find(e => e.type === 'special-day');
-            if (!primaryEvent) primaryEvent = events[0]; // Kalan (break)
+            // Olayları türlerine göre ayır (çakışmalar için)
+            const uniqueTypes = [...new Set(events.map(e => e.type))];
             
-            const combinedLabel = events.map(e => e.label).join(' / ');
-            
-            return {
-                type: primaryEvent.type,
-                label: primaryEvent.label,
-                tooltip: combinedLabel
-            };
+            // Farklı türlerden olayları topla
+            let uniqueEvents = uniqueTypes.map(type => {
+                // Aynı türdeki olayları bul (örn. 2 tane special-day çakışırsa)
+                const eventsOfType = events.filter(e => e.type === type);
+                // Etiketleri birleştir (örn. "Bilişim Hf. / İSG Hf.")
+                const combinedLabel = eventsOfType.map(e => e.label).join(' / ');
+                return { type: type, label: combinedLabel };
+            });
+
+            // İsteğe göre önceliklendir: 'break' en üste gelsin
+            uniqueEvents.sort((a, b) => {
+                const priority = {
+                    'break': 1,
+                    'religious': 2,
+                    'official': 3,
+                    'school-day': 4,
+                    'special-day': 5
+                };
+                return (priority[a.type] || 99) - (priority[b.type] || 99);
+            });
+
+            return uniqueEvents; // Event dizisini döndür
         }
 
+        // DEĞİŞTİRİLDİ: renderDynamicCalendar fonksiyonu çoklu renk ve alt bilgi için tamamen güncellendi
         function renderDynamicCalendar() {
             const year = modalCurrentDate.getFullYear();
             const month = modalCurrentDate.getMonth();
@@ -929,7 +963,9 @@
             modalMonthYear.textContent = `${TR_MONTH_NAMES[month]} ${year}`;
             calendarGridHeader.innerHTML = '';
             calendarGridBody.innerHTML = '';
-
+            
+            let footerHTML = ''; // Alt bilgi için HTML string'i
+            
             TR_DAY_NAMES_SHORT.forEach(dayName => {
                 calendarGridHeader.innerHTML += `<div class="calendar-day-header">${dayName}</div>`;
             });
@@ -944,8 +980,13 @@
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
+            // DEĞİŞTİ: Eylül hatasını düzeltmek için önceki ayın günleri eklendi
+            const prevMonthEndDate = new Date(year, month, 0).getDate();
             for (let i = 0; i < startOffset; i++) {
-                calendarGridBody.innerHTML += `<div class="calendar-day other-month"></div>`;
+                const prevMonthDay = prevMonthEndDate - startOffset + 1 + i;
+                calendarGridBody.innerHTML += `<div class="calendar-day other-month">
+                                                   <span class="day-number">${prevMonthDay}</span>
+                                               </div>`;
             }
 
             for (let day = 1; day <= daysInMonth; day++) {
@@ -962,42 +1003,78 @@
                     classes += ' weekend-day';
                 }
 
-                // getEventForDate artık doğru çalışan getISODateString'i kullanıyor
-                const event = getEventForDate(date);
+                // getEventForDate artık bir dizi döndürüyor
+                const events = getEventForDate(date);
+                
                 let tooltipHTML = '';
                 let labelHTML = '';
-                
-                if (event) {
-                    classes += ` event event-${event.type}`;
-                    tooltipHTML = `<span class="tooltip">${event.tooltip}</span>`;
-                    const shortLabel = getShortLabel(event.label);
+                let styleAttr = ''; // Arka plan stilleri için
+
+                if (events && events.length > 0) {
+                    // Öncelikli olay (dizinin ilk elemanı, çünkü sort ettik)
+                    const primaryEvent = events[0];
+                    
+                    classes += ' event'; // Genel event sınıfı
+                    
+                    // Tooltip için TÜM etiketleri birleştir
+                    const allLabels = events.map(e => e.label).join(' / ');
+                    tooltipHTML = `<span class="tooltip">${allLabels}</span>`;
+                    
+                    // Hücre içi etiket için ÖNCELİKLİ etiketi kullan
+                    const shortLabel = getShortLabel(primaryEvent.label);
                     labelHTML = `<span class="day-label">${shortLabel}</span>`;
+
+                    // Çoklu renk arka planı oluştur
+                    if (events.length === 1) {
+                        styleAttr = `style="background-color: var(--event-color-${primaryEvent.type});"`;
+                    } else if (events.length === 2) {
+                        styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${events[0].type}) 50%, var(--event-color-${events[1].type}) 50%);"`;
+                    } else { // 3 veya daha fazla
+                        styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${events[0].type}) 33.3%, var(--event-color-${events[1].type}) 33.3% 66.6%, var(--event-color-${events[2].type}) 66.6%);"`;
+                    }
+
+                    // Alt bilgi (footer) için HTML oluştur
+                    if (events.length > 1) {
+                        footerHTML += `<div class="footer-day-group"><strong>${day} ${TR_MONTH_NAMES[month]}:</strong> `;
+                        events.forEach(event => {
+                            footerHTML += `<span class="footer-event event-${event.type}">${event.label}</span>`;
+                        });
+                        footerHTML += `</div>`;
+                    }
                 }
 
+                // Tıklanabilirlik
                 let onclickAttr = '';
+                const primaryType = events ? events[0].type : null;
                 
-                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6 && event?.type !== 'break') {
+                if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6 && primaryType !== 'break') {
                     if (findWeekIndexForDate(date) !== -1) {
                          onclickAttr = `onclick="navigateToDate(new Date(${year}, ${month}, ${day}))" title="Bu güne git" style="cursor: pointer;"`;
                     } else if (!classes.includes('weekend-day')) {
                         onclickAttr = `style="cursor: not-allowed;"`;
                     }
-                } else if (event?.type === 'break') {
+                } else if (primaryType === 'break') {
                     onclickAttr = `style="cursor: not-allowed;"`;
                 }
                 
-                calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr}>
+                calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr} ${styleAttr}>
                                                    <span class="day-number">${day}</span>
                                                    ${labelHTML}
                                                    ${tooltipHTML}
                                                </div>`;
             }
 
+            // Kalan hücreleri doldur
             const totalCells = startOffset + daysInMonth;
             const remainingCells = (totalCells % 7 === 0) ? 0 : 7 - (totalCells % 7);
             for (let i = 0; i < remainingCells; i++) {
-                calendarGridBody.innerHTML += `<div class="calendar-day other-month"></div>`;
+                calendarGridBody.innerHTML += `<div class="calendar-day other-month">
+                                                   <span class="day-number">${i + 1}</span>
+                                               </div>`;
             }
+            
+            // Alt bilgiyi ayarla
+            calendarFooterInfo.innerHTML = footerHTML;
         }
         
         function populateCalendarLegend() {
