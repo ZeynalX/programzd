@@ -18,22 +18,22 @@
             --accent-color: #795548;
             --shadow-color: rgba(0, 0, 0, 0.1);
             --active-bg-color: #d7ccc8;
-            
+
             --event-color-break: #b3e5fc;
             --event-color-religious: #c8e6c9;
             --event-color-official: #f8bbd0;
             --event-color-school-day: #bcaaa4;
             --event-color-special-day: #e1bee7;
-            
+
             --event-color-text: #212121;
             --weekend-bg-color: #eeeeee;
             --weekend-text-color: #757575;
 
-            --font-size-body: clamp(0.85rem, 1.5vw, 1rem); 
+            --font-size-body: clamp(0.85rem, 1.5vw, 1rem);
             --font-size-small: clamp(0.7rem, 1.2vw, 0.8rem);
             --font-size-lesson-name: clamp(0.8rem, 2vw, 0.9rem);
             --font-size-day-title: clamp(1rem, 3vw, 1.3rem);
-           
+
             --spacing-base: clamp(8px, 1.5vw, 12px);
             --spacing-small: clamp(4px, 1vw, 6px);
             --spacing-tiny: clamp(2px, 0.5vw, 4px);
@@ -50,7 +50,7 @@
             padding-bottom: 80px;
             font-size: var(--font-size-body);
         }
-       
+
         header { padding: var(--spacing-small) var(--spacing-base); position: sticky; top: 4px; z-index: 1000; margin: 4px; background-color: var(--papyrus-bg-color-dark); border-radius: 8px; border: 1px solid var(--border-color); box-shadow: 0 2px 5px var(--shadow-color); text-align: center; }
         .header-top { display: flex; align-items: center; justify-content: space-between; }
         .week-navigation { display: flex; align-items: center; gap: 10px; flex-grow: 1; justify-content: center; }
@@ -120,7 +120,7 @@
             flex-grow: 1;
         }
         .card-body.empty { font-style: italic; color: var(--text-secondary-color); opacity: 0.7; }
-       
+
         .sidenav { height: 100%; width: 0; position: fixed; z-index: 1001; top: 0; left: 0; overflow-x: hidden; transition: 0.4s ease-out; padding-top: 60px; background-color: var(--papyrus-bg-color-dark); border-right: 2px solid var(--border-color); box-shadow: 2px 0 10px var(--shadow-color); } .sidenav a { padding: 12px 20px; text-decoration: none; font-size: 1.1rem; color: var(--text-secondary-color); display: block; transition: 0.3s; border-bottom: 1px dashed rgba(0,0,0,0.1); } .sidenav a:hover { color: var(--text-primary-color); background-color: var(--active-bg-color); } .sidenav a.active { color: var(--accent-color); font-weight: 700; background-color: var(--active-bg-color); } .sidenav .closebtn { position: absolute; top: 10px; right: 25px; font-size: 36px; color: var(--text-primary-color); }
         .menu-icon, .nav-button { font-size: 24px; cursor: pointer; background: none; border: none; color: var(--text-primary-color); padding: 2px; border-radius: 50%; transition: background 0.3s; } .nav-button:disabled { color: rgba(0,0,0,0.2); cursor: not-allowed; }
         .action-buttons-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 15px; } .action-button { width: 60px; height: 60px; background-color: var(--accent-color); color: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); cursor: pointer; transition: all 0.3s ease; }
@@ -149,7 +149,7 @@
             max-width: 600px;
             position: relative;
         }
-        
+
         .modal-header {
             display: flex;
             justify-content: center;
@@ -163,7 +163,7 @@
             display: flex;
             align-items: center;
         }
-        
+
         .modal-header h2 {
             font-family: 'Cinzel Decorative', cursive;
             font-size: 1.4rem;
@@ -230,7 +230,6 @@
             max-width: 100%;
         }
 
-        /* DEĞİŞTİ: other-month artık soluk renkli metin içeriyor */
         .calendar-day.other-month {
             opacity: 0.5;
             background-color: transparent;
@@ -241,14 +240,14 @@
             font-weight: 700;
             box-shadow: 0 0 0 2px var(--accent-color) inset;
         }
-        
+
         .calendar-day[style*="cursor: pointer"] {
             transition: background-color 0.2s;
         }
         .calendar-day[style*="cursor: pointer"]:hover {
             background-color: var(--active-bg-color);
         }
-        
+
         .calendar-day.weekend-day {
             background-color: var(--weekend-bg-color);
             color: var(--weekend-text-color);
@@ -260,7 +259,7 @@
             font-weight: 500;
             cursor: help;
         }
-        
+
         .calendar-day .tooltip {
             visibility: hidden;
             width: 160px;
@@ -292,7 +291,7 @@
             visibility: visible;
             opacity: 1;
         }
-        
+
         .event-break { background-color: var(--event-color-break); }
         .event-religious { background-color: var(--event-color-religious); }
         .event-official { background-color: var(--event-color-official); }
@@ -317,28 +316,31 @@
             border-radius: 4px;
             border: 1px solid var(--border-color);
         }
-        
-        /* YENİ EKLENDİ: Takvim Alt Bilgi Stilleri */
+
+        /* DEĞİŞTİ: Takvim Alt Bilgi Stilleri */
         .calendar-footer-info {
-            margin-top: 15px;
+            margin-top: 10px; /* Üstteki boşluğu azalt */
             padding-top: 10px;
             border-top: 1px solid var(--border-color);
             font-size: var(--font-size-small);
+            max-height: 100px; /* YENİ EKLENDİ: Çok uzarsa scroll çıksın */
+            overflow-y: auto; /* YENİ EKLENDİ */
         }
-        .footer-day-group {
-            margin-bottom: 5px;
-            line-height: 1.6;
+        /* DEĞİŞTİ: footer-day-group kaldırıldı, artık liste kullanılıyor */
+        .calendar-footer-info ul {
+            list-style: none; /* Noktaları kaldır */
+            padding: 0;
+            margin: 0;
         }
-        .footer-event {
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--event-color-text);
-            margin-left: 5px;
-            font-weight: 500;
-            display: inline-block;
+        .calendar-footer-info li {
+            margin-bottom: 4px;
         }
-        /* YENİ EKLENDİ BİTİŞ */
-        
+        .calendar-footer-info strong { /* Kısa etiketi belirtmek için */
+             display: inline-block;
+             min-width: 60px; /* Hizalama için */
+        }
+        /* DEĞİŞTİ: footer-event kaldırıldı */
+
         @media print { body { padding-bottom: 0; font-size: 9pt; background-image: none; } header, .day-nav, .sidenav, .action-buttons-container, #week-view-container, #day-view-container, .modal-overlay { display: none !important; } #print-container { display: block !important; } .print-page-header { text-align: left; margin-bottom: 8px; } .print-page-header h1 { font-size: 11pt; } .print-page-header p { font-size: 9pt; } .print-days-flex-container { display: flex !important; flex-direction: row; gap: 8px; } .print-day-container { flex: 1; } .print-day-title { font-size: 10pt; } .print-card { border: 1px solid #ccc; margin-bottom: 5px; padding: 5px; } .print-card-header { font-size: 8pt; } .print-card-body { font-size: 8pt; } } #print-container { display: none; }
 
         @media (max-width: 480px) and (orientation: portrait) {
@@ -372,13 +374,13 @@
                 gap: 5px;
                 font-size: 0.65rem;
             }
-            /* YENİ EKLENDİ: Alt bilgi mobil uyumu */
             .calendar-footer-info {
                 font-size: 0.7rem;
+                max-height: 80px; /* Mobil için yüksekliği azalt */
             }
-            .footer-event {
-                margin-left: 2px;
-            }
+             .calendar-footer-info strong {
+                 min-width: 50px;
+             }
         }
     </style>
 </head>
@@ -416,10 +418,10 @@
                 </div>
                 <span class="modal-close material-icons" onclick="closeCalendarModal()">close</span>
             </div>
-            
+
             <div id="calendar-grid-header" class="calendar-grid"></div>
             <div id="calendar-grid-body" class="calendar-grid"></div>
-            
+
             <div id="calendar-legend"></div>
             <div id="calendar-footer-info" class="calendar-footer-info"></div>
 
@@ -434,7 +436,7 @@
         let isWeekViewActive = false;
         let allWeeksData = [];
         const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
-       
+
         const weekMenu = document.getElementById('week-menu'),
             dayNav = document.getElementById('day-nav'),
             dayViewContainer = document.getElementById('day-view-container'),
@@ -450,22 +452,19 @@
         const calendarGridHeader = document.getElementById('calendar-grid-header');
         const calendarGridBody = document.getElementById('calendar-grid-body');
         const calendarLegend = document.getElementById('calendar-legend');
-        // YENİ EKLENDİ: Alt bilgi DOM öğesi
         const calendarFooterInfo = document.getElementById('calendar-footer-info');
-        
+
         const TR_MONTH_NAMES = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
         const TR_DAY_NAMES_SHORT = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
         const TR_DAY_ID_MAP = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
 
-        
+
         const academicCalendarRanges = [
-            // Tatiller
             { start: "2025-11-10", end: "2025-11-14", type: "break", label: "I. Dönem Ara Tatil" },
             { start: "2026-01-19", end: "2026-01-30", type: "break", label: "Yarıyıl Tatili" },
             { start: "2026-03-16", end: "2026-03-20", type: "break", label: "II. Dönem Ara Tatil" },
             { start: "2026-03-26", end: "2026-03-29", type: "religious", label: "Ramazan Bayramı" },
             { start: "2026-05-26", end: "2026-05-30", type: "religious", label: "Kurban Bayramı" },
-            // Belirli Haftalar (Mor)
             { start: "2025-09-09", end: "2025-09-12", type: "special-day", label: "15 Temmuz Demokrasi ve Millî Birlik Günü Anma" },
             { start: "2025-09-15", end: "2025-09-19", type: "special-day", label: "İlköğretim Haftası" },
             { start: "2025-09-29", end: "2025-10-05", type: "special-day", label: "Disleksi Haftası" },
@@ -503,7 +502,7 @@
             { start: "2026-06-01", end: "2026-06-07", type: "special-day", label: "Hayat Boyu Öğrenme Haftası" },
             { start: "2026-06-08", end: "2026-06-14", type: "special-day", label: "Çevre Koruma Haftası" }
         ];
-        
+
         const academicCalendarSingleDays = {
             "2025-09-08": { type: "school-day", label: "Ders Yılı Başlangıcı" },
             "2026-01-16": { type: "school-day", label: "I. Dönem Ders Yılı Bitişi" },
@@ -550,12 +549,16 @@
             "Hafta Sonu (Gri)": "weekend-day"
         };
 
+        // YENİ EKLENDİ: Uzun etiketleri saklamak için
+        const longLabelsMap = {};
+
         function openNav() { document.getElementById("mySidenav").style.width = "280px"; }
         function closeNav() { document.getElementById("mySidenav").style.width = "0"; }
 
         async function initializeSchedule() {
             try {
-                const [timetableRes, curriculumRes, weeksRes] = await Promise.all([
+                // ... (veri yükleme kısmı aynı kaldı) ...
+                 const [timetableRes, curriculumRes, weeksRes] = await Promise.all([
                     fetch('ders-programi.json'),
                     fetch('kazanimlar.json'),
                     fetch('haftalar.json')
@@ -563,10 +566,10 @@
                 const timetable = await timetableRes.json();
                 const curriculum = await curriculumRes.json();
                 allWeeksData = await weeksRes.json();
-               
+
                 const lessonCounters = {};
                 for (const subject in curriculum) { lessonCounters[subject] = 0; }
-               
+
                 allWeeksData.forEach((week, index) => {
                     const weekKey = `week${index + 1}`;
                     finalSchedule[weekKey] = { name: week.name, dates: week.dates, days: {} };
@@ -582,7 +585,7 @@
                         });
                     }
                 });
-               
+
                 populateSideNavMenu(allWeeksData);
                 populateDayNav(timetable);
                 if (window.innerWidth > window.innerHeight) { isWeekViewActive = true; }
@@ -604,7 +607,7 @@
                     }
                 });
                 populateCalendarLegend();
-                renderDynamicCalendar(); 
+                renderDynamicCalendar();
 
             } catch (error) {
                 console.error('Veri dosyaları yüklenirken bir hata oluştu:', error);
@@ -612,7 +615,8 @@
                 dateDisplay.textContent = "Gerekli JSON dosyaları (ders-programi, kazanimlar, haftalar) yüklenemedi.";
             }
         }
-       
+
+        // ... (populateSideNavMenu, populateDayNav, displayWeek, displayDay, renderWeekView, showPreviousWeek, showNextWeek, toggleView, handleOrientationChange, printSchedule, parseTurkishDate, findWeekIndexForDate, findCurrentWeekAndDay aynı kaldı) ...
         function populateSideNavMenu(weeksData) {
             weekMenu.innerHTML = '';
             weeksData.forEach((week, index) => {
@@ -624,15 +628,15 @@
                 weekMenu.appendChild(link);
             });
         }
-       
+
         function populateDayNav(timetable) {
             dayNav.innerHTML = '';
             const dayNames = { pazartesi: "Pzt", sali: "Sal", carsamba: "Çar", persembe: "Per", cuma: "Cum" };
             for(const dayId in dayOrder) {
                 const button = document.createElement('button');
-                button.textContent = dayNames[dayId]; 
+                button.textContent = dayNames[dayId];
                 button.dataset.day = dayId;
-                button.onclick = () => displayDay(dayId); 
+                button.onclick = () => displayDay(dayId);
                 dayNav.appendChild(button);
             }
         }
@@ -641,7 +645,7 @@
             currentWeekIndex = weekIndex;
             const weekKey = `week${weekIndex + 1}`;
             const weekData = finalSchedule[weekKey];
-            
+
             if (!weekData) {
                 console.error(`Hafta verisi bulunamadı: index ${weekIndex}`);
                 return;
@@ -650,7 +654,7 @@
             weekTitleDisplay.textContent = weekData.name;
             dateDisplay.textContent = weekData.dates;
             document.querySelectorAll('#week-menu a').forEach(a => a.classList.toggle('active', parseInt(a.dataset.weekIndex) === weekIndex));
-           
+
             prevWeekBtn.disabled = weekIndex === 0;
             nextWeekBtn.disabled = weekIndex === allWeeksData.length - 1;
 
@@ -704,12 +708,12 @@
 
         function showPreviousWeek() { if (currentWeekIndex > 0) displayWeek(currentWeekIndex - 1); }
         function showNextWeek() { if (currentWeekIndex < allWeeksData.length - 1) displayWeek(currentWeekIndex + 1); }
-       
+
         function toggleView() {
             isWeekViewActive = !isWeekViewActive;
             displayWeek(currentWeekIndex);
         }
-       
+
         function handleOrientationChange() {
             const isLandscape = window.innerWidth > window.innerHeight;
             if (isWeekViewActive === isLandscape) return;
@@ -737,10 +741,10 @@
         }
 
         function parseTurkishDate(dateString) { const m = { 'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3, 'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7, 'eylül': 8, 'ekim': 9, 'kasım': 10, 'aralık': 11 }; const p = dateString.toLowerCase().split(' '); if (p.length<2) return null; const d=parseInt(p[0],10), mo=m[p[1]], y=p.length>2?parseInt(p[2],10):new Date().getFullYear(); if(isNaN(d)||mo===undefined||isNaN(y))return null; return new Date(y,mo,d); };
-       
+
         function findWeekIndexForDate(targetDate) {
             if (!targetDate) return -1;
-            targetDate.setHours(0, 0, 0, 0); 
+            targetDate.setHours(0, 0, 0, 0);
 
             for(let i = 0; i < allWeeksData.length; i++) {
                 const week = allWeeksData[i];
@@ -750,7 +754,7 @@
                 const endPart = dateParts[1].split(' ');
                 const year = endPart[endPart.length - 1];
                 let startPart = dateParts[0].split(' ');
-                if (startPart.length === 2) { startPart.push(year); } 
+                if (startPart.length === 2) { startPart.push(year); }
 
                 const startDate = parseTurkishDate(startPart.join(' '));
                 const endDate = parseTurkishDate(dateParts[1]);
@@ -771,95 +775,111 @@
             today.setHours(0, 0, 0, 0);
             const dayOfWeek = today.getDay();
             const targetDate = new Date(today);
-            if (dayOfWeek === 6) { targetDate.setDate(targetDate.getDate() + 2); } 
+            if (dayOfWeek === 6) { targetDate.setDate(targetDate.getDate() + 2); }
             else if (dayOfWeek === 0) { targetDate.setDate(targetDate.getDate() + 1); }
-            
+
             let todayDayId = TR_DAY_ID_MAP[dayOfWeek];
             if (dayOfWeek === 0 || dayOfWeek === 6) { todayDayId = 'pazartesi'; }
-            
+
             const weekIndex = findWeekIndexForDate(targetDate);
 
             if (weekIndex !== -1) {
                 return { weekIndex: weekIndex, dayId: todayDayId };
             }
-            
+
             return { weekIndex: 0, dayId: 'pazartesi' };
         }
-        
+
+
         // --- TAKVİM FONKSİYONLARI ---
 
+        // DEĞİŞTİRİLDİ: getShortLabel fonksiyonu daha da kısaltıldı ve uzun etiketleri haritaya ekliyor
         function getShortLabel(label) {
             if (!label) return '';
-            
-            if (label.includes("Ramazan Bayramı")) return "R. Bayramı";
-            if (label.includes("Kurban Bayramı")) return "K. Bayramı";
-            if (label.includes("Yarıyıl Tatili")) return "Yarıyıl";
-            if (label.includes("Ara Tatil")) return "Ara Tatil";
-            if (label.includes("Cumhuriyet Bayramı")) return "C. Bayramı";
-            if (label.includes("Ulusal Egemenlik")) return "23 Nisan";
-            if (label.includes("Atatürk'ü Anma")) return "19 Mayıs";
-            if (label.includes("Ders Yılı Başlangıcı")) return "Okul Açık";
-            if (label.includes("Ders Yılı Bitişi")) return "Okul Kapanış";
-            if (label.includes("Disleksi Haftası")) return "Disleksi Hf.";
-            if (label.includes("Dünya Disleksi Günü")) return "Disleksi G.";
-            if (label.includes("Hayvanları Koruma Günü")) return "Hayvanlar G.";
-            if (label.includes("Ahilik Kültürü Haftası")) return "Ahilik Hf.";
-            if (label.includes("Dünya Afet Azaltma Günü")) return "Afet Azaltma";
-            if (label.includes("Birleşmiş Milletler Günü")) return "BM Günü";
-            if (label.includes("Kızılay Haftası")) return "Kızılay Hf.";
-            if (label.includes("Lösemili Çocuklar Haftası")) return "Lösemi Hf.";
-            if (label.includes("Organ Bağışı ve Nakli Haftası")) return "Organ Bağışı";
-            if (label.includes("Atatürk Haftası")) return "Atatürk Hf.";
-            if (label.includes("Afet Eğitimi Hazırlık Günü")) return "Afet Hazırlık";
-            if (label.includes("Dünya Diyabet Günü")) return "Diyabet G.";
-            if (label.includes("Dünya Çocuk Hakları Günü")) return "Çocuk Hakları";
-            if (label.includes("Ağız ve Diş Sağlığı")) return "Ağız/Diş Hf.";
-            if (label.includes("Dünya Felsefe Günü")) return "Felsefe G.";
-            if (label.includes("Öğretmenler Günü")) return "Öğrtmnlr Günü";
-            if (label.includes("Dünya Engelliler Günü")) return "Engelliler G.";
-            if (label.includes("Dünya Madenciler Günü")) return "Madenciler G.";
-            if (label.includes("Türk Kadınına Seçme")) return "Seçme Hakkı";
-            if (label.includes("Mevlana Haftası")) return "Mevlana Hf.";
-            if (label.includes("İnsan Hakları")) return "İnsan Hakları";
-            if (label.includes("Tutum, Yatırım")) return "Yerli Malı Hf.";
-            if (label.includes("Mehmet Akif Ersoy'u Anma")) return "M.Akif Anma";
-            if (label.includes("Gaziantep'in Kurtuluşu")) return "G.antep Kurt.";
-            if (label.includes("Enerji Tasarrufu Haftası")) return "Enerji Hf.";
-            if (label.includes("Vergi Haftası")) return "Vergi Hf.";
-            if (label.includes("Yeşilay Haftası")) return "Yeşilay Hf.";
-            if (label.includes("Girişimcilik Haftası")) return "Girişimcilik Hf.";
-            if (label.includes("Bilim ve Teknoloji Haftası")) return "Bilim/Tek. Hf.";
-            if (label.includes("Dünya Kadınlar Günü")) return "Kadınlar G.";
-            if (label.includes("İstiklâl Marşı'nın Kabulü")) return "İstiklâl Marşı";
-            if (label.includes("Tüketiciyi Koruma Haftası")) return "Tüketici Hf.";
-            if (label.includes("Türk Dünyası ve Toplulukları")) return "Türk Dünyası";
-            if (label.includes("Şehitler Günü")) return "Şehitler G.";
-            if (label.includes("Orman Haftası")) return "Orman Hf.";
-            if (label.includes("Yaşlılar Haftası")) return "Yaşlılar Hf.";
-            if (label.includes("Dünya Tiyatrolar Günü")) return "Tiyatro G.";
-            if (label.includes("Kütüphaneler Haftası")) return "Kütüphane Hf.";
-            if (label.includes("Kanser Haftası")) return "Kanser Hf.";
-            if (label.includes("Dünya Otizm Farkındalık")) return "Otizm G.";
-            if (label.includes("Dünya Sağlık Günü")) return "Sağlık Hf.";
-            if (label.includes("Kişisel Verileri Koruma")) return "KVKK G.";
-            if (label.includes("Turizm Haftası")) return "Turizm Hf.";
-            if (label.includes("Dünya Fikri Mülkiyet")) return "Fikri Mülkiyet";
-            if (label.includes("Kut'ül Amâre Zaferi")) return "Kut'ül Amâre";
-            if (label.includes("Bilişim Haftası")) return "Bilişim Hf.";
-            if (label.includes("İş Sağlığı ve Güvenliği")) return "İSG Hf.";
-            if (label.includes("Trafik ve İlkyardım")) return "Trafik Hf.";
-            if (label.includes("Anneler Günü")) return "Anneler G.";
-            if (label.includes("Engelliler Haftası")) return "Engelliler Hf.";
-            if (label.includes("Vakıflar Haftası")) return "Vakıflar Hf.";
-            if (label.includes("Müzeler Haftası")) return "Müzeler Hf.";
-            if (label.includes("Etik Günü")) return "Etik G.";
-            if (label.includes("İstanbul'un Fethi")) return "Fetih Günü";
-            if (label.includes("Hayat Boyu Öğrenme")) return "Hayat Boyu Hf.";
-            if (label.includes("Çevre Koruma Haftası")) return "Çevre Hf.";
-            if (label.includes("Babalar Günü")) return "Babalar G.";
-            
-            return label;
+            let shortLabel = label; // Varsayılan olarak tam etiket
+
+            // Uzun etiketleri kısalt ve haritaya ekle
+            if (label === "15 Temmuz Demokrasi ve Millî Birlik Günü Anma") shortLabel = "15 Temmuz";
+            else if (label === "İlköğretim Haftası") shortLabel = "İlköğretim Hf.";
+            else if (label === "Disleksi Haftası") shortLabel = "Disleksi Hf.";
+            else if (label === "Ahilik Kültürü Haftası") shortLabel = "Ahilik Hf.";
+            else if (label === "Kızılay Haftası") shortLabel = "Kızılay Hf.";
+            else if (label === "Lösemili Çocuklar Haftası") shortLabel = "Lösemi Hf.";
+            else if (label === "Organ Bağışı ve Nakli Haftası") shortLabel = "Organ Bağışı";
+            else if (label === "Atatürk Haftası") shortLabel = "Atatürk Hf.";
+            else if (label === "Ağız ve Diş Sağlığı Haftası") shortLabel = "Ağız/Diş Hf.";
+            else if (label === "Mevlana Haftası") shortLabel = "Mevlana Hf.";
+            else if (label === "İnsan Hakları ve Demokrasi Haftası") shortLabel = "İnsan Hakları";
+            else if (label === "Tutum, Yatırım ve Türk Malları Haftası") shortLabel = "Yerli Malı Hf.";
+            else if (label === "Mehmet Akif Ersoy'u Anma Haftası") shortLabel = "M.Akif Anma";
+            else if (label === "Enerji Tasarrufu Haftası") shortLabel = "Enerji Hf.";
+            else if (label === "Vergi Haftası") shortLabel = "Vergi Hf.";
+            else if (label === "Yeşilay Haftası") shortLabel = "Yeşilay Hf.";
+            else if (label === "Girişimcilik Haftası") shortLabel = "Girişimcilik Hf.";
+            else if (label === "Bilim ve Teknoloji Haftası") shortLabel = "Bilim/Tek. Hf.";
+            else if (label === "Tüketiciyi Koruma Haftası") shortLabel = "Tüketici Hf.";
+            else if (label === "Türk Dünyası ve Toplulukları Haftası") shortLabel = "Türk Dünyası";
+            else if (label === "Orman Haftası") shortLabel = "Orman Hf.";
+            else if (label === "Yaşlılar Haftası") shortLabel = "Yaşlılar Hf.";
+            else if (label === "Kütüphaneler Haftası") shortLabel = "Kütüphane Hf.";
+            else if (label === "Kanser Haftası") shortLabel = "Kanser Hf.";
+            else if (label === "Dünya Sağlık Günü/Dünya Sağlık Haftası") shortLabel = "Sağlık Hf.";
+            else if (label === "Turizm Haftası") shortLabel = "Turizm Hf.";
+            else if (label === "Bilişim Haftası") shortLabel = "Bilişim Hf.";
+            else if (label === "İş Sağlığı ve Güvenliği Haftası") shortLabel = "İSG Hf.";
+            else if (label === "Trafik ve İlkyardım Haftası") shortLabel = "Trafik Hf.";
+            else if (label === "Engelliler Haftası") shortLabel = "Engelliler Hf.";
+            else if (label === "Vakıflar Haftası") shortLabel = "Vakıflar Hf.";
+            else if (label === "Müzeler Haftası") shortLabel = "Müzeler Hf.";
+            else if (label === "Hayat Boyu Öğrenme Haftası") shortLabel = "Hayat Boyu Hf.";
+            else if (label === "Çevre Koruma Haftası") shortLabel = "Çevre Hf.";
+            else if (label === "Ulusal Egemenlik ve Çocuk Bayramı") shortLabel = "23 Nisan";
+            else if (label === "Atatürk'ü Anma ve Gençlik ve Spor Bayramı") shortLabel = "19 Mayıs";
+            else if (label === "Dünya Afet Azaltma Günü") shortLabel = "Afet Azaltma";
+            else if (label === "Birleşmiş Milletler Günü") shortLabel = "BM Günü";
+            else if (label === "Afet Eğitimi Hazırlık Günü") shortLabel = "Afet Hazırlık";
+            else if (label === "Dünya Çocuk Hakları Günü") shortLabel = "Çocuk Hakları";
+            else if (label === "Türk Kadınına Seçme ve Seçilme Hakkı") shortLabel = "Seçme Hakkı";
+            else if (label === "Gaziantep'in Kurtuluşu") shortLabel = "G.antep Kurt.";
+            else if (label === "İstiklâl Marşı'nın Kabulü") shortLabel = "İstiklâl Marşı";
+            else if (label === "Dünya Otizm Farkındalık Günü") shortLabel = "Otizm G.";
+            else if (label === "Kişisel Verileri Koruma Günü") shortLabel = "KVKK G.";
+            else if (label === "Dünya Fikri Mülkiyet Günü") shortLabel = "Fikri Mülkiyet";
+            // Diğer tekil günler için (nispeten kısa oldukları için) kısaltma gerekmez
+            else if (label.includes("Ramazan Bayramı")) shortLabel = "R. Bayramı";
+            else if (label.includes("Kurban Bayramı")) shortLabel = "K. Bayramı";
+            else if (label.includes("Yarıyıl Tatili")) shortLabel = "Yarıyıl";
+            else if (label.includes("Ara Tatil")) shortLabel = "Ara Tatil";
+            else if (label.includes("Cumhuriyet Bayramı")) shortLabel = "C. Bayramı";
+            else if (label.includes("Ders Yılı Başlangıcı")) shortLabel = "Okul Açık";
+            else if (label.includes("Ders Yılı Bitişi")) shortLabel = "Okul Kapanış";
+            else if (label.includes("Hayvanları Koruma Günü")) shortLabel = "Hayvanlar G.";
+            else if (label.includes("Dünya Disleksi Günü")) shortLabel = "Disleksi G.";
+            else if (label.includes("Dünya Diyabet Günü")) shortLabel = "Diyabet G.";
+            else if (label.includes("Dünya Felsefe Günü")) shortLabel = "Felsefe G.";
+            else if (label.includes("Öğretmenler Günü")) shortLabel = "Öğrtmnlr Günü";
+            else if (label.includes("Ağız ve Diş Sağlığı Günü")) shortLabel = "Ağız/Diş G.";
+            else if (label.includes("Dünya Engelliler Günü")) shortLabel = "Engelliler G.";
+            else if (label.includes("Dünya Madenciler Günü")) shortLabel = "Madenciler G.";
+            else if (label.includes("Sivil Savunma Günü")) shortLabel = "Sivil Savunma";
+            else if (label.includes("Dünya Kadınlar Günü")) shortLabel = "Kadınlar G.";
+            else if (label.includes("Şehitler Günü")) shortLabel = "Şehitler G.";
+            else if (label.includes("Dünya Tiyatrolar Günü")) shortLabel = "Tiyatro G.";
+            else if (label.includes("Kut'ül Amâre Zaferi")) shortLabel = "Kut'ül Amâre";
+            else if (label.includes("Anneler Günü")) shortLabel = "Anneler G.";
+            else if (label.includes("Etik Günü")) shortLabel = "Etik G.";
+            else if (label.includes("İstanbul'un Fethi")) shortLabel = "Fetih Günü";
+            else if (label.includes("Babalar Günü")) shortLabel = "Babalar G.";
+
+
+            // Eğer kısaltma yapıldıysa haritaya ekle
+            if (shortLabel !== label) {
+                longLabelsMap[shortLabel] = label;
+            }
+
+            return shortLabel;
         }
+
 
         function openCalendarModal() {
             const weekKey = `week${currentWeekIndex + 1}`;
@@ -871,27 +891,27 @@
                     modalCurrentDate = modalStartDate;
                 }
             }
-            renderDynamicCalendar();
+            renderDynamicCalendar(); // Takvimi çiz
             calendarModal.style.display = 'flex';
         }
 
         function navigateToDate(date) {
             const weekIndex = findWeekIndexForDate(new Date(date.getTime()));
-            
+
             const dayOfWeek = date.getDay();
             const dayId = TR_DAY_ID_MAP[dayOfWeek];
 
             if (weekIndex !== -1 && dayId !== 'pazar' && dayId !== 'cumartesi') {
-                
+
                 currentDayId = dayId;
-                currentWeekIndex = weekIndex; 
+                currentWeekIndex = weekIndex;
 
                 if (isWeekViewActive) {
                     toggleView();
                 } else {
-                    displayWeek(weekIndex); 
+                    displayWeek(weekIndex);
                 }
-                
+
                 closeCalendarModal();
             } else {
                 console.log("Seçilen tarih bir okul günü değil:", date);
@@ -909,11 +929,10 @@
             return `${year}-${month}-${day}`;
         }
 
-        // DEĞİŞTİRİLDİ: getEventForDate artık bir event dizisi döndürüyor
         function getEventForDate(date) {
             const dateString = getISODateString(date);
             let events = [];
-            
+
             if (academicCalendarSingleDays[dateString]) {
                 events.push(academicCalendarSingleDays[dateString]);
             }
@@ -921,51 +940,47 @@
             academicCalendarRanges.forEach(range => {
                 const startDate = new Date(range.start + 'T00:00:00');
                 const endDate = new Date(range.end + 'T00:00:00');
-                if (date >= startDate && date <= endDate) {
+                 // DEĞİŞTİ: Saat dilimi sorunlarını önlemek için sadece günleri karşılaştır
+                const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+                if (dateOnly >= startDate && dateOnly <= endDate) {
                     events.push({ type: range.type, label: range.label });
                 }
             });
 
             if (events.length === 0) return null;
 
-            // Olayları türlerine göre ayır (çakışmalar için)
+             // Türleri tekilleştir ve etiketleri birleştir
             const uniqueTypes = [...new Set(events.map(e => e.type))];
-            
-            // Farklı türlerden olayları topla
             let uniqueEvents = uniqueTypes.map(type => {
-                // Aynı türdeki olayları bul (örn. 2 tane special-day çakışırsa)
                 const eventsOfType = events.filter(e => e.type === type);
-                // Etiketleri birleştir (örn. "Bilişim Hf. / İSG Hf.")
                 const combinedLabel = eventsOfType.map(e => e.label).join(' / ');
                 return { type: type, label: combinedLabel };
             });
 
-            // İsteğe göre önceliklendir: 'break' en üste gelsin
+
+            // Önceliklendir: 'break' en üste
             uniqueEvents.sort((a, b) => {
-                const priority = {
-                    'break': 1,
-                    'religious': 2,
-                    'official': 3,
-                    'school-day': 4,
-                    'special-day': 5
-                };
-                return (priority[a.type] || 99) - (priority[b.type] || 99);
+                 const priority = { 'break': 1, 'religious': 2, 'official': 3, 'school-day': 4, 'special-day': 5 };
+                 return (priority[a.type] || 99) - (priority[b.type] || 99);
             });
 
-            return uniqueEvents; // Event dizisini döndür
+
+            return uniqueEvents;
         }
 
-        // DEĞİŞTİRİLDİ: renderDynamicCalendar fonksiyonu çoklu renk ve alt bilgi için tamamen güncellendi
+        // DEĞİŞTİRİLDİ: renderDynamicCalendar fonksiyonu alt bilgi mantığını ekledi
         function renderDynamicCalendar() {
             const year = modalCurrentDate.getFullYear();
             const month = modalCurrentDate.getMonth();
-            
+
             modalMonthYear.textContent = `${TR_MONTH_NAMES[month]} ${year}`;
             calendarGridHeader.innerHTML = '';
             calendarGridBody.innerHTML = '';
-            
-            let footerHTML = ''; // Alt bilgi için HTML string'i
-            
+
+            // YENİ EKLENDİ: Bu ay için kısaltılmış etiketleri topla
+            const currentMonthShortLabels = new Set();
+
+
             TR_DAY_NAMES_SHORT.forEach(dayName => {
                 calendarGridHeader.innerHTML += `<div class="calendar-day-header">${dayName}</div>`;
             });
@@ -973,14 +988,13 @@
             const firstDayOfMonth = new Date(year, month, 1);
             const lastDayOfMonth = new Date(year, month + 1, 0);
             const daysInMonth = lastDayOfMonth.getDate();
-            
+
             let dayOfWeek = firstDayOfMonth.getDay();
-            let startOffset = (dayOfWeek === 0) ? 6 : dayOfWeek - 1; 
+            let startOffset = (dayOfWeek === 0) ? 6 : dayOfWeek - 1;
 
             const today = new Date();
             today.setHours(0, 0, 0, 0);
 
-            // DEĞİŞTİ: Eylül hatasını düzeltmek için önceki ayın günleri eklendi
             const prevMonthEndDate = new Date(year, month, 0).getDate();
             for (let i = 0; i < startOffset; i++) {
                 const prevMonthDay = prevMonthEndDate - startOffset + 1 + i;
@@ -992,7 +1006,7 @@
             for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
                 let classes = 'calendar-day';
-                
+
                 const dayOfWeekForClick = date.getDay();
 
                 if (date.getTime() === today.getTime()) {
@@ -1003,50 +1017,46 @@
                     classes += ' weekend-day';
                 }
 
-                // getEventForDate artık bir dizi döndürüyor
                 const events = getEventForDate(date);
-                
+
                 let tooltipHTML = '';
                 let labelHTML = '';
-                let styleAttr = ''; // Arka plan stilleri için
+                let styleAttr = '';
+                let primaryType = null; // Tıklama kontrolü için
 
                 if (events && events.length > 0) {
-                    // Öncelikli olay (dizinin ilk elemanı, çünkü sort ettik)
-                    const primaryEvent = events[0];
-                    
-                    classes += ' event'; // Genel event sınıfı
-                    
-                    // Tooltip için TÜM etiketleri birleştir
+                    const primaryEvent = events[0]; // Öncelikli olay
+                    primaryType = primaryEvent.type;
+
+                    classes += ' event';
+
                     const allLabels = events.map(e => e.label).join(' / ');
                     tooltipHTML = `<span class="tooltip">${allLabels}</span>`;
-                    
-                    // Hücre içi etiket için ÖNCELİKLİ etiketi kullan
+
                     const shortLabel = getShortLabel(primaryEvent.label);
                     labelHTML = `<span class="day-label">${shortLabel}</span>`;
 
-                    // Çoklu renk arka planı oluştur
-                    if (events.length === 1) {
-                        styleAttr = `style="background-color: var(--event-color-${primaryEvent.type});"`;
-                    } else if (events.length === 2) {
-                        styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${events[0].type}) 50%, var(--event-color-${events[1].type}) 50%);"`;
-                    } else { // 3 veya daha fazla
-                        styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${events[0].type}) 33.3%, var(--event-color-${events[1].type}) 33.3% 66.6%, var(--event-color-${events[2].type}) 66.6%);"`;
+                    // YENİ EKLENDİ: Kısaltılmış etiketi sete ekle
+                    if (longLabelsMap[shortLabel]) {
+                        currentMonthShortLabels.add(shortLabel);
                     }
 
-                    // Alt bilgi (footer) için HTML oluştur
-                    if (events.length > 1) {
-                        footerHTML += `<div class="footer-day-group"><strong>${day} ${TR_MONTH_NAMES[month]}:</strong> `;
-                        events.forEach(event => {
-                            footerHTML += `<span class="footer-event event-${event.type}">${event.label}</span>`;
-                        });
-                        footerHTML += `</div>`;
-                    }
+                    // Çoklu renk
+                    if (events.length === 1) {
+                         styleAttr = `style="background-color: var(--event-color-${primaryEvent.type});"`;
+                     } else {
+                         // Sadece farklı türdeki ilk 2 veya 3 rengi göster
+                         const uniqueEventTypes = events.slice(0, 3); // En fazla 3 renk
+                         if (uniqueEventTypes.length === 2) {
+                             styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${uniqueEventTypes[0].type}) 50%, var(--event-color-${uniqueEventTypes[1].type}) 50%);"`;
+                         } else { // 3 renk
+                             styleAttr = `style="background: linear-gradient(to bottom, var(--event-color-${uniqueEventTypes[0].type}) 33.3%, var(--event-color-${uniqueEventTypes[1].type}) 33.3% 66.6%, var(--event-color-${uniqueEventTypes[2].type}) 66.6%);"`;
+                         }
+                     }
+
                 }
 
-                // Tıklanabilirlik
                 let onclickAttr = '';
-                const primaryType = events ? events[0].type : null;
-                
                 if (dayOfWeekForClick !== 0 && dayOfWeekForClick !== 6 && primaryType !== 'break') {
                     if (findWeekIndexForDate(date) !== -1) {
                          onclickAttr = `onclick="navigateToDate(new Date(${year}, ${month}, ${day}))" title="Bu güne git" style="cursor: pointer;"`;
@@ -1056,7 +1066,7 @@
                 } else if (primaryType === 'break') {
                     onclickAttr = `style="cursor: not-allowed;"`;
                 }
-                
+
                 calendarGridBody.innerHTML += `<div class="${classes}" ${onclickAttr} ${styleAttr}>
                                                    <span class="day-number">${day}</span>
                                                    ${labelHTML}
@@ -1064,19 +1074,28 @@
                                                </div>`;
             }
 
-            // Kalan hücreleri doldur
             const totalCells = startOffset + daysInMonth;
             const remainingCells = (totalCells % 7 === 0) ? 0 : 7 - (totalCells % 7);
             for (let i = 0; i < remainingCells; i++) {
-                calendarGridBody.innerHTML += `<div class="calendar-day other-month">
+                 calendarGridBody.innerHTML += `<div class="calendar-day other-month">
                                                    <span class="day-number">${i + 1}</span>
-                                               </div>`;
+                                                </div>`;
             }
-            
-            // Alt bilgiyi ayarla
+
+            // Alt bilgiyi oluştur
+            let footerHTML = '<ul>';
+            if (currentMonthShortLabels.size > 0) {
+                 footerHTML += '<strong>Açıklamalar:</strong>';
+                 currentMonthShortLabels.forEach(shortLabel => {
+                     footerHTML += `<li><strong>${shortLabel}:</strong> ${longLabelsMap[shortLabel]}</li>`;
+                 });
+            } else {
+                footerHTML += '<li>Bu ay için kısaltılmış etkinlik bulunmamaktadır.</li>';
+            }
+            footerHTML += '</ul>';
             calendarFooterInfo.innerHTML = footerHTML;
         }
-        
+
         function populateCalendarLegend() {
             calendarLegend.innerHTML = '';
             for (const label in legendData) {
