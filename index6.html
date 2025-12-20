@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeynal Öğrt Haftalık Ders Programı</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style>
+        /* --- TEMA DEĞİŞKENLERİ (VARSAYILAN / AYDINLIK) --- */
+        :root {
+            --bg-color: #e3e6ec;
+            --bg-image-gradient: radial-gradient(at 0% 0%, hsla(253,16%,7%,0) 0, hsla(253,16%,7%,0) 50%), radial-gradient(at 50% 0%, hsla(225,39%,30%,0) 0, hsla(225,39%,30%,0) 50%), radial-gradient(at 100% 0%, hsla(339,49%,30%,0) 0, hsla(339,49%,30%,0) 50%);
+            
+            --accent-color: #5d4037;
+            --accent-gradient: linear-gradient(135deg, #5d4037, #8d6e63);
+            
+            --text-primary: #1a1a1a;
+            --text-secondary: #546e7a;
+            
+            /* 3B Kristal Cam (Açık) */
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border-light: 1px solid rgba(255, 255, 255, 0.8);
+            --glass-border-dark: 1px solid rgba(255, 255, 255, 0.1);
+            --glass-shadow: 
+                6px 6px 12px rgba(163, 177, 198, 0.4), 
+                -6px -6px 12px rgba(255, 255, 255, 0.8),
+                inset 1px 1px 0 rgba(255, 255, 255, 0.5);
+            --glass-blur: blur(12px);
+            
+            --card-bg: rgba(255,255,255,0.2);
+            --card-header-border: 1px solid rgba(255,255,255,0.3);
+            
+            --nav-active-bg: #fff;
+            --nav-active-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            --nav-hover-bg: rgba(255,255,255,0.5);
+
+            /* Fontlar */
+            --font-h1: clamp(0.9rem, 2vw, 1.1rem);
+            --font-body: clamp(0.75rem, 1.5vw, 0.85rem);
+            --radius: 16px;
+        }
+
+        /* --- KARANLIK MOD TANIMLARI --- */
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --bg-image-gradient: radial-gradient(circle at 50% 50%, #1e1e1e 0%, #000000 100%);
+            
+            --accent-color: #d7ccc8; 
+            --accent-gradient: linear-gradient(135deg, #a1887f, #5d4037);
+            
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0bec5;
+            
+            /* 3B Füme Cam (Koyu) */
+            --glass-bg: rgba(30, 30, 30, 0.60);
+            --glass-border-light: 1px solid rgba(255, 255, 255, 0.15); 
+            --glass-border-dark: 1px solid rgba(0, 0, 0, 0.5); 
+            --glass-shadow: 
+                8px 8px 16px rgba(0, 0, 0, 0.6), 
+                -2px -2px 10px rgba(255, 255, 255, 0.05),
+                inset 1px 1px 0 rgba(255, 255, 255, 0.1);
+            
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --card-header-border: 1px solid rgba(255, 255, 255, 0.08);
+            
+            --nav-active-bg: #2c2c2c;
+            --nav-active-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            --nav-hover-bg: rgba(255,255,255,0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            background-image: var(--bg-image-gradient);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            font-size: var(--font-body);
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .glass-3d {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-top: var(--glass-border-light);
+            border-left: var(--glass-border-light);
+            border-bottom: var(--glass-border-dark);
+            border-right: var(--glass-border-dark);
+            box-shadow: var(--glass-shadow);
+            border-radius: var(--radius);
+            transition: all 0.4s ease;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky;
+            top: 8px;
+            z-index: 1000;
+            margin: 0 10px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .user-info { display: flex; flex-direction: column; }
+        .user-name { font-family: 'Cinzel Decorative', cursive; font-size: 0.95rem; font-weight: 900; color: var(--accent-color); line-height: 1; }
+        #date-display { font-size: 0.6rem; color: var(--text-secondary); font-weight: 600; margin-top: 2px; }
+
+        .week-navigation { display: flex; align-items: center; gap: 4px; position: relative; }
+
+        .week-title-btn {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 0.85rem;
+            font-weight: 700;
+            background: var(--glass-bg);
+            border: var(--glass-border-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            transition: 0.2s;
+            color: var(--text-primary);
+        }
+        .week-title-btn:active { transform: scale(0.95); }
+        .week-title-btn i { font-size: 14px; opacity: 0.6; }
+
+        .nav-icon-btn {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .nav-icon-btn:hover { background: var(--nav-hover-bg); color: var(--text-primary); }
+        .nav-icon-btn i { font-size: 20px; }
+
+        /* GÜN SEÇİM BAR */
+        .day-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 6px;
+            margin: 10px;
+            padding: 0;
+            position: sticky;
+            top: 65px;
+            z-index: 999;
+        }
+        .day-nav button {
+            flex: 1;
+            padding: 6px 2px;
+            border: none;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .day-nav button span:first-child { font-weight: 800; font-size: 0.9rem; color: var(--text-primary); line-height: 1; }
+        .day-nav button span:last-child { font-size: 0.55rem; color: var(--text-secondary); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+        
+        .day-nav button.active {
+            background: var(--nav-active-bg);
+            box-shadow: var(--nav-active-shadow);
+            transform: translateY(-2px);
+            border: var(--glass-border-light);
+        }
+        [data-theme="dark"] .day-nav button.active span:first-child { color: var(--accent-color); }
+        .day-nav button.active span:last-child { color: var(--accent-color); }
+
+        .main-container { padding: 0 10px; max-width: 1200px; margin: 0 auto; }
+
+        /* DERS KARTLARI */
+        .schedule-card {
+            margin-bottom: 8px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.1s;
+            border-radius: 12px;
+        }
+        .schedule-card:active { transform: scale(0.98); }
+        .schedule-card.no-body { flex-direction: row; align-items: center; min-height: 36px; }
+
+        .card-header {
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: var(--card-header-border);
+            width: 100%;
+        }
+        .schedule-card.no-body .card-header { border-bottom: none; }
+
+        .lesson-badge {
+            background: var(--accent-gradient);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            min-width: 18px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        [data-theme="dark"] .lesson-badge { color: #1a1a1a; }
+
+        .lesson-name {
+            font-family: 'Cinzel Decorative', cursive;
+            font-weight: 700;
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+        }
+        .card-body {
+            padding: 6px 10px 8px 10px;
+            font-size: 0.75rem;
+            line-height: 1.35;
+            color: var(--text-primary);
+            opacity: 0.9;
+            background: var(--card-bg);
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* HAFTA GÖRÜNÜMÜ */
+        #week-view-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            align-items: start;
+        }
+        .week-view-day-title {
+            text-align: center;
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 6px;
+            padding: 4px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            border: var(--glass-border-light);
+        }
+
+        /* DROPDOWN */
+        .week-dropdown-content {
+            display: none;
+            position: absolute;
+            top: 115%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--nav-active-bg);
+            backdrop-filter: blur(15px);
+            min-width: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 1002;
+            padding: 4px;
+            border: 1px solid var(--text-secondary);
+        }
+        .week-dropdown-content.show { display: block; }
+        .week-dropdown-content a {
+            color: var(--text-primary);
+            padding: 8px 12px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+        .week-dropdown-content a:hover { background: var(--nav-hover-bg); }
+        .week-dropdown-content a.active { background: var(--accent-color); color: var(--bg-color); }
+
+        /* FAB */
+        .fab-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 12px; }
+        .fab {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: var(--glass-border-light);
+            background: var(--glass-bg);
+            backdrop-filter: blur(4px);
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .fab:hover { transform: translateY(-4px) scale(1.05); background: var(--nav-active-bg); }
+        .fab i { font-size: 22px; }
+
+        /* MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 2000; }
+        .modal-glass {
+            background: var(--nav-active-bg);
+            width: 90%;
+            max-width: 360px;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            max-height: 80vh;
+        }
+        .modal-header {
+            padding: 15px;
+            background: rgba(128,128,128,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(128,128,128,0.1);
+        }
+        .modal-title { font-family: 'Cinzel Decorative', cursive; font-size: 1rem; font-weight: 800; color: var(--text-primary); }
+        .close-btn { background: rgba(128,128,128,0.1); border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-primary); }
+        
+        .calendar-body { padding: 10px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; row-gap: 4px; }
+        .cal-head { font-size: 0.6rem; color: var(--text-secondary); font-weight: 700; padding-bottom: 8px; }
+        
+        .cal-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: 0.2s;
+            position: relative;
+        }
+        .cal-cell:hover { background: rgba(128,128,128,0.1); }
+        .cal-cell.today { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        .cal-cell.weekend { color: var(--text-secondary); opacity: 0.6; }
+        .cal-cell.empty { pointer-events: none; }
+
+        .dots { display: flex; gap: 2px; position: absolute; bottom: 4px; }
+        .dot { width: 4px; height: 4px; border-radius: 50%; }
+        
+        .event-list {
+            padding: 15px;
+            background: rgba(128,128,128,0.02);
+            flex-grow: 1;
+            overflow-y: auto;
+            border-top: 1px solid rgba(128,128,128,0.1);
+        }
+        .event-item { font-size: 0.75rem; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .event-color { width: 8px; height: 8px; border-radius: 2px; }
+
+        /* ARAMA INPUT STİLİ */
+        .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(128,128,128,0.3);
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+            font-family: 'Crimson Pro', serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+        .search-input:focus { border-color: var(--accent-color); background: rgba(255,255,255,0.2); }
+        .search-result-item {
+            padding: 10px;
+            border-bottom: 1px solid rgba(128,128,128,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .search-result-item:last-child { border-bottom: none; }
+        .student-no-badge {
+            background: var(--text-secondary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            #week-view-container { grid-template-columns: 1fr; }
+            .week-view-day-column { margin-bottom: 12px; }
+            .day-nav { overflow-x: auto; }
+        }
+        @media print { header, .day-nav, .fab-container { display: none !important; } #print-container { display: block !important; } body { background: white; color: black; } }
+        #print-container { display: none; }
+    </style>
+</head>
+<body>
+
+    <header class="glass-3d">
+        <div class="user-info">
+            <span class="user-name">4-D Zeynal Öğrt</span>
+            <span id="date-display">Yükleniyor...</span>
+        </div>
+        
+        <div class="week-navigation">
+            <button class="nav-icon-btn" onclick="showPreviousWeek()"><i class="material-icons">chevron_left</i></button>
+            <div class="week-title-btn" id="week-title-display" onclick="toggleWeekDropdown()">
+                <span>Hafta Seç</span> <i class="material-icons">expand_more</i>
+            </div>
+            <button class="nav-icon-btn" onclick="showNextWeek()"><i class="material-icons">chevron_right</i></button>
+            
+            <div id="week-dropdown-content" class="week-dropdown-content"></div>
+        </div>
+        
+        <button class="nav-icon-btn" onclick="openNav()" style="opacity:0; pointer-events:none;"><i class="material-icons">menu</i></button>
+    </header>
+
+    <nav id="day-nav" class="day-nav glass-3d"></nav>
+    
+    <main id="day-view-container" class="main-container" style="margin-top: 10px;"></main>
+    <main id="week-view-container" class="main-container" style="display: none; margin-top: 10px;"></main>
+
+    <div class="fab-container">
+        <button class="fab" onclick="openStudentModal()" title="Öğrenci Ara"><i class="material-icons">person_search</i></button>
+        
+        <button class="fab" onclick="openCalendarModal()" title="Takvim"><i class="material-icons">calendar_month</i></button>
+        <button class="fab" onclick="toggleView()" id="toggle-view-btn" title="Görünüm"><i class="material-icons">view_week</i></button>
+        <button class="fab" onclick="toggleTheme()" id="theme-btn" title="Tema Değiştir"><i class="material-icons">dark_mode</i></button>
+        <button class="fab" onclick="printSchedule()" title="Yazdır"><i class="material-icons">print</i></button>
+    </div>
+    
+    <div id="print-container"></div>
+
+    <div id="calendar-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <button class="nav-icon-btn" id="modal-prev-month"><i class="material-icons">chevron_left</i></button>
+                <span id="modal-month-year" class="modal-title"></span>
+                <button class="nav-icon-btn" id="modal-next-month"><i class="material-icons">chevron_right</i></button>
+                <button class="close-btn" onclick="closeCalendarModal()"><i class="material-icons" style="font-size:18px">close</i></button>
+            </div>
+            
+            <div class="calendar-body">
+                <div id="calendar-grid-header" class="cal-grid"></div>
+                <div id="calendar-grid-body" class="cal-grid"></div>
+            </div>
+
+            <div id="calendar-events-list" class="event-list"></div>
+        </div>
+    </div>
+
+    <div id="student-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-glass">
+            <div class="modal-header">
+                <span class="modal-title">Öğrenci Bul</span>
+                <button class="close-btn" onclick="closeStudentModal()"><i class="material-icons" style="font-size:18px">close</i></button>
+            </div>
+            
+            <div style="padding: 15px;">
+                <input type="text" id="student-search-input" class="search-input" placeholder="İsim yazmaya başlayın..." oninput="filterStudents()">
+            </div>
+
+            <div id="student-results" class="event-list" style="max-height: 300px;">
+                <div style="text-align: center; opacity: 0.6; font-size: 0.8rem;">Aramak için yazın...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- ÖĞRENCİ VERİLERİ ---
+        const studentData = [
+            { no: "1089", name: "EYLÜL MUTAF" },
+            { no: "1094", name: "KADİR BERKTAŞ" },
+            { no: "1117", name: "AYNUR BUDAK" },
+            { no: "1261", name: "MASAL DEFNE TEL" },
+            { no: "1277", name: "WAFA MAKANSSI" },
+            { no: "1361", name: "EYLÜL AFAT" },
+            { no: "1369", name: "ELİF ADA KEKEÇ" },
+            { no: "1740", name: "DENİZ KİMYON" },
+            { no: "1753", name: "İPEK MİMAROĞLU" },
+            { no: "1802", name: "HAMZA KAAN ÇEVEN" },
+            { no: "1936", name: "AHMET CEVDET KORKMAZ" },
+            { no: "2033", name: "BEYZA DAĞDELEN" },
+            { no: "2059", name: "NAZ KARABAĞLI" },
+            { no: "2108", name: "HÜSEYİN ÇAĞAN GÜRGAH" },
+            { no: "2205", name: "DURU BÜKÜN" },
+            { no: "2238", name: "YEKTA URAS DEMİRER" },
+            { no: "2261", name: "DURU AYKANAT" },
+            { no: "2276", name: "HAKAN AKDENİZ" },
+            { no: "2282", name: "DOĞA BORA" },
+            { no: "2368", name: "AHMET ARIN AĞTÜRK" },
+            { no: "2375", name: "İDİL DEMİRCİ" },
+            { no: "2382", name: "DENİZ GÜNEY" },
+            { no: "2457", name: "GÜLNİHAL KARAKAŞ" },
+            { no: "2531", name: "NİL TİRYAKİ" }
+        ];
+
+        // --- DATA & CONFIG ---
+        let finalSchedule = {};
+        let currentWeekIndex = 0;
+        let currentDayId = 'pazartesi';
+        let isWeekViewActive = false;
+        let allWeeksData = [];
+        const dayOrder = { pazartesi: "Pazartesi", sali: "Salı", carsamba: "Çarşamba", persembe: "Perşembe", cuma: "Cuma" };
+        const TR_MONTH_NAMES = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+        const TR_DAY_NAMES_SHORT = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
+        const TR_DAY_ID_MAP = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
+
+        // Elements
+        const weekDropdownContent = document.getElementById('week-dropdown-content');
+        const weekTitleDisplay = document.getElementById('week-title-display');
+        const dateDisplay = document.getElementById('date-display');
+        const dayNav = document.getElementById('day-nav');
+        const dayViewContainer = document.getElementById('day-view-container');
+        const weekViewContainer = document.getElementById('week-view-container');
+        
+        // Calendar Elements
+        let modalCurrentDate = new Date();
+        const calendarModal = document.getElementById('calendar-modal');
+        
+        // --- AKADEMİK TAKVİM VERİLERİ ---
+        const academicCalendarRanges = [
+            { start: "2025-11-10", end: "2025-11-14", type: "break", label: "I. Dönem Ara Tatil", color: "#b3e5fc" },
+            { start: "2026-01-19", end: "2026-01-30", type: "break", label: "Yarıyıl Tatili", color: "#b3e5fc" },
+            { start: "2026-03-16", end: "2026-03-20", type: "break", label: "II. Dönem Ara Tatil", color: "#b3e5fc" },
+            { start: "2026-03-26", end: "2026-03-29", type: "religious", label: "Ramazan Bayramı", color: "#c8e6c9" },
+            { start: "2026-05-26", end: "2026-05-30", type: "religious", label: "Kurban Bayramı", color: "#c8e6c9" },
+            { start: "2025-10-29", end: "2025-10-29", type: "official", label: "Cumhuriyet Bayramı", color: "#f8bbd0" }
+        ];
+        
+        function getEvents(date) {
+            const iso = getISODateString(date);
+            const evs = [];
+            academicCalendarRanges.forEach(r => {
+                const s = new Date(r.start); s.setHours(0,0,0,0);
+                const e = new Date(r.end); e.setHours(0,0,0,0);
+                const d = new Date(date); d.setHours(0,0,0,0);
+                if (d >= s && d <= e) evs.push(r);
+            });
+            return evs;
+        }
+
+        // --- INIT ---
+        async function initializeSchedule() {
+            initTheme(); 
+
+            try {
+                const [timetableRes, curriculumRes, weeksRes] = await Promise.all([
+                    fetch('ders-programi.json'),
+                    fetch('kazanimlar.json'),
+                    fetch('haftalar.json')
+                ]);
+                const timetable = await timetableRes.json();
+                const curriculum = await curriculumRes.json();
+                allWeeksData = await weeksRes.json();
+
+                const lessonCounters = {};
+                for (const subject in curriculum) { lessonCounters[subject] = 0; }
+                
+                allWeeksData.forEach((week, index) => {
+                    const weekKey = `week${index + 1}`;
+                    finalSchedule[weekKey] = { name: week.name, dates: week.dates, days: {} };
+                    for (const day in timetable) {
+                        finalSchedule[weekKey].days[day] = [];
+                        timetable[day].forEach((lessonName, lessonIndex) => {
+                            let objective = "Kazanım veya etkinlik belirtilmemiş.";
+                            if (curriculum[lessonName] && lessonCounters[lessonName] < curriculum[lessonName].length) {
+                                objective = curriculum[lessonName][lessonCounters[lessonName]];
+                                lessonCounters[lessonName]++;
+                            }
+                            finalSchedule[weekKey].days[day].push({ 
+                                time: `${lessonIndex + 1}.`, 
+                                name: lessonName, 
+                                objective: objective 
+                            });
+                        });
+                    }
+                });
+
+                populateWeekDropdown(allWeeksData);
+                
+                // --- OTOMATİK TARİH ALGILAMA ---
+                const target = findCurrentWeekAndDay(allWeeksData);
+                if (window.innerWidth > window.innerHeight) isWeekViewActive = true;
+                currentDayId = target.dayId;
+                displayWeek(target.weekIndex);
+
+                document.getElementById('modal-prev-month').onclick = () => { modalCurrentDate.setMonth(modalCurrentDate.getMonth()-1); renderCalendar(); };
+                document.getElementById('modal-next-month').onclick = () => { modalCurrentDate.setMonth(modalCurrentDate.getMonth()+1); renderCalendar(); };
+                
+            } catch (error) {
+                console.error(error);
+                dateDisplay.textContent = "Veri Hatası: JSON dosyalarını kontrol edin.";
+            }
+        }
+
+        // --- TEMA MANTIĞI ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            applyTheme(target);
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            const btn = document.getElementById('theme-btn');
+            if(btn) {
+                const icon = btn.querySelector('i');
+                icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            }
+        }
+
+        // --- MANTIK FONKSİYONLARI ---
+        function toggleWeekDropdown() { weekDropdownContent.classList.toggle('show'); }
+        window.onclick = function(e) { if (!e.target.closest('#week-title-display')) weekDropdownContent.classList.remove('show'); }
+
+        function populateWeekDropdown(data) {
+            weekDropdownContent.innerHTML = '';
+            data.forEach((week, idx) => {
+                const a = document.createElement('a');
+                a.textContent = week.name;
+                a.onclick = () => displayWeek(idx);
+                weekDropdownContent.appendChild(a);
+            });
+        }
+
+        function displayWeek(idx) {
+            currentWeekIndex = idx;
+            const weekKey = `week${idx + 1}`;
+            const data = finalSchedule[weekKey];
+            if(!data) return;
+
+            weekTitleDisplay.querySelector('span').textContent = data.name;
+            dateDisplay.textContent = data.dates;
+            
+            Array.from(weekDropdownContent.children).forEach((a, i) => {
+                a.classList.toggle('active', i === idx);
+            });
+
+            populateDayNav(data.dates);
+
+            if (isWeekViewActive) {
+                dayNav.style.display = 'none';
+                dayViewContainer.style.display = 'none';
+                weekViewContainer.style.display = 'grid';
+                renderWeekView();
+                document.getElementById('toggle-view-btn').querySelector('i').textContent = 'view_day';
+            } else {
+                dayNav.style.display = 'flex';
+                dayViewContainer.style.display = 'block';
+                weekViewContainer.style.display = 'none';
+                displayDay(currentDayId);
+                document.getElementById('toggle-view-btn').querySelector('i').textContent = 'view_week';
+            }
+        }
+
+        function populateDayNav(dateStr) {
+            dayNav.innerHTML = '';
+            let startDate = null;
+            if (dateStr) {
+                const parts = dateStr.split(' - ')[0].trim().split(' ');
+                const year = dateStr.split(' - ')[1].trim().split(' ').pop();
+                if (parts.length === 2) parts.push(year);
+                startDate = parseTurkishDate(parts.join(' '));
+            }
+
+            let i = 0;
+            for(const day in dayOrder) {
+                const btn = document.createElement('button');
+                let dayNum = '';
+                if(startDate) {
+                    const d = new Date(startDate);
+                    d.setDate(startDate.getDate() + i);
+                    dayNum = d.getDate().toString().padStart(2,'0');
+                }
+                btn.innerHTML = `<span>${dayNum}</span><span>${TR_DAY_NAMES_SHORT[i]}</span>`;
+                btn.onclick = () => { 
+                    currentDayId = day; 
+                    displayDay(day); 
+                }; 
+                if(day === currentDayId) btn.classList.add('active');
+                dayNav.appendChild(btn);
+                i++;
+            }
+        }
+
+        function displayDay(dayId) {
+            currentDayId = dayId;
+            dayViewContainer.innerHTML = '';
+            const weekKey = `week${currentWeekIndex + 1}`;
+            const lessons = finalSchedule[weekKey]?.days[dayId] || [];
+
+            lessons.forEach(l => {
+                const isEmpty = l.objective.includes("belirtilmemiş");
+                const card = document.createElement('div');
+                card.className = `schedule-card glass-3d ${isEmpty ? 'no-body' : ''}`;
+                
+                let html = `
+                    <div class="card-header">
+                        <span class="lesson-badge">${l.time}</span>
+                        <span class="lesson-name">${l.name}</span>
+                    </div>`;
+                if(!isEmpty) html += `<div class="card-body">${l.objective}</div>`;
+                
+                card.innerHTML = html;
+                dayViewContainer.appendChild(card);
+            });
+            
+            const keys = Object.keys(dayOrder);
+            Array.from(dayNav.children).forEach((b, i) => {
+                b.classList.toggle('active', keys[i] === dayId);
+            });
+        }
+
+        function renderWeekView() {
+            weekViewContainer.innerHTML = '';
+            const weekKey = `week${currentWeekIndex + 1}`;
+            const data = finalSchedule[weekKey];
+            
+            let startDate = null;
+            if (data.dates) {
+                const parts = data.dates.split(' - ')[0].trim().split(' ');
+                const year = data.dates.split(' - ')[1].trim().split(' ').pop();
+                if (parts.length === 2) parts.push(year);
+                startDate = parseTurkishDate(parts.join(' '));
+            }
+
+            let i = 0;
+            for(const day in dayOrder) {
+                const col = document.createElement('div');
+                col.className = 'week-view-day-column';
+                
+                let title = TR_DAY_NAMES_SHORT[i];
+                if(startDate) {
+                    const d = new Date(startDate);
+                    d.setDate(startDate.getDate() + i);
+                    title = `${d.getDate().toString().padStart(2,'0')} ${title}`;
+                }
+                
+                col.innerHTML = `<div class="week-view-day-title">${title}</div>`;
+                
+                const lessons = data.days[day] || [];
+                lessons.forEach(l => {
+                    const isEmpty = l.objective.includes("belirtilmemiş");
+                    const card = document.createElement('div');
+                    card.className = `schedule-card glass-3d ${isEmpty ? 'no-body' : ''}`;
+                    let html = `<div class="card-header"><span class="lesson-badge">${l.time}</span><span class="lesson-name">${l.name}</span></div>`;
+                    if(!isEmpty) html += `<div class="card-body">${l.objective}</div>`;
+                    card.innerHTML = html;
+                    col.appendChild(card);
+                });
+                
+                weekViewContainer.appendChild(col);
+                i++;
+            }
+        }
+
+        function parseTurkishDate(str) {
+            const m = {'ocak':0, 'şubat':1, 'mart':2, 'nisan':3, 'mayıs':4, 'haziran':5, 'temmuz':6, 'ağustos':7, 'eylül':8, 'ekim':9, 'kasım':10, 'aralık':11};
+            const p = str.toLowerCase().split(' ');
+            if(p.length < 3) return null;
+            return new Date(p[2], m[p[1]], p[0]);
+        }
+        function getISODateString(d) {
+            return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
+        }
+        
+        // --- AKILLI GEÇİŞ MANTIĞI ---
+        function findCurrentWeekAndDay(weeksList) {
+            const now = new Date();
+            now.setHours(0,0,0,0);
+            
+            const dayIdx = now.getDay();
+            let targetDate = new Date(now);
+            
+            if (dayIdx === 6) {
+                targetDate.setDate(now.getDate() + 2);
+            } else if (dayIdx === 0) {
+                targetDate.setDate(now.getDate() + 1);
+            }
+
+            let targetDayId = TR_DAY_ID_MAP[targetDate.getDay()];
+            if(targetDayId === 'pazar' || targetDayId === 'cumartesi') targetDayId = 'pazartesi';
+
+            let targetWeekIndex = 0;
+            
+            for(let i = 0; i < weeksList.length; i++) {
+                const weekStr = weeksList[i].dates;
+                const parts = weekStr.split(' - ');
+                if(parts.length < 2) continue;
+                
+                let sParts = parts[0].trim().split(' ');
+                let year = parts[1].trim().split(' ').pop();
+                if(sParts.length === 2) sParts.push(year);
+                const startDate = parseTurkishDate(sParts.join(' '));
+                
+                const endDate = parseTurkishDate(parts[1]);
+                
+                if(startDate && endDate) {
+                    if(targetDate >= startDate && targetDate <= endDate) {
+                        targetWeekIndex = i;
+                        break;
+                    }
+                }
+            }
+            
+            return { weekIndex: targetWeekIndex, dayId: targetDayId };
+        }
+
+        function showPreviousWeek() { if(currentWeekIndex > 0) displayWeek(currentWeekIndex - 1); }
+        function showNextWeek() { if(currentWeekIndex < allWeeksData.length - 1) displayWeek(currentWeekIndex + 1); }
+        function toggleView() { isWeekViewActive = !isWeekViewActive; displayWeek(currentWeekIndex); }
+        
+        function printSchedule() {
+            document.getElementById('print-container').innerHTML = `<h1>${document.querySelector('.user-name').textContent} - ${weekTitleDisplay.textContent}</h1>` + weekViewContainer.innerHTML;
+            window.print();
+        }
+
+        function openCalendarModal() {
+            modalCurrentDate = new Date(); 
+            calendarModal.style.display = 'flex';
+            renderCalendar();
+        }
+        function closeCalendarModal() { calendarModal.style.display = 'none'; }
+
+        // --- ÖĞRENCİ ARAMA İŞLEMLERİ ---
+        function openStudentModal() {
+            document.getElementById('student-modal').style.display = 'flex';
+            document.getElementById('student-search-input').value = '';
+            document.getElementById('student-results').innerHTML = '<div style="text-align: center; opacity: 0.6; font-size: 0.8rem;">Aramak için yazın...</div>';
+            setTimeout(() => document.getElementById('student-search-input').focus(), 100);
+        }
+        function closeStudentModal() {
+            document.getElementById('student-modal').style.display = 'none';
+        }
+
+        function filterStudents() {
+            const input = document.getElementById('student-search-input').value.toLocaleLowerCase('tr');
+            const resultsDiv = document.getElementById('student-results');
+            resultsDiv.innerHTML = '';
+
+            if (input.length === 0) {
+                resultsDiv.innerHTML = '<div style="text-align: center; opacity: 0.6; font-size: 0.8rem;">Aramak için yazın...</div>';
+                return;
+            }
+
+            const matches = studentData.filter(s => s.name.toLocaleLowerCase('tr').includes(input));
+
+            if (matches.length === 0) {
+                resultsDiv.innerHTML = '<div style="text-align: center; opacity: 0.6; font-size: 0.8rem;">Öğrenci bulunamadı.</div>';
+            } else {
+                matches.forEach(s => {
+                    const div = document.createElement('div');
+                    div.className = 'search-result-item';
+                    div.innerHTML = `
+                        <span style="font-weight:600; font-size:0.85rem; color:var(--text-primary);">${s.name}</span>
+                        <span class="student-no-badge">${s.no}</span>
+                    `;
+                    resultsDiv.appendChild(div);
+                });
+            }
+        }
+        
+        function renderCalendar() {
+            const y = modalCurrentDate.getFullYear();
+            const m = modalCurrentDate.getMonth();
+            document.getElementById('modal-month-year').textContent = `${TR_MONTH_NAMES[m]} ${y}`;
+            
+            const head = document.getElementById('calendar-grid-header');
+            const body = document.getElementById('calendar-grid-body');
+            const list = document.getElementById('calendar-events-list');
+            
+            head.innerHTML = ''; body.innerHTML = ''; list.innerHTML = '<div style="text-align:center; opacity:0.6; font-size:0.7rem; padding:10px;">Etkinlikler için güne tıklayın</div>';
+            
+            TR_DAY_NAMES_SHORT.forEach(n => head.innerHTML += `<div class="cal-head">${n}</div>`);
+            
+            const firstDay = new Date(y, m, 1);
+            const daysInMonth = new Date(y, m+1, 0).getDate();
+            let offset = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+            
+            for(let i=0; i<offset; i++) body.innerHTML += `<div class="cal-cell empty"></div>`;
+            
+            const today = new Date(); today.setHours(0,0,0,0);
+            
+            for(let d=1; d<=daysInMonth; d++) {
+                const date = new Date(y, m, d);
+                const evs = getEvents(date);
+                const isToday = date.getTime() === today.getTime();
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+                
+                let dotHtml = '';
+                if(evs.length) {
+                    dotHtml = '<div class="dots">';
+                    evs.slice(0,3).forEach(e => dotHtml += `<div class="dot" style="background:${e.color || '#a29bfe'}"></div>`);
+                    dotHtml += '</div>';
+                }
+                
+                const cell = document.createElement('div');
+                cell.className = `cal-cell ${isToday?'today':''} ${isWeekend?'weekend':''}`;
+                cell.innerHTML = `${d}${dotHtml}`;
+                
+                cell.onclick = () => {
+                    list.innerHTML = `<div style="font-weight:700; font-size:0.8rem; margin-bottom:5px; border-bottom:1px solid rgba(128,128,128,0.2); padding-bottom:5px;">${d} ${TR_MONTH_NAMES[m]}</div>`;
+                    if(!evs.length) list.innerHTML += '<div style="opacity:0.6; font-size:0.7rem;">Etkinlik yok</div>';
+                    evs.forEach(e => {
+                        list.innerHTML += `
+                            <div class="event-item">
+                                <div class="event-color" style="background:${e.color||'#888'}"></div>
+                                <span>${e.label}</span>
+                            </div>`;
+                    });
+                    
+                    const navBtn = document.createElement('button');
+                    navBtn.textContent = 'Programa Git';
+                    navBtn.style = 'width:100%; margin-top:10px; padding:6px; background:var(--accent-color); color:var(--bg-color); border:none; border-radius:6px; cursor:pointer; font-size:0.7rem; font-weight:700;';
+                    navBtn.onclick = () => {
+                        closeCalendarModal();
+                    };
+                    if(!isWeekend) list.appendChild(navBtn);
+                };
+                
+                body.appendChild(cell);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeSchedule);
+        window.addEventListener('resize', () => { if(isWeekViewActive !== (window.innerWidth > window.innerHeight)) toggleView(); });
+    </script>
+</body>
+</html>
