@@ -9,9 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
-        /* --- TEMA DEĞİŞKENLERİ (SADE & GÖZ DOSTU) --- */
         :root {
-            /* Aydınlık Mod (Açık Gri / Beyaz Ağırlıklı) */
+            /* Aydınlık Mod */
             --bg-color: #F2F2F7;
             --card-bg: #FFFFFF;
             
@@ -19,7 +18,7 @@
             --text-secondary: #8E8E93;
             --text-muted: #aeaeb2;
             
-            --accent-color: #007AFF; /* Temiz bir mavi */
+            --accent-color: #007AFF; 
             --accent-bg: #E5F1FF;
             
             --border-color: rgba(60, 60, 67, 0.1);
@@ -30,12 +29,12 @@
             --nav-active-bg: #FFFFFF;
             --nav-hover-bg: rgba(0,0,0,0.05);
 
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 16px;
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 14px;
         }
 
-        /* --- KARANLIK MOD TANIMLARI --- */
+        /* Karanlık Mod */
         [data-theme="dark"] {
             --bg-color: #000000;
             --card-bg: #1C1C1E;
@@ -64,12 +63,11 @@
             background-color: var(--bg-color);
             min-height: 100vh;
             padding-bottom: 90px;
-            line-height: 1.5;
+            line-height: 1.4;
             overflow-x: hidden;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Eski glass-3d sınıfını sadece yumuşak kart stiline dönüştürdük */
         .glass-3d {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -82,7 +80,7 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 12px 16px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -91,55 +89,55 @@
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color);
             border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
 
         .user-info { display: flex; flex-direction: column; }
-        .user-name { font-size: 1rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
-        #date-display { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; margin-top: 2px; }
+        .user-name { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.2; }
+        #date-display { font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; margin-top: 1px; }
 
-        .week-navigation { display: flex; align-items: center; gap: 8px; position: relative; }
+        .week-navigation { display: flex; align-items: center; gap: 4px; position: relative; }
 
         .week-title-btn {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             background: var(--nav-hover-bg);
             color: var(--text-primary);
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
             transition: 0.2s;
             border: none;
         }
         .week-title-btn:active { transform: scale(0.96); }
-        .week-title-btn i { font-size: 16px; color: var(--text-secondary); }
+        .week-title-btn i { font-size: 14px; color: var(--text-secondary); }
 
         .nav-icon-btn {
             background: transparent;
             border: none;
             cursor: pointer;
             color: var(--text-secondary);
-            padding: 6px;
+            padding: 4px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             transition: 0.2s;
         }
         .nav-icon-btn:hover { background: var(--nav-hover-bg); color: var(--text-primary); }
-        .nav-icon-btn i { font-size: 22px; }
+        .nav-icon-btn i { font-size: 20px; }
 
         /* GÜN SEÇİM BAR */
         .day-nav {
             display: flex;
             justify-content: space-between;
-            gap: 8px;
-            margin: 0 16px 16px 16px;
+            gap: 6px;
+            margin: 0 12px 12px 12px;
             padding: 4px;
             position: sticky;
-            top: 70px;
+            top: 56px;
             z-index: 999;
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -148,7 +146,7 @@
         }
         .day-nav button {
             flex: 1;
-            padding: 8px 4px;
+            padding: 6px 2px;
             border: none;
             background: transparent;
             border-radius: var(--radius-sm);
@@ -159,8 +157,8 @@
             align-items: center;
             justify-content: center;
         }
-        .day-nav button span:first-child { font-weight: 700; font-size: 1rem; color: var(--text-primary); line-height: 1.1; }
-        .day-nav button span:last-child { font-size: 0.65rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; margin-top: 4px; }
+        .day-nav button span:first-child { font-weight: 700; font-size: 0.95rem; color: var(--text-primary); line-height: 1; }
+        .day-nav button span:last-child { font-size: 0.6rem; color: var(--text-secondary); font-weight: 500; text-transform: uppercase; margin-top: 2px; }
         
         .day-nav button.active {
             background: var(--accent-color);
@@ -171,11 +169,11 @@
             color: #FFFFFF;
         }
 
-        .main-container { padding: 0 16px; max-width: 1200px; margin: 0 auto; }
+        .main-container { padding: 0 12px; max-width: 1200px; margin: 0 auto; }
 
-        /* DERS KARTLARI (YENİ HİYERARŞİ) */
+        /* --- DAHA KOMPAKT DERS KARTLARI --- */
         .schedule-card {
-            margin-bottom: 12px;
+            margin-bottom: 8px; /* Kartlar arası boşluk daraltıldı */
             padding: 0;
             display: flex;
             flex-direction: column;
@@ -184,45 +182,47 @@
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
         }
-        .schedule-card.no-body { flex-direction: row; align-items: center; padding: 12px; }
+        .schedule-card.no-body { flex-direction: row; align-items: center; padding: 6px 12px; }
 
+        /* Çok daha ince ve sade kart başlığı */
         .card-header {
-            padding: 10px 16px;
+            padding: 6px 12px; /* Dikey padding (iç boşluk) oldukça küçültüldü */
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             border-bottom: 1px solid var(--border-color);
-            background: var(--nav-hover-bg);
+            background: var(--nav-bg); /* Arka plan daha az dikkat çekici */
             border-radius: var(--radius-md) var(--radius-md) 0 0;
         }
         .schedule-card.no-body .card-header { border-bottom: none; padding: 0; background: transparent; }
 
-        /* Başlıklar ve Saatler Küçük / Göz Yormaz */
+        /* Saat göstergesi ufaltıldı */
         .lesson-badge {
             background: var(--text-muted);
             color: #FFFFFF;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 12px;
-            min-width: 24px;
+            padding: 1px 6px;
+            border-radius: 8px;
+            min-width: 20px;
             text-align: center;
         }
 
+        /* Ders adı çok daha zarif ve küçük */
         .lesson-name {
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.2px;
             color: var(--text-secondary);
         }
 
-        /* Kazanımlar Daha Büyük ve Okunaklı */
+        /* Kazanımlar aynı büyüklükte, başlık alan kaplamadığı için öne çıkıyor */
         .card-body {
-            padding: 16px;
-            font-size: 1.05rem; /* Kazanım metni büyütüldü */
+            padding: 12px;
+            font-size: 1.05rem; 
             font-weight: 400;
-            line-height: 1.6;
+            line-height: 1.5;
             color: var(--text-primary);
         }
 
@@ -230,16 +230,16 @@
         #week-view-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 12px;
+            gap: 10px;
             align-items: start;
         }
         .week-view-day-title {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 10px;
-            padding: 8px;
+            margin-bottom: 8px;
+            padding: 6px;
             background: var(--card-bg);
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
@@ -252,22 +252,22 @@
             top: 120%;
             right: 0;
             background: var(--card-bg);
-            min-width: 220px;
-            max-height: 350px;
+            min-width: 200px;
+            max-height: 300px;
             overflow-y: auto;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-md);
             z-index: 1002;
-            padding: 8px;
+            padding: 6px;
             border: 1px solid var(--border-color);
         }
         .week-dropdown-content.show { display: block; }
         .week-dropdown-content a {
             color: var(--text-primary);
-            padding: 10px 14px;
+            padding: 8px 12px;
             text-decoration: none;
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             border-radius: var(--radius-sm);
             margin-bottom: 2px;
             font-weight: 500;
@@ -276,10 +276,10 @@
         .week-dropdown-content a.active { background: var(--accent-bg); color: var(--accent-color); font-weight: 600; }
 
         /* FAB (YÜZEN BUTONLAR) */
-        .fab-container { position: fixed; bottom: 24px; right: 24px; z-index: 100; display: flex; gap: 12px; }
+        .fab-container { position: fixed; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
         .fab {
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
@@ -291,8 +291,8 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        .fab:hover { transform: translateY(-3px); background: var(--nav-hover-bg); }
-        .fab i { font-size: 24px; color: var(--text-secondary); }
+        .fab:hover { transform: translateY(-2px); background: var(--nav-hover-bg); }
+        .fab i { font-size: 20px; color: var(--text-secondary); }
         .fab:hover i { color: var(--accent-color); }
 
         /* MODAL */
@@ -300,30 +300,30 @@
         .modal-glass {
             background: var(--card-bg);
             width: 90%;
-            max-width: 400px;
+            max-width: 380px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
             padding: 0;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            max-height: 85vh;
+            max-height: 80vh;
         }
         .modal-header {
-            padding: 16px;
+            padding: 12px 16px;
             background: var(--nav-hover-bg);
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-color);
         }
-        .modal-title { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
-        .close-btn { background: transparent; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: 0.2s; }
+        .modal-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+        .close-btn { background: transparent; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: 0.2s; }
         .close-btn:hover { background: var(--border-color); color: var(--text-primary); }
         
-        .calendar-body { padding: 16px; }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; row-gap: 8px; }
-        .cal-head { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; padding-bottom: 12px; }
+        .calendar-body { padding: 12px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; row-gap: 6px; }
+        .cal-head { font-size: 0.7rem; color: var(--text-secondary); font-weight: 600; padding-bottom: 8px; }
         
         .cal-cell {
             aspect-ratio: 1;
@@ -332,48 +332,48 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             color: var(--text-primary);
             cursor: pointer;
             transition: 0.2s;
             position: relative;
-            margin: 0 4px;
+            margin: 0 2px;
         }
         .cal-cell:hover { background: var(--nav-hover-bg); }
         .cal-cell.today { background: var(--accent-color); color: #FFFFFF; font-weight: 700; }
         .cal-cell.weekend { color: var(--text-muted); }
         .cal-cell.empty { pointer-events: none; }
 
-        .dots { display: flex; gap: 3px; position: absolute; bottom: 4px; }
-        .dot { width: 4px; height: 4px; border-radius: 50%; }
+        .dots { display: flex; gap: 2px; position: absolute; bottom: 3px; }
+        .dot { width: 3px; height: 3px; border-radius: 50%; }
         
         .event-list {
-            padding: 16px;
+            padding: 12px 16px;
             background: var(--bg-color);
             flex-grow: 1;
             overflow-y: auto;
             border-top: 1px solid var(--border-color);
         }
-        .event-item { font-size: 0.85rem; color: var(--text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
-        .event-color { width: 10px; height: 10px; border-radius: 3px; }
+        .event-item { font-size: 0.8rem; color: var(--text-primary); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+        .event-color { width: 8px; height: 8px; border-radius: 2px; }
 
         /* ARAMA INPUT STİLİ */
         .search-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border-color);
             background: var(--bg-color);
             color: var(--text-primary);
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
             transition: 0.2s;
         }
-        .search-input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 3px var(--accent-bg); }
+        .search-input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 2px var(--accent-bg); }
         .search-result-item {
-            padding: 12px 0;
+            padding: 10px 0;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
@@ -383,29 +383,26 @@
         .student-no-badge {
             background: var(--nav-hover-bg);
             color: var(--text-secondary);
-            font-size: 0.75rem;
-            padding: 4px 8px;
+            font-size: 0.7rem;
+            padding: 2px 6px;
             border-radius: var(--radius-sm);
             font-weight: 600;
         }
 
-        /* Scrollbar Gizleme/İnceltme */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
 
-        /* Media Queries */
         @media (max-width: 768px) {
             #week-view-container { grid-template-columns: 1fr; }
-            .week-view-day-column { margin-bottom: 20px; }
-            .day-nav { overflow-x: auto; padding-bottom: 8px; }
-            .card-body { font-size: 1rem; }
+            .week-view-day-column { margin-bottom: 16px; }
+            .day-nav { overflow-x: auto; padding-bottom: 6px; }
         }
         @media print { 
             header, .day-nav, .fab-container { display: none !important; } 
             #print-container { display: block !important; } 
             body { background: white; color: black; } 
-            .schedule-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; margin-bottom: 10px;}
+            .schedule-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; margin-bottom: 8px;}
             .card-header { background: #f0f0f0 !important; color: #333 !important; }
         }
         #print-container { display: none; }
@@ -475,13 +472,12 @@
             </div>
 
             <div id="student-results" class="event-list" style="max-height: 300px;">
-                <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Aramak için yazın...</div>
+                <div style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">Aramak için yazın...</div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- ÖĞRENCİ VERİLERİ ---
         const studentData = [
             { no: "1089", name: "EYLÜL MUTAF" },
             { no: "1094", name: "KADİR BERKTAŞ" },
@@ -509,7 +505,6 @@
             { no: "2531", name: "NİL TİRYAKİ" }
         ];
 
-        // --- DATA & CONFIG ---
         let finalSchedule = {};
         let currentWeekIndex = 0;
         let currentDayId = 'pazartesi';
@@ -520,7 +515,6 @@
         const TR_DAY_NAMES_SHORT = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
         const TR_DAY_ID_MAP = ['pazar', 'pazartesi', 'sali', 'carsamba', 'persembe', 'cuma', 'cumartesi'];
 
-        // Elements
         const weekDropdownContent = document.getElementById('week-dropdown-content');
         const weekTitleDisplay = document.getElementById('week-title-display');
         const dateDisplay = document.getElementById('date-display');
@@ -528,11 +522,9 @@
         const dayViewContainer = document.getElementById('day-view-container');
         const weekViewContainer = document.getElementById('week-view-container');
         
-        // Calendar Elements
         let modalCurrentDate = new Date();
         const calendarModal = document.getElementById('calendar-modal');
         
-        // --- AKADEMİK TAKVİM VERİLERİ ---
         const academicCalendarRanges = [
             { start: "2025-11-10", end: "2025-11-14", type: "break", label: "I. Dönem Ara Tatil", color: "#64b5f6" },
             { start: "2026-01-19", end: "2026-01-30", type: "break", label: "Yarıyıl Tatili", color: "#64b5f6" },
@@ -543,7 +535,6 @@
         ];
         
         function getEvents(date) {
-            const iso = getISODateString(date);
             const evs = [];
             academicCalendarRanges.forEach(r => {
                 const s = new Date(r.start); s.setHours(0,0,0,0);
@@ -554,7 +545,6 @@
             return evs;
         }
 
-        // --- INIT ---
         async function initializeSchedule() {
             initTheme(); 
 
@@ -607,35 +597,25 @@
             }
         }
 
-        // --- TEMA MANTIĞI ---
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
-                applyTheme('dark');
-            } else {
-                applyTheme('light');
-            }
+            if (savedTheme === 'dark' || (!savedTheme && systemDark)) applyTheme('dark');
+            else applyTheme('light');
         }
 
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme');
-            const target = current === 'dark' ? 'light' : 'dark';
-            applyTheme(target);
+            applyTheme(current === 'dark' ? 'light' : 'dark');
         }
 
         function applyTheme(theme) {
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             const btn = document.getElementById('theme-btn');
-            if(btn) {
-                const icon = btn.querySelector('i');
-                icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
-            }
+            if(btn) btn.querySelector('i').textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
         }
 
-        // --- MANTIK FONKSİYONLARI ---
         function toggleWeekDropdown() { weekDropdownContent.classList.toggle('show'); }
         window.onclick = function(e) { if (!e.target.closest('#week-title-display')) weekDropdownContent.classList.remove('show'); }
 
@@ -658,10 +638,7 @@
             weekTitleDisplay.querySelector('span').textContent = data.name;
             dateDisplay.textContent = data.dates;
             
-            Array.from(weekDropdownContent.children).forEach((a, i) => {
-                a.classList.toggle('active', i === idx);
-            });
-
+            Array.from(weekDropdownContent.children).forEach((a, i) => a.classList.toggle('active', i === idx));
             populateDayNav(data.dates);
 
             if (isWeekViewActive) {
@@ -699,10 +676,7 @@
                     dayNum = d.getDate().toString().padStart(2,'0');
                 }
                 btn.innerHTML = `<span>${dayNum}</span><span>${TR_DAY_NAMES_SHORT[i]}</span>`;
-                btn.onclick = () => { 
-                    currentDayId = day; 
-                    displayDay(day); 
-                }; 
+                btn.onclick = () => { currentDayId = day; displayDay(day); }; 
                 if(day === currentDayId) btn.classList.add('active');
                 dayNav.appendChild(btn);
                 i++;
@@ -732,9 +706,7 @@
             });
             
             const keys = Object.keys(dayOrder);
-            Array.from(dayNav.children).forEach((b, i) => {
-                b.classList.toggle('active', keys[i] === dayId);
-            });
+            Array.from(dayNav.children).forEach((b, i) => b.classList.toggle('active', keys[i] === dayId));
         }
 
         function renderWeekView() {
@@ -786,28 +758,19 @@
             if(p.length < 3) return null;
             return new Date(p[2], m[p[1]], p[0]);
         }
-        function getISODateString(d) {
-            return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`;
-        }
         
         function findCurrentWeekAndDay(weeksList) {
             const now = new Date();
             now.setHours(0,0,0,0);
-            
             const dayIdx = now.getDay();
             let targetDate = new Date(now);
-            
-            if (dayIdx === 6) {
-                targetDate.setDate(now.getDate() + 2);
-            } else if (dayIdx === 0) {
-                targetDate.setDate(now.getDate() + 1);
-            }
+            if (dayIdx === 6) targetDate.setDate(now.getDate() + 2);
+            else if (dayIdx === 0) targetDate.setDate(now.getDate() + 1);
 
             let targetDayId = TR_DAY_ID_MAP[targetDate.getDay()];
             if(targetDayId === 'pazar' || targetDayId === 'cumartesi') targetDayId = 'pazartesi';
 
             let targetWeekIndex = 0;
-            
             for(let i = 0; i < weeksList.length; i++) {
                 const weekStr = weeksList[i].dates;
                 const parts = weekStr.split(' - ');
@@ -817,17 +780,13 @@
                 let year = parts[1].trim().split(' ').pop();
                 if(sParts.length === 2) sParts.push(year);
                 const startDate = parseTurkishDate(sParts.join(' '));
-                
                 const endDate = parseTurkishDate(parts[1]);
                 
-                if(startDate && endDate) {
-                    if(targetDate >= startDate && targetDate <= endDate) {
-                        targetWeekIndex = i;
-                        break;
-                    }
+                if(startDate && endDate && targetDate >= startDate && targetDate <= endDate) {
+                    targetWeekIndex = i;
+                    break;
                 }
             }
-            
             return { weekIndex: targetWeekIndex, dayId: targetDayId };
         }
 
@@ -836,27 +795,20 @@
         function toggleView() { isWeekViewActive = !isWeekViewActive; displayWeek(currentWeekIndex); }
         
         function printSchedule() {
-            document.getElementById('print-container').innerHTML = `<h2 style="margin-bottom:20px;">${document.querySelector('.user-name').textContent} - ${weekTitleDisplay.textContent}</h2>` + weekViewContainer.innerHTML;
+            document.getElementById('print-container').innerHTML = `<h2 style="margin-bottom:16px; font-size:1.2rem;">${document.querySelector('.user-name').textContent} - ${weekTitleDisplay.textContent}</h2>` + weekViewContainer.innerHTML;
             window.print();
         }
 
-        function openCalendarModal() {
-            modalCurrentDate = new Date(); 
-            calendarModal.style.display = 'flex';
-            renderCalendar();
-        }
+        function openCalendarModal() { modalCurrentDate = new Date(); calendarModal.style.display = 'flex'; renderCalendar(); }
         function closeCalendarModal() { calendarModal.style.display = 'none'; }
 
-        // --- ÖĞRENCİ ARAMA İŞLEMLERİ ---
         function openStudentModal() {
             document.getElementById('student-modal').style.display = 'flex';
             document.getElementById('student-search-input').value = '';
-            document.getElementById('student-results').innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Aramak için yazın...</div>';
+            document.getElementById('student-results').innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">Aramak için yazın...</div>';
             setTimeout(() => document.getElementById('student-search-input').focus(), 100);
         }
-        function closeStudentModal() {
-            document.getElementById('student-modal').style.display = 'none';
-        }
+        function closeStudentModal() { document.getElementById('student-modal').style.display = 'none'; }
 
         function filterStudents() {
             const input = document.getElementById('student-search-input').value.toLocaleLowerCase('tr');
@@ -864,22 +816,19 @@
             resultsDiv.innerHTML = '';
 
             if (input.length === 0) {
-                resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Aramak için yazın...</div>';
+                resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">Aramak için yazın...</div>';
                 return;
             }
 
             const matches = studentData.filter(s => s.name.toLocaleLowerCase('tr').includes(input));
 
             if (matches.length === 0) {
-                resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Öğrenci bulunamadı.</div>';
+                resultsDiv.innerHTML = '<div style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">Öğrenci bulunamadı.</div>';
             } else {
                 matches.forEach(s => {
                     const div = document.createElement('div');
                     div.className = 'search-result-item';
-                    div.innerHTML = `
-                        <span style="font-weight:600; font-size:0.9rem; color:var(--text-primary);">${s.name}</span>
-                        <span class="student-no-badge">${s.no}</span>
-                    `;
+                    div.innerHTML = `<span style="font-weight:600; font-size:0.85rem; color:var(--text-primary);">${s.name}</span><span class="student-no-badge">${s.no}</span>`;
                     resultsDiv.appendChild(div);
                 });
             }
@@ -894,7 +843,7 @@
             const body = document.getElementById('calendar-grid-body');
             const list = document.getElementById('calendar-events-list');
             
-            head.innerHTML = ''; body.innerHTML = ''; list.innerHTML = '<div style="text-align:center; color: var(--text-muted); font-size:0.8rem; padding:10px;">Etkinlikleri görmek için güne tıklayın</div>';
+            head.innerHTML = ''; body.innerHTML = ''; list.innerHTML = '<div style="text-align:center; color: var(--text-muted); font-size:0.75rem; padding:8px;">Etkinlikleri görmek için güne tıklayın</div>';
             
             TR_DAY_NAMES_SHORT.forEach(n => head.innerHTML += `<div class="cal-head">${n}</div>`);
             
@@ -924,24 +873,18 @@
                 cell.innerHTML = `${d}${dotHtml}`;
                 
                 cell.onclick = () => {
-                    list.innerHTML = `<div style="font-weight:600; font-size:0.9rem; margin-bottom:8px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">${d} ${TR_MONTH_NAMES[m]}</div>`;
-                    if(!evs.length) list.innerHTML += '<div style="color: var(--text-muted); font-size:0.85rem;">Bugün için planlanmış etkinlik yok</div>';
+                    list.innerHTML = `<div style="font-weight:600; font-size:0.85rem; margin-bottom:6px; border-bottom:1px solid var(--border-color); padding-bottom:6px;">${d} ${TR_MONTH_NAMES[m]}</div>`;
+                    if(!evs.length) list.innerHTML += '<div style="color: var(--text-muted); font-size:0.8rem;">Bugün için planlanmış etkinlik yok</div>';
                     evs.forEach(e => {
-                        list.innerHTML += `
-                            <div class="event-item">
-                                <div class="event-color" style="background:${e.color||'#888'}"></div>
-                                <span>${e.label}</span>
-                            </div>`;
+                        list.innerHTML += `<div class="event-item"><div class="event-color" style="background:${e.color||'#888'}"></div><span>${e.label}</span></div>`;
                     });
                     
                     const navBtn = document.createElement('button');
                     navBtn.textContent = 'Programa Git';
-                    navBtn.style = 'width:100%; margin-top:12px; padding:10px; background:var(--nav-hover-bg); color:var(--text-primary); border:1px solid var(--border-color); border-radius:8px; cursor:pointer; font-size:0.85rem; font-weight:600; transition:0.2s;';
+                    navBtn.style = 'width:100%; margin-top:10px; padding:8px; background:var(--nav-hover-bg); color:var(--text-primary); border:1px solid var(--border-color); border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600; transition:0.2s;';
                     navBtn.onmouseover = () => navBtn.style.background = 'var(--accent-bg)';
                     navBtn.onmouseout = () => navBtn.style.background = 'var(--nav-hover-bg)';
-                    navBtn.onclick = () => {
-                        closeCalendarModal();
-                    };
+                    navBtn.onclick = () => closeCalendarModal();
                     if(!isWeekend) list.appendChild(navBtn);
                 };
                 
